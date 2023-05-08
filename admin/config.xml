@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fields addfieldprefix="ConseilGouz\Component\CGChat\Administrator\Field">
+		<fieldset name="basic" label="COM_CGCHAT_LABEL_BASIC">
+			<field label="COM_CGCHAT_GUEST_CAN" type="list" default="2" name="guest_can">
+				<option value="0">COM_CGCHAT_NOTHING</option>
+				<option value="1">COM_CGCHAT_READ</option>
+				<option value="2">COM_CGCHAT_READ_WRITE</option>
+			</field>
+			<field label="COM_CGCHAT_MESSAGES_DIRECTION" type="list" default="bottom" name="order">
+				<option value="top">COM_CGCHAT_TOP</option>
+				<option value="bottom">COM_CGCHAT_BOTTOM</option>
+			</field>
+			<field label="COM_CGCHAT_SHOW" type="list" default="1" name="username">
+				<option value="1">COM_CGCHAT_USERNAME</option>
+				<option value="0">COM_CGCHAT_NAME</option>
+			</field>
+			<field label="COM_CGCHAT_ALLOW_SOUND_T" description="COM_CGCHAT_ALLOW_SOUND_D" type="list" default="1" name="sound">
+				<option value="0">COM_CGCHAT_NO</option>
+				<option value="1">COM_CGCHAT_YES</option>
+			</field>
+			<field label="COM_CGCHAT_DEFAULT_TEMPLATE" type="cgchattemplates" default="default" name="template" />
+			<field label="COM_CGCHAT_URLS_TEXT" name="urls_text" type="list" default="text">
+				<option value="text">COM_CGCHAT_URLS_TEXT_PERSONALIZED</option>
+				<option value="link">COM_CGCHAT_URLS_TEXT_URL</option>
+				<option value="no">COM_CGCHAT_URLS_TEXT_NO</option>
+			</field>
+			<field label="COM_CGCHAT_URLS_TEXT_PERSONALIZED_LABEL" name="urls_text_personalized" type="text" default="«link»" />
+			<field label="COM_CGCHAT_ICONS_HIDDEN" type="list" default="0" name="icons_hidden">
+				<option value="0">COM_CGCHAT_NO</option>
+				<option value="1">COM_CGCHAT_YES</option>
+			</field>
+			<field label="COM_CGCHAT_ICONS_SHOW_T_C" description="COM_CGCHAT_ICONS_SHOW_D" type="text" default="0" name="icons_show_com" />
+			<field label="COM_CGCHAT_ICONS_SHOW_T_M" description="COM_CGCHAT_ICONS_SHOW_D" type="text" default="14" name="icons_show_mod" />
+			<field label="COM_CGCHAT_SHOW_SUBMIT_BUTTON" type="list" default="0" name="button_send">
+				<option value="0">COM_CGCHAT_NO_BUTTON</option>
+				<option value="1">COM_CGCHAT_YES</option>
+			</field>
+			<field label="COM_CGCHAT_SHOW_AVATAR" description="COM_CGCHAT_SHOW_AVATAR_DESC" type="list" default="0" name="show_avatar">
+				<option value="0">COM_CGCHAT_NO</option>
+				<option value="1">COM_CGCHAT_YES</option>
+			</field>
+		</fieldset>
+		<fieldset name="integration" label="COM_CGCHAT_LABEL_INTEGRATION">
+			<field label="COM_CGCHAT_PERFIL_FB_T" description="COM_CGCHAT_PERFIL_FB_D" type="list" default="0" name="perfil_fb">
+				<option value="0">COM_CGCHAT_NO</option>
+				<option value="1">COM_CGCHAT_YES</option>
+			</field>
+			<field label="COM_CGCHAT_PERFIL_FB_APP_ID" type="text" name="fb_app_id" />
+			<field label="COM_CGCHAT_PERFIL_FB_APP_SECRET" type="text" name="fb_app_secret" />
+			<field label="COM_CGCHAT_PERFIL_LINK" type="list" default="0" name="perfil_link">
+				<option value="0">Gravatar</option>
+				<option value="js">JomSocial</option>
+				<option value="cb">Community Builder</option>
+				<option value="cbe">Community Builder Enhanced</option>
+				<option value="cbe25">Community Builder Exchange (CBE 2.5)</option> 
+				<option value="kunena">Kunena</option>
+				<option value="aup">AlphaUserPoints</option>
+				<option value="agora">Agora</option>
+			</field>
+			<field label="COM_CGCHAT_GRAVATAR_STYLE" type="list" default="identicon" name="gravatar_d">
+				<option value="identicon">COM_CGCHAT_GRAVATAR_IDENTICON</option>
+				<option value="monsterid">COM_CGCHAT_GRAVATAR_MONSTERID</option>
+				<option value="wavatar">COM_CGCHAT_GRAVATAR_WAVATAR</option>
+				<option value="retro">COM_CGCHAT_GRAVATAR_RETRO</option>
+			</field>
+			<field label="COM_CGCHAT_RECAPTCHA_USE_T" description="COM_CGCHAT_RECAPTCHA_USE_D" type="list" default="0" name="recaptcha">
+				<option value="0">COM_CGCHAT_NO</option>
+				<option value="1">COM_CGCHAT_YES</option>
+			</field>
+			<field label="COM_CGCHAT_RECAPTCHA_PUBLIC_KEY" type="text" name="recaptcha_public" />
+			<field label="COM_CGCHAT_RECAPTCHA_PRIVATE_KEY" type="text" name="recaptcha_private" />
+		</fieldset>
+		<fieldset name="advanced" label="COM_CGCHAT_LABEL_ADVANCED">
+			<field label="COM_CGCHAT_ICONS_WINDOW" type="list" default="popup" name="icons_window">
+				<option value="popup">Popup</option>
+				<option value="iframe">Iframe</option>
+				<option value="no_window">COM_CGCHAT_NO_WINDOW</option>
+			</field>
+			<field label="COM_CGCHAT_ICONS_POPUP_SIZE_T" description="COM_CGCHAT_ICONS_POPUP_SIZE_D" type="text" default="500x500" name="icons_popup_size" />
+			<field label="COM_CGCHAT_AVATAR_MAXHEIGHT" description="COM_CGCHAT_AVATAR_MAXHEIGHT_DESC" type="text" default="30px" name="avatar_maxheight" />
+			<field label="COM_CGCHAT_FORMAT_HOUR" type="text" default="G:i--" name="formato_hora" />
+			<field label="COM_CGCHAT_MENSAJES_A_MOSTRAR" type="text" default="36" name="msgs_limit" />
+			<field label="COM_CGCHAT_MENSAJES_A_GUARDAR" type="text" default="500" name="msgs_saved" />
+			<field label="COM_CGCHAT_MENSAJES_MAX_STRLEN_T" description="COM_CGCHAT_MENSAJES_MAX_STRLEN_D" type="text" default="3000" name="msgs_max_strlen" />
+			<field label="COM_CGCHAT_FORMATO_FECHA" type="text" default="j-n G:i:s" name="formato_fecha" />
+			<field label="COM_CGCHAT_MENSAJES_EN_HISTORIAL" type="text" default="50" name="msgs_history" />
+			<field label="COM_CGCHAT_PAGINAS_EN_HISTORIAL" type="text" default="5" name="pages_history" />
+			<field label="COM_CGCHAT_SESION_TIME" type="text" default="200" name="session_time" />
+			<field label="COM_CGCHAT_REFRESH_TIME" type="text" default="6" name="refresh_time" />
+			<field label="COM_CGCHAT_REFRESH_TIME_SESION" type="text" default="30" name="refresh_time_sesion" />
+		</fieldset>
+		<fieldset name="pro" label="COM_CGCHAT_LABEL_PRO">
+			<field label="COM_CGCHAT_ENABLE_PRIVATES" type="list" default="1" name="enable_privates">
+				<option value="0">COM_CGCHAT_NO</option>
+				<option value="1">COM_CGCHAT_YES</option>
+			</field>
+			<field label="COM_CGCHAT_BANEAR_MINUTOS" type="text" default="5" name="baneado" />
+			<field label="COM_CGCHAT_REFRESH_TIME_PRIVATES" type="text" default="6" name="refresh_time_privates" />
+		</fieldset>
+		<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+			<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" class="inputbox" filter="rules" validate="rules" component="com_cgchat" section="component" />
+		</fieldset>
+	</fields>
+</config>

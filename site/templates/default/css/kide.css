@@ -1,0 +1,238 @@
+﻿/**
+* @Copyright Copyright (C) 2011 - JoniJnm.es
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+**/
+
+/* RANGOS */
+
+/* Default color */
+.KIDE_dc_special{ color: black }
+.KIDE_dc_admin { color: black }
+.KIDE_dc_registered { color: black }
+.KIDE_dc_guest { color: black }
+
+/* Nick color */
+.KIDE_special{ color: blue }
+.KIDE_admin { color: red }
+.KIDE_registered { color: #FFA500 }
+.KIDE_guest { color: green }
+
+/* Must be the same of Nick color */
+.KIDE_bg_special{ background-color: blue }
+.KIDE_bg_admin { background-color: red }
+.KIDE_bg_registered { background-color: #FFA500 }
+.KIDE_bg_guest { background-color: green }
+
+/* GENERAL */
+
+.KIDE_div * { 
+	font: 1e helvetica,arial,sans-serif;
+/*	font-weight: bold;  */
+	border: 0;
+	text-decoration: none
+}
+.KIDE_div input, .KIDE_div select {
+	border: 2px inset black
+}
+.KIDE_div button {
+	border: 2px outset white;
+	padding: 2px;
+	background-color: black;
+	color: white;
+	cursor: pointer
+}
+.KIDE_borrar { color: olive }
+div.KIDE_mostrar {
+	border: 2px solid blue;
+	padding: 3px 5px 5px 5px;
+	margin: 5px 0 0 0
+}
+a.KIDE_cerrar_x {
+	background-color: red; 
+	color: black;
+	padding: 3px
+}
+
+/* PRIVADOS */
+
+.KIDE_div #privado_full_x {
+	border: 2px solid orange;
+	height: 235px;
+	overflow: auto;
+	padding: 5px;
+	text-align: left
+}
+.KIDE_div div.privados_mini {
+	padding: 5px
+}
+#privados_full_title {
+	text-align:center
+}
+#privados_full_botones {
+	text-align:right;
+	margin-top:5px
+}
+#privados_full_txt {
+	padding:5px 5px 0 1px
+}
+#privados_full_div {
+	display: block;
+	position:fixed;
+	right:0;
+	bottom:0;
+	background-color:#FFF;
+	color:#000;
+	height: 360px;
+	width: 200px;
+	z-index:999
+}
+#privados_mini_div {
+	text-align:center;
+	margin-top:10px
+}
+#privados_hr {
+	margin-top: 5px;
+	border: 2px solid
+}
+#privados_mini_text {
+	padding-top:5px
+}
+#privados_txt {
+	height: 55px;
+	width: 100%;
+	background-color: white;
+	border: 2px inset black
+}
+
+/* CUADRO */
+
+#kide_cuadro {
+	visibility: visible; 
+	height:100%;
+	left:0;
+	position:absolute;
+	top:0;
+	width:100%;
+	z-index:65556
+}
+#kide_cuadro_overlay {
+	background-color:#000;
+	z-index:65555;
+	position:fixed;
+	top:0px;
+	left:0px;
+	visibility:visible;
+	opacity: 0.7
+}
+#kide_cuadro_1 {
+	background-color:#FFFFFF;
+	overflow:hidden;
+	position:fixed;
+	z-index:9999
+}
+#kide_cuadro_2 {
+	border:10px solid #FFFFFF;
+	left:0;
+	position:absolute;
+	top:0;
+	opacity:1;
+	visibility:visible
+}
+#kide_cuadro_cerrar {
+	position:fixed;
+	cursor:pointer;
+	z-index:65557;
+}
+
+/* GENERAL */
+
+#KIDE_msgs {
+	margin: 0px; 
+	height: 355px; 
+	overflow: auto;
+	/* overflow-x: hidden; */
+	border: 3px solid #000
+}
+#KIDE_tiempo_p {
+	text-align: center;
+	font-size: 1e;
+	color: #FA8C01
+}
+#KIDE_hace, #KIDE_tiempoK, #KIDE_hago {
+	color: #FF0000
+}
+#KIDE_txt {
+	width: 80%;
+	height: 80px;
+	background-color: white;
+	border: 2px inset black
+}
+#KIDE_usuarios_top { 
+	float: left;
+	width: 120px;
+	overflow-x: hidden; 
+	overflow-y: auto;
+	height: 355px;
+	border: 2px solid;
+	padding: 1px;
+	margin-right: 5px;
+}
+#KIDE_usuarios { 
+	padding: 5px
+}
+#KIDE_output div {
+	padding: 4px;
+	margin: 0;
+	background: none
+}
+.KIDE_msg_top {
+}
+.KIDE_msg {
+	padding-right: 7px
+}
+#KIDE_mensaje_banear_span {
+	padding-left: 10px;
+	padding-top: 3px
+}
+
+/* OTROS */
+
+.KIDE_icono { 
+	vertical-align: middle	
+}
+.KIDE_bbcode {
+	color:red;
+}
+img.KIDE_r {
+	width: 10px;
+	height: 10px;
+	border: 1px solid #000
+}
+.KIDE_history_td {
+	white-space: nowrap;
+	width: 1px;
+	padding-left: 5px;
+	padding-right: 5px
+}
+.KIDE_msg_hour {
+	color: black
+}
+.KIDE_avatar {
+	width: 50px
+}
+
+/* BBCODE */
+
+#KIDE_bbcode_help ul {
+	margin:0;
+	list-style:none;
+	display:block;
+	padding:3px 14px
+}
+#KIDE_bbcode_help li {
+	margin:0;
+	list-style:none;
+	display:block;
+	padding: 0;
+	background: none transparent
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kide type="template" version="0.8">
+	<name>Default</name>
+	<alias>default</alias>
+	<creationDate>Feb 2012</creationDate>
+	<author>JoniJnm</author>
+	<!--<authorEmail></authorEmail>-->
+	<authorUrl>http://www.jonijnnm.es</authorUrl>
+	<copyright>JoniJnm.es</copyright>
+	<license>GNU General Public License version 2 or later</license>
+	<version>1.0</version>
+	<!--<description></description>-->
+	<!--
+		<languages folder="languages" />
+		Must exist this tag if the template has languages.
+		The name must be: tag.ini, example: en-GB.ini
+	-->
+</kide>
