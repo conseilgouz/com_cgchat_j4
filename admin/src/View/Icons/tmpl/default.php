@@ -16,7 +16,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 $saveOrder	= $listOrder == 'a.ordering';
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_kide&view=iconos'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo JRoute::_('index.php?option=com_cgchat&view=iconos'); ?>" method="post" name="adminForm" id="adminForm">
 	<table class="adminlist">
 		<thead>
 			<tr>
@@ -56,12 +56,12 @@ $saveOrder	= $listOrder == 'a.ordering';
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
 				<td>
-					<a href="<?php echo JRoute::_('index.php?option=com_kide&task=icono.edit&id='.(int) $item->id); ?>">
+					<a href="<?php echo JRoute::_('index.php?option=com_cgchat&task=icono.edit&id='.(int) $item->id); ?>">
 						<?php echo $this->escape($item->code); ?>
 					</a>
 				</td>
 				<td>
-					<img src="<?php echo JURI::root().'components/com_kide/templates/default/images/iconos/'.$item->img; ?>" alt="" />
+					<img src="<?php echo JURI::root().'components/com_cgchat/templates/default/images/iconos/'.$item->img; ?>" alt="" />
 				</td>
 				<td class="order">
 					<?php if ($saveOrder) :?>

@@ -15,7 +15,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatLinks;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 ?>
 
-<div style="font-weight: bold; padding-bottom: 15px"><a href="<?php echo Route::_('index.php?option=com_cgchat'."&view=cgchat"); ?>"><?php echo Text::_("COM_CGCHAT_VOLVER"); ?></a></div>
+<div style="font-weight: bold; padding-bottom: 15px"><a href="<?php echo Route::_('index.php?option=com_cgchat'); ?>"><?php echo Text::_("COM_CGCHAT_VOLVER"); ?></a></div>
 
 <div align="center"><?php echo $this->pags; ?></div>
 
@@ -44,4 +44,4 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 
 <div align="center"><?php echo $this->pags; ?></div>
 
-<div style="font-weight: bold; padding-top: 15px"><a href="<?php echo Route::_('index.php?option=com_cgchat'."&view=cgchat"); ?>"><?php echo Text::_("COM_CGCHAT_VOLVER"); ?></a></div>
+<div style="font-weight: bold; padding-top: 15px"><a href="<?php echo Route::_('index.php?option=com_cgchat'); ?>"><?php echo Text::_("COM_CGCHAT_VOLVER"); ?></a></div>

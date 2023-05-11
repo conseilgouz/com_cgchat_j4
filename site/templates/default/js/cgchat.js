@@ -23,7 +23,7 @@ cgchat.mensaje = function(name, uid, id, url, ti, session, row, img) {
 		this.attr('KIDE_mensaje_img_enlace', 'target', '');
 		this.css('KIDE_mensaje_img', 'cursor', 'default');
 	}
-	if ((this.row == 1 || sesion == this.session) && id > 0) {
+	if ((this.row == 1 || session == this.session) && id > 0) {
 		this.show('KIDE_mensaje_borrar_span', true);
 		this.attr('KIDE_mensaje_borrar', 'href', 'javascript:cgchat.borrar('+id+')');
 	}

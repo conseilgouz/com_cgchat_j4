@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
+use ConseilGouz\Component\CGChat\Site\Helper\CGChatLinks;
 
 if ($this->user->row == 4) {
 	echo "<br />".str_replace("%s", gmdate($this->fecha, $this->user->bantime + $this->user->gmt*3600), Text::_("COM_CGCHAT_BANNED")); 

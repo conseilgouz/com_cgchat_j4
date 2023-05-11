@@ -57,15 +57,15 @@ class CGChatLinks {
 		return $instance;
 	}
 	static function getRegisterURL() {
-		$class = CGChatLinks::getInstance();
+		$class = self::getInstance();
 		return $class->r;
 	}
 	static function getLoginURL() {
-		$class = CGChatLinks::getInstance();
+		$class = self::getInstance();
 		return $class->l;
 	}
 	static function getUserLink($userid) {
-		$class = CGChatLinks::getInstance();
+		$class = self::getInstance();
 		if (!(int)$userid || !$class->link) return '';
 		return Route::_($class->link.$userid);
 	}
@@ -105,7 +105,7 @@ class CGChatLinks {
 			if (!$avatar)
 				$avatar = $this->getAvatarJoomla();
 			if (!$avatar)
-				$avatar = 'http://www.gravatar.com/avatar/'.md5($user->id?$user->email:(session_id()?session_id():rand())).'?s=50&d='.$this->params->get('gravatar_d', 'identicon');
+				$avatar = 'https://www.gravatar.com/avatar/'.md5($user->id?$user->email:(session_id()?session_id():rand())).'?s=50&d='.$this->params->get('gravatar_d', 'identicon');
 			$avatar = htmlspecialchars($avatar);
 		}
 		return $avatar;
@@ -118,7 +118,7 @@ class CGChatLinks {
 		$config['secret'] = $this->params->get('fb_app_secret');
 		$facebook = new Facebook($config);
 		$uid = $facebook->getUser();
-		return $uid ? 'http://graph.facebook.com/'.$uid.'/picture' : '';
+		return $uid ? 'https://graph.facebook.com/'.$uid.'/picture' : '';
 	}
 	function getAvatarJoomla() {
 		$user = Factory::getUser();
@@ -130,22 +130,22 @@ class CGChatLinks {
 				$db->setQuery('SELECT thumb FROM #__community_users WHERE userid='.$user->id);
 				$tmp = $db->loadResult();
 				if ($tmp && strpos($tmp, '/default_thumb.jpg') === false && file_exists(JPATH_ROOT.'/'.$tmp))
-					$avatar = JURI::root().$tmp;
+					$avatar = URI::root().$tmp;
 			}
 			elseif ($perfil == 'kunena') {
 				$db->setQuery('SELECT avatar FROM #__kunena_users WHERE userid='.$user->id);
 				$tmp = $db->loadResult();
 				if ($tmp && file_exists(JPATH_ROOT.'/media/kunena/avatars/'.$tmp))
-					$avatar = JURI::root().'media/kunena/avatars/'.$tmp;
+					$avatar = URI::root().'media/kunena/avatars/'.$tmp;
 			}
 			elseif ($perfil == 'cb') {
 				$db->setQuery('SELECT avatar FROM #__comprofiler WHERE user_id='.$user->id);
 				$tmp = $db->loadResult();
 				if ($tmp && strpos($tmp, '/default_thumb.jpg') === false) {
 					if (file_exists(JPATH_ROOT.'/images/comprofiler/tn'.$tmp))
-						$avatar = JURI::root().'images/comprofiler/tn'.$tmp;
+						$avatar = URI::root().'images/comprofiler/tn'.$tmp;
 					elseif (file_exists(JPATH_ROOT.'/images/comprofiler/'.$tmp))
-						$avatar = JURI::root().'images/comprofiler/'.$tmp;
+						$avatar = URI::root().'images/comprofiler/'.$tmp;
 				}
 			}
 			elseif ($perfil == "cbe") {
@@ -153,28 +153,28 @@ class CGChatLinks {
 				$tmp = $db->loadResult();
 				if ($tmp && strpos($tmp, "/default_thumb.jpg") === false) {
 					if (file_exists(JPATH_ROOT."/images/cbe/tn".$tmp))
-						$avatar = JURI::root()."images/cbe/tn".$tmp;
+						$avatar = URI::root()."images/cbe/tn".$tmp;
 					elseif (file_exists(JPATH_ROOT."/images/cbe/".$tmp))
-						$avatar = JURI::root()."images/cbe/".$tmp;
+						$avatar = URI::root()."images/cbe/".$tmp;
 				}
 			}
 			elseif ($perfil == 'cbe25') {
 				$db->setQuery('SELECT thumb FROM #__cbe_users WHERE userid='.$user->id);
 				$tmp = $db->loadResult();
 				if ($tmp && strpos($tmp, '/default_thumb.jpg') === false && file_exists(JPATH_ROOT.'/'.$tmp))
-					$avatar = JURI::root().$tmp;
+					$avatar = URI::root().$tmp;
 			} 
 			elseif ($perfil == 'aup') {
 				$db->setQuery('SELECT avatar FROM #__alpha_userpoints WHERE userid='.$user->id);
 				$tmp = $db->loadResult();
 				if ($tmp && file_exists(JPATH_ROOT.'/components/com_alphauserpoints/assets/images/avatars/'.$tmp)) 
-					$avatar = JURI::root().'components/com_alphauserpoints/assets/images/avatars/'.$tmp;
+					$avatar = URI::root().'components/com_alphauserpoints/assets/images/avatars/'.$tmp;
 			}
 			elseif ($perfil == 'agora') {
 				$db->setQuery('SELECT id FROM #__agora_users WHERE jos_id='.$user->id.' AND use_avatar = 1');
 				$tmp = $db->loadResult();
 				if ($tmp > 0) 
-					$avatar = JURI::root().'components/com_agora/img/pre_avatars/'.$tmp;
+					$avatar = URI::root().'components/com_agora/img/pre_avatars/'.$tmp;
 			}
 		}
 		return $avatar;

@@ -36,10 +36,9 @@ class Router extends RouterView
 	 */
 	public function __construct($app = null, $menu = null)
 	{
-		$message = new RouterViewConfiguration('message');
-		$message->setKey('id');
-		$this->registerView($message);
-
+		$page = new RouterViewConfiguration('cgchat');
+		$page->setKey('id');
+		$this->registerView($page);
 		parent::__construct($app, $menu);
 
 		$this->attachRule(new MenuRules($this));

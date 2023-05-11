@@ -366,7 +366,7 @@ var cgchat = {
 		this.show('KIDE_opciones', false);
 		if (this.color)
 			this.save_config("color", this.color);
-		this.save_config("ocultar_session", this.attr('ocultar_session', 'checked')?1:0);
+		this.save_config("private_session", this.attr('private_session', 'checked')?1:0);
 		if (this.form("KIDE_template") != this.template) {
 			this.save_config("template", this.form("KIDE_template"));
 			location.reload();
@@ -414,121 +414,118 @@ var cgchat = {
 	ajax: function(tipo, tmp) {
 		var ajax = new XMLHttpRequest();
 		if (tipo == "reload") { 
-			ajax.onreadystatechange = function() {
-				if (ajax.readyState == 4) {
-					var error = true;
-					try {
-						if (ajax.status == 200 && ajax.responseXML) {
-							var xml = ajax.responseXML.documentElement;
-							if (xml.getElementsByTagName('mensaje').length > 0) {
-								var row;
-								cgchat.n = cgchat.text(xml.getElementsByTagName('last_id')[0]);
-								cgchat.last_time = cgchat.text(xml.getElementsByTagName('last_time')[0]);
-								for (var i=0; i<xml.getElementsByTagName('mensaje').length; i++) {
-									row = xml.getElementsByTagName('mensaje')[i];
-									cgchat.insertNewContent(row.getAttribute("uid"),row.getAttribute("name"),cgchat.htmlspecialchars_decode(cgchat.text(row)),row.getAttribute("url"),row.getAttribute("date"),row.getAttribute("color"),row.getAttribute("row"),row.getAttribute("id"),row.getAttribute("session"),row.getAttribute("session")==cgchat.session,row.getAttribute("hora"),row.getAttribute("img"));
-								}
-							}
-							cgchat.ajustar_scroll();
-							cgchat.events.lanzar('onAjaxReload', xml);
-							error = false;
+			url = this.ajax_url+"&task=reload&privs="+(cgchat.privados_encontrado?0:1)+"&id="+this.n+"&token="+this.token+'&format=json';
+			setTimeout(function(){ajax.abort();}, cgchat.refresh_time+cgchat.abort_time_extra);
+			Joomla.request({
+				method : 'POST',
+				url : url,
+				onSuccess: function(data, xhr) {
+					var result = JSON.parse(data);
+					if (result.last_id) {
+						cgchat.n = result['last_id'];
+						cgchat.last_time = result['last_time'];
+						for (var i=0; i < result.messages.length; i++) {
+							row = result.messages[i];
+							cgchat.insertNewContent(row.uid,row.name,row.text,row.url,row.date,row.color,row.row,row.id,row.session,row.session==cgchat.session,row.hora,row.img);
 						}
 					}
-					catch(err) {
-						cgchat.error(err.message, 1, err);
-					}
+					cgchat.ajustar_scroll();
+					cgchat.events.lanzar('onAjaxReload', result);
 					cgchat.tiempo(cgchat.last_time);
 					setTimeout(cgchat.recargar, cgchat.refresh_time);
-				}
-			};
-			setTimeout(function(){ajax.abort();}, cgchat.refresh_time+cgchat.abort_time_extra);
-			ajax.open('POST',  this.ajax_url+"&task=reload", true);
-			ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-			ajax.send("privs="+(cgchat.privados_encontrado?0:1)+"&id="+this.n+"&token="+this.token);
+
+				},
+				onError: function(message) {console.log(message.responseText)}
+			})
+			
 		}
 		else if (tipo == "insertar") {
 			var txt = this.val('KIDE_txt');
 			cgchat.val('KIDE_txt', '');
 			if (!cgchat.trim(txt)) return;
 			this.visible('KIDE_img_ajax', true);
-			ajax.onreadystatechange = function() {
-				if (ajax.readyState == 4 && ajax.status == 200) {
-					var xml = ajax.responseXML.documentElement;
-					if (xml.getAttribute('banned') == 1) {
+			url = this.ajax_url+"&task=add&txt="+encodeURIComponent(txt)+"&"+this.token+'=1&format=json';
+			Joomla.request({
+				method : 'POST',
+				url : url,
+				onSuccess: function(data, xhr) {
+					var result = JSON.parse(data);
+					if (result.banned == 1) {
 						location.reload();
 						return;
 					}
-					if (xml.getElementsByTagName('comment').length) {
-						var texto = cgchat.text(xml.getElementsByTagName('comment')[0]);
-						cgchat.insertNewContent(0,'System',texto,'',cgchat.ahora(),'',0,0,0,false,xml.getAttribute('hora'),''); 
+					if (result.comment) {
+						var texto = result.comment;
+						cgchat.insertNewContent(0,'System',texto,'',cgchat.ahora(),'',0,0,0,false,result.hora,''); 
 					}
-					if (xml.getElementsByTagName('txt').length) {
-						var texto = cgchat.text(xml.getElementsByTagName('txt')[0]);
-						cgchat.insertNewContent(cgchat.userid,cgchat.name,texto.length?texto:txt,cgchat.url,cgchat.ahora(),cgchat.color,cgchat.row,xml.getAttribute('id'),cgchat.session,true,xml.getAttribute('hora'),xml.getAttribute('img'));
-						cgchat.last_time = xml.getAttribute('tiempo');
+					if (result.txt && result.txt.length) {
+						var texto = result.txt;
+						cgchat.insertNewContent(cgchat.userid,cgchat.name,texto.length?texto:txt,cgchat.url,cgchat.ahora(),cgchat.color,cgchat.row,result.id,cgchat.session,true,result.hora,result.img);
+						cgchat.n = result.id;
+						cgchat.last_time = result.tiempo;
 						cgchat.tiempo(cgchat.last_time);
 						cgchat.ajustar_scroll();
 					}
 					cgchat.visible('KIDE_img_ajax', false);
-					if (xml.getElementsByTagName('js').length) {
-						eval(cgchat.text(xml.getElementsByTagName('js')[0]));
-					}
-					cgchat.events.lanzar('onAjaxInsertar', xml);
-				}
-			};
-			ajax.open('POST', this.ajax_url+"&task=add", true);
-			ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-			ajax.send("txt="+encodeURIComponent(txt)+"&token="+this.token);
+					/*if (result.js && result.js.length) {
+						eval(cgchat.text(result.js));
+					}*/
+					cgchat.events.lanzar('onAjaxInsertar', result); // to check
+				},
+				onError: function(message) {console.log(message.responseText)}
+			})
 		}
 		else if (tipo == "borrar") {
-			ajax.open('POST', this.ajax_url+"&task=borrar", true);
-			ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-			ajax.send("id="+tmp);
+			url = this.ajax_url+"&task=borrar&id="+tmp+"&"+this.token+'=1&format=json';
+			Joomla.request({
+				method : 'POST',
+				url : url,
+				onSuccess: function(data, xhr) {},
+				onError: function(message) {console.log(message.responseText)}
+			})
 		}
 		else if (tipo == "sessions") {
-			ajax.onreadystatechange = function() {
-				if (ajax.readyState == 4) {
-					if (ajax.status == 200 && ajax.responseXML) {
-						if (cgchat.show_sessions) {
-							try {
-								var xml = ajax.responseXML.documentElement;
-								cgchat.sids = [];
-								cgchat.html('KIDE_usuarios', '');
-								var alias, name;
-								for (var i=xml.getElementsByTagName('user').length-1; i>=0; i--) {
-									row = xml.getElementsByTagName('user')[i];
-									var sid = row.getAttribute("session");
-									cgchat.sids[sid] = {
-										row: row.getAttribute("row"),
-										name: row.getAttribute("name"),
-										_class: row.getAttribute("class"),
-										session: row.getAttribute("session"),
-										profile: row.getAttribute("profile"),
-										id: row.getAttribute("userid"),
-										img: row.getAttribute("img")
-									};
-									cgchat.events.lanzar('onAjaxSession', cgchat.getUser(sid));
-									cgchat.insert_session(cgchat.getUser(sid));
-								}
-							}
-							catch(e) {
-								cgchat.error(err.message, 0, err);
-							}
+			url = this.ajax_url+"&task=sessions&show_sessions="+cgchat.show_sessions+"&"+this.token+"=1&format=json";
+			Joomla.request({
+				method : 'POST',
+				url : url,
+				onSuccess: function(data, xhr) {
+					var result = JSON.parse(data);
+					if (cgchat.show_sessions) {
+						cgchat.sids = [];
+						cgchat.html('KIDE_usuarios', '');
+						var alias, name;
+						for (var i=result.length-1; i>=0; i--) {
+							row = result[i];
+							var sid = row.session;
+							cgchat.sids[sid] = {
+									row: row.row,
+									name: row.name,
+									_class: row.class,
+									session: row.session,
+									profile: row.profile,
+									id: row.userid,
+									img: row.img
+							};
+							cgchat.events.lanzar('onAjaxSession', cgchat.getUser(sid));
+							cgchat.insert_session(cgchat.getUser(sid));
 						}
+						
 					}
 					setTimeout(cgchat.sessions, cgchat.refresh_time_session);
-				}
-			};
-			setTimeout(function(){ajax.abort();}, cgchat.refresh_time_session+cgchat.abort_time_extra);
-			ajax.open('POST', this.ajax_url+"&task=sessions&show_sessions="+cgchat.show_sessions, true);
-			ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-			ajax.send("token="+this.token);
+				},
+				onError: function(message) {console.log(message.responseText)}
+			})
+			
 		}
 		else if (tipo == "retardo") {
-			ajax.onreadystatechange = function() {
-				if (ajax.readyState == 4 && ajax.status == 200) {
-					var out = ajax.responseText.split("|");
-					out = out[0];
+			url = this.ajax_url+"&task=retardo"+"&"+this.token+"=1&format=json";
+			Joomla.request({
+				method : 'POST',
+				url : url,
+				onSuccess: function(data, xhr) {
+					var result = JSON.parse(data);
+					var out = result.time;
 					if (out > 0) {
 						var time = new Date();
 						time = time.getTime();
@@ -539,29 +536,31 @@ var cgchat = {
 							alert(cgchat.msg.retardo_frase.replace("%s", out));
 						}
 					}
-				}
-			};
-			ajax.open('POST', this.ajax_url+"&task=retardo", true);
-			ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-			ajax.send(null);
+				},
+				onError: function(message) {console.log(message.responseText)}
+			})
+
+			
 		}
 		else if (tipo == "banear") {
 			var dias = this.form('kide_'+tmp[1]+'_banear_dias');
 			var horas = this.form('kide_'+tmp[1]+'_banear_horas');
 			var minutos = this.form('kide_'+tmp[1]+'_banear_minutos');
-			ajax.onreadystatechange = function() {
-				if (ajax.readyState == 4 && ajax.status == 200) {
-					var out = ajax.responseText;
+			url = this.ajax_url+"&task=banear"+"&"+"session="+tmp[0]+"&dias="+dias+"&horas="+horas+"&minutos="+minutos+'&'+this.token+"=1&format=json";
+			Joomla.request({
+				method : 'POST',
+				url : url,
+				onSuccess: function(data, xhr) {
+					var out = JSON.parse(data);
 					alert(out);
 					cgchat.show('KIDE_'+tmp[1]+'_banear_span', false);
 					cgchat.form('kide_'+tmp[1]+'_banear_dias', 0);
 					cgchat.form('kide_'+tmp[1]+'_banear_horas', 0);
 					cgchat.form('kide_'+tmp[1]+'_banear_minutos', 0);
-				}
-			};
-			ajax.open('POST', this.ajax_url+"&task=banear", true);
-			ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-			ajax.send("session="+tmp[0]+"&dias="+dias+"&horas="+horas+"&minutos="+minutos);
+				},
+				onError: function(message) {console.log(message.responseText)}
+
+			})
 		}
 		else {
 			this.events.lanzar('onAjax_'+tipo, [ajax, tmp]);

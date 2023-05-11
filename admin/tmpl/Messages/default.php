@@ -26,7 +26,7 @@ $rows = array(Text::_("COM_CGCHAT_ESPECIAL"), Text::_("COM_CGCHAT_ADMINISTRADOR"
 $rows_alias = array("special", "admin", "registered", "guest");
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_kide&view=messages'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_cgchat&view=messages'); ?>" method="post" name="adminForm" id="adminForm">
 	<table class="adminlist">
 		<thead>
 			<tr>

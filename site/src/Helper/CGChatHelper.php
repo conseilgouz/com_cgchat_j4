@@ -14,6 +14,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\HTML\HTMLHelper;
+use ConseilGouz\Component\CGChat\Site\Helper\CGChatUser;
 
 class CGChatHelper {
 	function htmlInJs($html) {

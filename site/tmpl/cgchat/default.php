@@ -11,8 +11,6 @@
 defined('_JEXEC') or die;
 
 $comfield	= 'media/com_cgchat/';
-$app = Factory::getApplication();
-$com_id = $app->input->getInt('Itemid');
 
 /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
 $wa = Factory::getDocument()->getWebAssetManager();

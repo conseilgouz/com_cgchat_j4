@@ -23,11 +23,11 @@ JHtml::_('behavior.formvalidation');
 		}
 	}
 	function kide_show_img(img) {
-		document.getElementById('kide_imagen').src = "<?php echo JURI::root().'components/com_kide/templates/default/images/icons/'; ?>"+img;
+		document.getElementById('kide_imagen').src = "<?php echo JURI::root().'components/com_cgchat/templates/default/images/icons/'; ?>"+img;
 	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_kide&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="kide-form" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_cgchat&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="kide-form" class="form-validate">
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
 			<legend><?php echo JText::sprintf('COM_CGCHAT_EDIT_ICONO'); ?></legend>

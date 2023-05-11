@@ -42,7 +42,7 @@ class KideViewBans extends KView
 		JToolBarHelper::editList('ban.edit','JTOOLBAR_EDIT');
 		JToolBarHelper::deleteList('', 'bans.delete','JTOOLBAR_DELETE');
 		$user = JFactory::getUser();
-		if ($user->authorise('core.admin', 'com_kide'))
-			JToolBarHelper::preferences('com_kide');
+		if ($user->authorise('core.admin', 'com_cgchat'))
+			JToolBarHelper::preferences('com_cgchat');
 	}
 }

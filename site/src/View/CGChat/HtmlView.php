@@ -83,4 +83,28 @@ class HtmlView extends BaseHtmlView {
 		$tpl->assignRef('formato_hora', $formato_hora);
 		$tpl->assignRef('templates', $templates);
 	}
+    /**
+     * Prepares the document
+     */
+    protected function _prepareDocument() {
+		$app              = Factory::getApplication();
+		$menu             = $app->getMenu()->getActive();
+		$pathway          = $app->getPathway();
+		$title            = '';
+
+		// Highest priority for "Browser Page Title".
+		if ($menu)
+		{
+			$title = $menu->getParams()->get('page_title', '');
+		}
+
+		$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
+		$title = $title ?: $this->params->get('page_title', $menu->title);
+
+		$this->setDocumentTitle($title);
+		$pathway->addItem($title);
+
+
+	}
+	
 }

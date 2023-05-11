@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use ConseilGouz\Component\CGChat\Site\Helper\CGChatUser;
+use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 
 class CGChatUser {
 	//ban user if post 4 messages in 5 seconds or less
@@ -65,8 +65,8 @@ class CGChatUser {
 				$or = '';
 				if ($oldid > 0) $or = ' OR userid='.$oldid;
 				if ($user->id > 0) $or = ' OR userid='.$user->id;
-				$query = $db->getQuery();
-				$query->clear()->delete($db->quoteName('#__cgchat_session'));
+				$query = $db->getQuery(true);
+				$query->delete($db->quoteName('#__cgchat_session'));
 				$query->where('session="'.$this->session.'"'.$or);
 				$db->setQuery($query);
 				$db->execute();
@@ -86,12 +86,20 @@ class CGChatUser {
 		else
 			$this->row = 2;
 		if ($this->row != 1) {
-			$db->setQuery("SELECT * FROM #__cgchat_bans WHERE (session='".$this->session."' OR ip='".$_SERVER['REMOTE_ADDR']."') AND time > ".time());
+			$query = $db->getQuery(true);
+			$query->select('*')
+			->from('#__cgchat_bans')
+			->where("(".$db->qn('session') .'='.$db->q($this->session)." OR ip=".$db->q($_SERVER['REMOTE_ADDR']).") AND time > ".time());
+			$db->setQuery($query);
 			$ban = $db->loadObject();
 			if ($ban) {
 				if ($ban->ip != $_SERVER['REMOTE_ADDR']) {
-					$db->setQuery("UPDATE #__cgchat_bans SET ip='".$_SERVER['REMOTE_ADDR']."' WHERE id=".$ban->id);
-					$db->query();
+				    $query = $db->getQuery(true);
+				    $fields = array($db->qn('ip') . ' = ' . $db->q($_SERVER['REMOTE_ADDR']));
+				    $conditions = array($db->qn('id') . ' = '.$ban->id);
+				    $query->update($db->quoteName('#__cgchat_bans'))->set($fields)->where($conditions);
+				    $db->setQuery($query);
+				    $result = $db->execute();
 				}
 				$time = (int)$ban->time;
 				if ($time > 0) {
@@ -172,8 +180,14 @@ class CGChatUser {
 		$params = ComponentHelper::getParams('com_cgchat');
 		$db = Factory::getDBO();
 		$tiempo = time() + $params->get("banear_minutos", 5)*60;
-		$db->setQuery("INSERT INTO #__cgchat_bans (ip, session, time) VALUES ('".$_SERVER['REMOTE_ADDR']."', '".$this->session."', ".$tiempo.")");
-		$db->query();
+		$query = $db->getQuery(true);
+		$columns = array('ip','session','time');
+		$values = array($db->q($_SERVER['REMOTE_ADDR']),$db->q($session),$t);
+		$query->insert($db->quoteName('#__cgchat_bans'))
+			->columns($db->quoteName($columns))
+			->values(implode(',', $values));
+		$db->setQuery($query);
+		$db->execute();
 	}
 
 	static function getInstance(){

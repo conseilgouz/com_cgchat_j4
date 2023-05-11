@@ -44,7 +44,7 @@ $p_tiempo = '
 				echo $r->name;
 				echo "</span>"; 
 				$c = $r->color === '' ? 'class="'.CGChatHelper::getRow($r->row, 'KIDE_dc_').' KIDE_msg"' : 'style="color:#'.$r->color.'"';
-				echo ': <span '.$c.'>'.$r->text.'</span></div>'; 	
+				echo ': <span '.$c.'>'.str_replace('\"','"',$r->text).'</span></div>'; 	
 			} 
 		}
 		?>

@@ -10,19 +10,18 @@
 	<scriptfile>script.php</scriptfile>
 	<namespace path="src">ConseilGouz\Component\CGChat</namespace>
 	<files folder="site">
-		<filename>kide.php</filename>
-		<filename>legacy.php</filename>
 		<filename>index.html</filename>
-		<filename>router.php</filename>
-		<filename>defines.php</filename>
-		<folder>controllers</folder>
-		<folder>js</folder>
+		<folder>src</folder>
+		<folder>tmpl</folder>
 		<folder>libs</folder>
-		<folder>helpers</folder>
-		<folder>models</folder>
 		<folder>templates</folder>
-		<folder>views</folder>
+		<folder>tmpl</folder>
 	</files>
+	<media destination="com_cgchat" folder="media">
+		<folder>js</folder>
+		<folder>css</folder>
+		<filename>index.html</filename>
+	</media>
    
 	<languages folder="lang_site">
 		<language tag="en-GB">en-GB/com_cgchat.ini</language>

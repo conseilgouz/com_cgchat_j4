@@ -12,7 +12,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 
-$url = Factory::getApplication()->getInput()->get('tmpl')=="component" ? Route::_("index.php?option=com_cgchat".'&view=cgchat&tmpl=component') : 'javascript:void(0)';
+$url = Factory::getApplication()->getInput()->get('tmpl')=="component" ? Route::_("index.php?option=com_cgchat&tmpl=component") : 'javascript:void(0)';
 $onclick = Factory::getApplication()->getInput()->get('tmpl')=="component" ? '' : ' onclick="cgchat.open_popup()"';
 ?>
 

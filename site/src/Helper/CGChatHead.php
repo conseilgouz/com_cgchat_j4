@@ -14,6 +14,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatUser;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
+use ConseilGouz\Component\CGChat\Site\Helper\CGChatLinks;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
@@ -54,7 +55,7 @@ class CGChatHead {
 	cgchat.img_blank = "'.$tpl->include_html("otras", "blank.png").'";
 	cgchat.ajax_url = "'.URI::base(true).'/index.php?option=com_cgchat&no_html=1&tmpl=component'.'";
 	cgchat.url = "'.CGChatLinks::getUserLink($kuser->id).'";
-	cgchat.popup_url = "'.Route::_("index.php?option=com_cgchat&view=cgchat").'";
+	cgchat.popup_url = "'.Route::_("index.php?option=com_cgchat").'";
 	cgchat.order = "'.$order.'";
 	cgchat.formato_hora = "'.$params->get("formato_hora", "G:i--").'";
 	cgchat.formato_fecha = "'.$params->get("formato_fecha", "j-n G:i:s").'";
@@ -64,7 +65,7 @@ class CGChatHead {
 	cgchat.token = '.$kuser->token.';
 	cgchat.session = "'.$kuser->session.'";
 	cgchat.row = '.$kuser->row.';
-	cgchat.rowss = ["'.implode('","', CGChatHelper::getRows()).'"];
+	cgchat.rows = ["'.implode('","', CGChatHelper::getRows()).'"];
 	cgchat.can_read = '.($kuser->can_read?'true':'false').';
 	cgchat.can_write = '.($kuser->can_write?'true':'false').';
 	cgchat.show_avatar = '.($params->get("show_avatar", 0) ? 'true' : 'false').';
@@ -88,7 +89,7 @@ class CGChatHead {
 		retardo_frase: \''.addslashes(Text::_("COM_CGCHAT_RETARDO_FRASE")).'\',
 		lang: [\''.addslashes(Text::_("COM_CGCHAT_MONTH")).'\', \''.addslashes(Text::_("COM_CGCHAT_MONTHS")).'\', \''.addslashes(Text::_("COM_CGCHAT_DAY")).'\', \''.addslashes(Text::_("COM_CGCHAT_DAYS")).'\', \''.addslashes(Text::_("COM_CGCHAT_HOUR")).'\', \''.addslashes(Text::_("COM_CGCHAT_HOURS")).'\', \''.addslashes(Text::_("COM_CGCHAT_MINUTE")).'\', \''.addslashes(Text::_("COM_CGCHAT_MINUTES")).'\', \''.addslashes(Text::_("COM_CGCHAT_SECOND")).'\', \''.addslashes(Text::_("COM_CGCHAT_SECONDS")).'\'],
 		privados_usuario_cerrado: \''.addslashes(Text::_("COM_CGCHAT_PRIVADOS_USUARIO_CERRADO")).'\',
-		privados_nuevos: \''.addslashes(str_replace("%url", Route::_("index.php?option=com_cgchat&view=cgchat"), Text::_("COM_CGCHAT_PRIVADOS_NUEVOS"))).'\',
+		privados_nuevos: \''.addslashes(str_replace("%url", Route::_("index.php?option=com_cgchat"), Text::_("COM_CGCHAT_PRIVADOS_NUEVOS"))).'\',
 		privados_need_login: \''.addslashes(Text::_('COM_CGCHAT_PRIVADOS_NEED_LOGIN')).'\'
 	};
 	cgchat.smilies = [
