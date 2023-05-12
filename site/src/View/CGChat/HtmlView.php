@@ -28,7 +28,7 @@ class HtmlView extends BaseHtmlView {
 		CGChatHead::addScript("
 		cgchat.show_hour = 1;
 		cgchat.show_sessions = 1;
-		cgchat.show_privados = ".($kuser->can_write && $params->get('enable_privates', 1) ? 1 : 0).";
+		cgchat.show_private = ".($kuser->can_write && $params->get('enable_privates', 1) ? 1 : 0).";
 		cgchat.autoiniciar = 1");
 		$this->preparar();
 		$tpl = CGChatTemplate::getInstance();

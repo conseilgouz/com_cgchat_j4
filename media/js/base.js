@@ -72,7 +72,7 @@ var cgchat = {
 	},
 	log: function(msg, f, l) {
 		if (this.debug && console && console.log) {
-			console.log("Kide error: "+msg+" at "+f+":"+l);
+			console.log("CG Chat error: "+msg+" at "+f+":"+l);
 		}
 	},
 	error: function(msg, n, e) {

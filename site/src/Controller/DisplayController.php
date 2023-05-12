@@ -19,8 +19,8 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatLinks;
 
 class DisplayController extends BaseController {
     public function display($cachable = false, $urlparams = false) {
-        Factory::getApplication()->input->set('view', 'cgchat');
-        Factory::getApplication()->input->set('layout', 'default');
+//        Factory::getApplication()->input->set('view', 'cgchat');
+//        Factory::getApplication()->input->set('layout', 'default');
 		//$this->default_view = "cgchat";
         parent::display($cachable, $urlparams);
         return $this;

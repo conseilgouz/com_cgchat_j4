@@ -36,7 +36,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 			<?php endif; ?>
 		</td>
 		<td <?php echo $r->color ? 'style="color:#'.$r->color.'"' : 'class="'.CGChatHelper::getRow($r->row, 'KIDE_dc_').'"'; ?>>
-			<?php echo $r->text; ?>
+			<?php echo str_replace('\"','"',$r->text); ?>
 		</td>
 	</tr>
 	<?php endforeach; ?>
