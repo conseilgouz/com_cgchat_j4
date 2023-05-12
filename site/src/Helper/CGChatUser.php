@@ -42,7 +42,7 @@ class CGChatUser {
 	var $icons_hidden;
 	var $token;
 	var $img;
-	var $private_session;
+	var $hidden_session;
 	var $template;
 	var $key;
 	var $bantime;
@@ -137,7 +137,7 @@ class CGChatUser {
 		$this->token = $input->get('token', rand(), "POST");
 		$this->gmt =  $session->get("gmt", 0, 'cgchat');
 		$this->retardo = $session->get("retardo", 0, 'cgchat');
-		$this->private_session = $session->get("private_session", 0, 'cgchat');
+		$this->hidden_session = $session->get("hidden_session", 0, 'cgchat');
 		$this->img = CGChatLinks::getAvatar();
 	}
 	

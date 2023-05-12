@@ -14,7 +14,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 ?>
 
 <div id="KIDE_opciones" class="KIDE_mostrar" style="display: none">
-	<div><?php echo Text::_("COM_CGCHAT_OCULTAR_SESION"); ?> <input type="checkbox" value="1" name="private_session" id="private_session" <?php if ($this->user->private_session) echo 'checked="checked" '; ?> style="vertical-align:middle" /></div>
+	<div><?php echo Text::_("COM_CGCHAT_OCULTAR_SESION"); ?> <input type="checkbox" value="1" name="hidden_session" id="hidden_session" <?php if ($this->user->hidden_session) echo 'checked="checked" '; ?> style="vertical-align:middle" /></div>
 	<div><?php echo Text::_('COM_CGCHAT_TEMPLATE'); ?>: <?php echo $this->templates; ?></div>
 	<div id="KIDE_opciones_colores"></div>
 	<br />

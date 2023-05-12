@@ -366,7 +366,7 @@ var cgchat = {
 		this.show('KIDE_opciones', false);
 		if (this.color)
 			this.save_config("color", this.color);
-		this.save_config("private_session", this.attr('private_session', 'checked')?1:0);
+		this.save_config("hidden_session", this.attr('hidden_session', 'checked')?1:0);
 		if (this.form("KIDE_template") != this.template) {
 			this.save_config("template", this.form("KIDE_template"));
 			location.reload();
@@ -485,7 +485,7 @@ var cgchat = {
 			})
 		}
 		else if (tipo == "sessions") {
-			url = this.ajax_url+"&task=sessions&show_sessions="+cgchat.show_sessions+"&"+this.token+"=1&format=json";
+			url = this.ajax_url+"&task=sessions&show_sessions="+cgchat.show_sessions+"&privs="+(cgchat.hidden_session?0:1)+"&"+this.token+"=1&format=json";
 			Joomla.request({
 				method : 'POST',
 				url : url,
