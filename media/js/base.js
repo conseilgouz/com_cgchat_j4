@@ -510,15 +510,13 @@ var cgchat = {
 							cgchat.events.lanzar('onAjaxSession', cgchat.getUser(sid));
 							cgchat.insert_session(cgchat.getUser(sid));
 						}
-						
 					}
 					setTimeout(cgchat.sessions, cgchat.refresh_time_session);
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
 			
-		}
-		else if (tipo == "retardo") {
+		} else if (tipo == "retardo") {
 			url = this.ajax_url+"&task=retardo"+"&"+this.token+"=1&format=json";
 			Joomla.request({
 				method : 'POST',
@@ -539,10 +537,7 @@ var cgchat = {
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
-
-			
-		}
-		else if (tipo == "banear") {
+		} else if (tipo == "banear") {
 			var dias = this.form('kide_'+tmp[1]+'_banear_dias');
 			var horas = this.form('kide_'+tmp[1]+'_banear_horas');
 			var minutos = this.form('kide_'+tmp[1]+'_banear_minutos');
@@ -559,10 +554,8 @@ var cgchat = {
 					cgchat.form('kide_'+tmp[1]+'_banear_minutos', 0);
 				},
 				onError: function(message) {console.log(message.responseText)}
-
 			})
-		}
-		else {
+		} else {
 			this.events.lanzar('onAjax_'+tipo, [ajax, tmp]);
 		}
 	}

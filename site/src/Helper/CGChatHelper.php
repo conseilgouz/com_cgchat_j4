@@ -83,6 +83,17 @@ class CGChatHelper {
 			$db->execute();
 		}
 	}
+	static function getUserPerSession($session) {
+		$db = Factory::getDBO();
+		$query = $db->getQuery(true);
+		$query->select('u.name')->from('#__cgchat_session s')
+		->join('left','#__users as u on u.id = s.userid')
+		->where($db->qn('session').' = '.$db->q($session));
+		$db->setQuery($query);
+		$name = $db->loadResult();
+		if (!$name) $name = "user not found";
+		return $name;
+	}
 	static function make_links($text) {
 		$params = ComponentHelper::getParams('com_cgchat');
 		$urls = $params->get("urls_text", "text");

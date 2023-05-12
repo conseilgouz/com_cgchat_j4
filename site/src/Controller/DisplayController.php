@@ -25,7 +25,7 @@ class DisplayController extends BaseController {
         parent::display($cachable, $urlparams);
         return $this;
 	}
-	public function add() {
+/*	public function add() {
 	    if (!\JSession::checkToken('get'))
 	    {
 	        echo new \JResponseJson(null, Text::_('JINVALID_TOKEN'), true);
@@ -36,5 +36,5 @@ class DisplayController extends BaseController {
 	    }
 	    
 	}
-	
+	*/
 }

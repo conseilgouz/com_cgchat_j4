@@ -29,14 +29,21 @@ class JsonView extends BaseHtmlView {
 
 	function display($tpl = null)
 	{
+	    if (!\JSession::checkToken('get'))
+	    {
+	        echo new \JResponseJson(null, Text::_('JINVALID_TOKEN'), true);
+			exit;
+	    }
+		
 		$input = Factory::getApplication()->input;
 		$task = $input->get('task');
-		if ($task == 'add') echo json_encode(self::add());
-		if ($task == 'sessions') echo json_encode(self::sessions());
-		if ($task == 'borrar') echo json_encode(self::borrar());
-		if ($task == 'banear') echo json_encode(self::banear());
-		if ($task == 'reload') echo json_encode(self::reload());
-		if ($task == 'retardo') echo json_encode(self::retardo());
+		if ($task == 'add') { echo json_encode(self::add()); exit;}
+		if ($task == 'sessions') {echo json_encode(self::sessions());exit;}
+		if ($task == 'reload') {echo json_encode(self::reload());exit;}
+		if ($task == 'borrar') {echo json_encode(self::borrar());exit;}
+		if ($task == 'banear') {echo json_encode(self::banear());exit;}
+		if ($task == 'retardo') {echo json_encode(self::retardo());exit;}
+		exit;
 	}
 	function borrar() {
         $input = Factory::getApplication()->input;
@@ -68,7 +75,7 @@ class JsonView extends BaseHtmlView {
 		$kuser = CGChatUser::getInstance();
 		$db = Factory::getDBO();
 		$params = ComponentHelper::getParams('com_cgchat');
-		$result = [];
+		$out = [];
 		if ($kuser->row == 1) {
 			$session = $input->get('session');
 			$dias = $input->get('dias');
@@ -82,7 +89,7 @@ class JsonView extends BaseHtmlView {
 				$query->delete($db->quoteName('#__cgchat_bans'));
 				$query->where($conditions);
 				$db->setQuery($query);
-				$result = $db->execute();
+				$db->execute();
 				$query = $db->getQuery(true);
 				$query->select('id')->from('#__cgchat_bans')->where($db->qn('session').' = '.$db->q($session));
 				$db->setQuery($query);
@@ -93,7 +100,7 @@ class JsonView extends BaseHtmlView {
 				    $conditions = array($db->qn('id') . ' = '.$id);
 				    $query->update($db->quoteName('#__cgchat_bans'))->set($fields)->where($conditions);
 				    $db->setQuery($query);
-				    $result = $db->execute();
+				    $db->execute();
 				} else {
 				    $query = $db->getQuery(true);
 				    $columns = array('session','time');
@@ -105,10 +112,14 @@ class JsonView extends BaseHtmlView {
 				    $db->setQuery($query);
 				    $db->execute();
 				}
-				$result[] =  str_replace("%s1", $session, str_replace("%s2", gmdate($params->get("formato_fecha", "j-n G:i:s"), $t+ $kuser->gmt *3600), Text::_("COM_CGCHAT_IP_BANEADA")));
+				$gmt =  $kuser->gmt;
+				$blocktime = (string) gmdate($params->get("formato_fecha", "j-n G:i:s"), $t+ ($gmt *3600));
+				$name = CGChatHelper::getUserPerSession($session);
+				$out[] = sprintf(Text::_("COM_CGCHAT_IP_BANEADA"),$session,$name,$blocktime);  
+				// str_replace("%s1", $session, str_replace("%s2", gmdate($params->get("formato_fecha", "j-n G:i:s"), $t+ ($gmt *3600)), Text::_("COM_CGCHAT_IP_BANEADA")));
 			}
 		}
-		return $result;
+		return $out;
 	}
 	function more_smileys() {
         $input = Factory::getApplication()->input;
@@ -130,7 +141,7 @@ class JsonView extends BaseHtmlView {
 		$db->setQuery($query);
 		$users = $db->loadObjectList();
 		if ($users) {
-			foreach ($users as $u)
+		    foreach ($users as $u) {
 			    $one = [];
 			    $one['row'] =  $u->row;
 			    $one['name'] = htmlspecialchars($u->name);
@@ -140,6 +151,7 @@ class JsonView extends BaseHtmlView {
 			    $row['userid'] = $u->userid;
 			    $row['img'] = $u->img;
 			    $result[] = $one;
+		    }
 		}
 		$query = $db->getQuery(true);
 		$query->select('*')
