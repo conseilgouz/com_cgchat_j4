@@ -20,7 +20,7 @@ class CGChatTemplate {
 	var $com,$show_hour,$show_sessions,$show_privados;
 	var $autoiniciar,$button_send,$show_avatar,$avatar_maxheight;
 	var $maxlength,$popup,$order,$copy,$msgs,$user;
-	var $fecha,$formato_hora,$templates;
+	var $fecha,$formato_hora,$templates,$pags;
 
 	function __construct() {
 		$ktuser = CGChatUser::getInstance();

@@ -303,7 +303,7 @@ class JsonView extends BaseHtmlView {
 		$result['hora'] = gmdate($params->get("formato_hora", "G:i--"), $t + $kuser->gmt*3600);
 		$result['txt'] = '';
 		if ($txt)
-			$result['txt'] = $txt;
+			$result['txt'] = $txt; //$txt;
 		return $result;
 	}
 	function retardo() {

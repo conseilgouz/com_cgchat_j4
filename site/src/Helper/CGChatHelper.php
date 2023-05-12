@@ -20,16 +20,18 @@ class CGChatHelper {
 	function htmlInJs($html) {
 		return addslashes(str_replace(array("\n", "\r"), array('',''), $html));
 	}
+	// JSON : replace @ by / , ~ by <br />  
 	static function convertText($txt, $id) {
 		$params = ComponentHelper::getParams('com_cgchat');
 		$max_strlen = $params->get('msgs_max_strlen', 3000);
 		if ($max_strlen > 0 && strlen($txt) > $max_strlen) 
 			$txt = substr($txt, 0, $max_strlen);
 		$txt = ' '.trim($txt).' ';
+		$txt = str_replace("@", "/", $txt);		
 		$txt = htmlspecialchars($txt, ENT_NOQUOTES);
 		$txt = self::make_links($txt);
 		$txt = self::convert_smilies($txt);
-		$txt = str_replace(array("\n", "\r"), array("<br />", ""), $txt);
+		$txt = str_replace(array("\n"," ~ ","\r"), array("<br />","<br />", ""), $txt);
 		return $txt;
 	}
 	static function opciones($cantidad) {

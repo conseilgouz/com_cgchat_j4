@@ -444,7 +444,9 @@ var cgchat = {
 			cgchat.val('KIDE_txt', '');
 			if (!cgchat.trim(txt)) return;
 			this.visible('KIDE_img_ajax', true);
-			url = this.ajax_url+"&task=add&txt="+encodeURIComponent(txt)+"&"+this.token+'=1&format=json';
+			urltxt = encodeURIComponent(txt);
+			// JSON : replace @ by / , ~ by <br />  
+			url = this.ajax_url+"&task=add&txt="+urltxt.replaceAll('%0A',' ~ ').replaceAll('%3A',':').replaceAll('%2F','@')+"&"+this.token+'=1&format=json';
 			Joomla.request({
 				method : 'POST',
 				url : url,
