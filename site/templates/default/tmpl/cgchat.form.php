@@ -23,15 +23,7 @@ elseif ($this->user->row == 3 && !$this->user->can_write) {
 }
 else {
 ?>
-	<?php 
-	if (!$this->user->captcha) {
-		echo '<div id="KIDE_catpcha">';
-		echo recaptcha_get_html($this->recaptcha_public);
-		echo '<br /><button onclick="cgchat.captcha.check()">'.Text::_('COM_CGCHAT_CAPTCHA_VALIDATE').'</button>';
-		echo '</div>';
-	}
-	?>
-	<div id="KIDE_form"<?php if (!$this->user->captcha) echo ' style="display:none"'; ?>>
+	<div id="KIDE_form">
 		<br />
 		<div>
 			<?php echo Text::_("COM_CGCHAT_NOMBRE"); ?>: 

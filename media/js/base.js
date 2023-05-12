@@ -589,30 +589,3 @@ cgchat.events = {
 	}
 };
 
-// catpcha
-
-cgchat.captcha = {
-	check: function() {
-		cgchat.ajax('captcha_check');
-	},
-	onAjax_check: function(data) {
-		var ajax = data[0];
-		ajax.onreadystatechange = function() {
-			if (ajax.readyState == 4 && ajax.status == 200) {
-				var out = ajax.responseText;
-				if (out == 'ok') {
-					cgchat.show('KIDE_catpcha', false);
-					cgchat.show('KIDE_form', true);
-				}
-				else {
-					Recaptcha.reload();
-					alert(out);
-				}
-			}
-		};
-		ajax.open('POST', cgchat.ajax_url+"&task=catpcha_check", true);
-		ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-		ajax.send('recaptcha_challenge_field='+encodeURIComponent(cgchat.form('recaptcha_challenge_field'))+'&recaptcha_response_field='+encodeURIComponent(cgchat.form('recaptcha_response_field')));
-	}
-};
-cgchat.events.add('onAjax_captcha_check', cgchat.captcha.onAjax_check);

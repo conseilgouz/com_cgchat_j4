@@ -16,10 +16,12 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatUser;
 
 class CGChatTemplate {
 	var $def = 'default';
-	var $tuser;
-	var $view;
-	var $tpl_html; 
-	var $tpl_php; 
+	var $tuser,$view,$tpl_html,$tpl_php;
+	var $com,$show_hour,$show_sessions,$show_privados;
+	var $autoiniciar,$button_send,$show_avatar,$avatar_maxheight;
+	var $maxlength,$popup,$order,$copy,$msgs,$user;
+	var $fecha,$formato_hora,$templates;
+
 	function __construct() {
 		$ktuser = CGChatUser::getInstance();
 		$this->tpl_html = URI::base(true).'/components/com_cgchat/templates/';

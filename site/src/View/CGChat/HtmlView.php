@@ -44,11 +44,6 @@ class HtmlView extends BaseHtmlView {
 		$tpl = CGChatTemplate::getInstance();
 		$tpl->include_html("css", "cgchat");
 		
-		if (!$kuser->captcha) {
-			if (!function_exists('_recaptcha_qsencode'))
-				require_once(KIDE_LIBS."recaptchalib.php");
-			$tpl->assign('recaptcha_public', $params->get('recaptcha_public'));
-		}
 		$max_strlen = $params->get('msgs_max_strlen', 3000);
 		$order = $params->get('order', 'bottom');
 		$fecha = $params->get("formato_fecha", "j-n G:i:s");

@@ -212,7 +212,7 @@ class JsonView extends BaseHtmlView {
 		$kuser = CGChatUser::getInstance();
 		$result = [];
 		
-		if (!$kuser->can_write || ($kuser->row == 3 && !$kuser->captcha)) {
+		if (!$kuser->can_write ) {
 		    return $result;
 		}
 		if ($kuser->row == 4) {

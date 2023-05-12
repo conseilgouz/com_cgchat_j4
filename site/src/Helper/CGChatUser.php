@@ -34,7 +34,6 @@ class CGChatUser {
 	*/
 	var $row;
 	var $id;
-	var $captcha=1;
 	var $gmt;
 	var $retardo;
 	var $name = "";
@@ -108,11 +107,6 @@ class CGChatUser {
 				}
 			}
 		}
-		if ($params->get('recaptcha') && $params->get('recaptcha_public') && $params->get('recaptcha_private') && $this->row >= 3) {
-			$session = Factory::getSession();
-			$this->captcha = $session->get('kide_captcha', 0);
-		}
-		
 		if ($user->id) {
 			$username = $params->get("username", true) ? $user->username : $user->name;
 		}

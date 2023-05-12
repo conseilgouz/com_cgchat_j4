@@ -64,12 +64,6 @@
 				<option value="wavatar">COM_CGCHAT_GRAVATAR_WAVATAR</option>
 				<option value="retro">COM_CGCHAT_GRAVATAR_RETRO</option>
 			</field>
-			<field label="COM_CGCHAT_RECAPTCHA_USE_T" description="COM_CGCHAT_RECAPTCHA_USE_D" type="list" default="0" name="recaptcha">
-				<option value="0">COM_CGCHAT_NO</option>
-				<option value="1">COM_CGCHAT_YES</option>
-			</field>
-			<field label="COM_CGCHAT_RECAPTCHA_PUBLIC_KEY" type="text" name="recaptcha_public" />
-			<field label="COM_CGCHAT_RECAPTCHA_PRIVATE_KEY" type="text" name="recaptcha_private" />
 		</fieldset>
 		<fieldset name="advanced" label="COM_CGCHAT_LABEL_ADVANCED">
 			<field label="COM_CGCHAT_ICONS_WINDOW" type="list" default="popup" name="icons_window">
