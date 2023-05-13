@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.0.1</version>
+        <note>
+            <item>Update : 13/05/2023</item>
+        </note>
+        <addition>
+            <item>Add kill session on exit</item>
+        </addition>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.0.0</version>
         <note>
             <item>Update : 13/05/2023</item>

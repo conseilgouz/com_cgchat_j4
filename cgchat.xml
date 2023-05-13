@@ -2,11 +2,11 @@
 <extension method="upgrade" type="component" version="4.0">
 	<name>CG Chat</name>
 	<creationDate>2023/05/13</creationDate>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<author>ConseilGouz</author>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
 	<description>CG Chatbox</description>
-	<license>https://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<scriptfile>script.php</scriptfile>
 	<namespace path="src">ConseilGouz\Component\CGChat</namespace>
 	<files folder="site">

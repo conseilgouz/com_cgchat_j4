@@ -43,6 +43,7 @@ class JsonView extends BaseHtmlView {
 		if ($task == 'borrar') {echo json_encode(self::borrar());exit;}
 		if ($task == 'banear') {echo json_encode(self::banear());exit;}
 		if ($task == 'retardo') {echo json_encode(self::retardo());exit;}
+		if ($task == 'kill') {echo json_encode(self::kill());exit;}
 		exit;
 	}
 	function borrar() {
@@ -311,5 +312,18 @@ class JsonView extends BaseHtmlView {
 	    $result['time'] =  time();
 	    return $result;
 	}
-
+	function kill() {
+	    $result = [];
+	    $input = Factory::getApplication()->input;
+	    $session = $input->get('session');
+	    $db = Factory::getDBO();
+	    $query = $db->getQuery(true);
+	    $conditions = array($db->qn('session'). ' = '.$db->q($session));
+	    $query->delete($db->quoteName('#__cgchat_session'));
+	    $query->where($conditions);
+	    $db->setQuery($query);
+	    $db->execute();
+	    return $result;
+	}
+	
 }

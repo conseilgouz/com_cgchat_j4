@@ -559,6 +559,15 @@ var cgchat = {
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
+		} else if (tipo == "kill") {
+			url = this.ajax_url+"&task=kill"+"&"+"session="+cgchat.session+'&'+this.token+"=1&format=json";
+			Joomla.request({
+				method : 'POST',
+				url : url,
+				onSuccess: function(data, xhr) {
+				},
+				onError: function(message) {console.log(message.responseText)}
+			})
 		} else {
 			this.events.lanzar('onAjax_'+tipo, [ajax, tmp]);
 		}
@@ -585,4 +594,10 @@ cgchat.events = {
 		return stop;
 	}
 };
+// kill session when exiting
+window.addEventListener('beforeunload', function (e) {
+  // the absence of a returnValue property on the event will guarantee the browser unload happens
+  delete e['returnValue'];
+  cgchat.ajax("kill");
+});
 
