@@ -34,7 +34,7 @@ class HtmlView extends BaseHtmlView {
 		$tpl = CGChatTemplate::getInstance();
 		$tpl->display();
 	}
-	function preparar() {
+	static function preparar() {
 		DEFINE('CGCHAT_LOADED', true);
 		CGChatHead::add_tags();
 		
@@ -54,7 +54,7 @@ class HtmlView extends BaseHtmlView {
 		$msgs = $db->loadObjectList();
 		if ($order == 'bottom') krsort($msgs);
 		
-		$folders = Folder::folders(JPATH_COMPONENT.'/'.'templates');
+		$folders = Folder::folders(JPATH_ROOT.'/components/com_cgchat/templates');
 		$s = array();
 		foreach ($folders as $f) $s[] = (object)array('text'=>$f);
 		$templates = HTMLHelper::_('select.genericlist',  $s, 'KIDE_template', 'class="inputbox"', 'text', 'text', $kuser->template);

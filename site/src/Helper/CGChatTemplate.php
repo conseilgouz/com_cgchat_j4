@@ -25,7 +25,7 @@ class CGChatTemplate {
 	function __construct() {
 		$ktuser = CGChatUser::getInstance();
 		$this->tpl_html = URI::base(true).'/components/com_cgchat/templates/';
-		$this->tpl_php = JPATH_COMPONENT.'/'.'templates/';
+		$this->tpl_php = JPATH_ROOT.'/components/com_cgchat/templates/';
 		$this->tuser = $ktuser->template;
 		if (!file_exists($this->tpl_php.$this->tuser.'/'))
 			$this->tuser = 'default';

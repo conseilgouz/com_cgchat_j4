@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension method="upgrade" type="component" version="4.0">
 	<name>CG Chat</name>
-	<creationDate>2023/05/06</creationDate>
+	<creationDate>2023/05/13</creationDate>
 	<version>1.0.0</version>
 	<author>ConseilGouz</author>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
@@ -21,7 +21,6 @@
 		<folder>css</folder>
 		<filename>index.html</filename>
 	</media>
-   
 	<languages folder="lang_site">
 		<language tag="en-GB">en-GB/com_cgchat.ini</language>
 		<language tag="fr-FR">fr-FR/com_cgchat.ini</language>
@@ -43,7 +42,6 @@
 			<schemapath type="mysql">sql/updates</schemapath>
 		</schemas>
 	</update>
-
 	<administration>
 		<menu view="messages">CG Chat</menu>
 		<submenu>
@@ -51,7 +49,6 @@
 			<menu view="bans">Bans</menu>
 			<menu view="icons">Icons</menu>
 		</submenu>
-		
 		<files folder="admin">
 			<filename>index.html</filename>
 			<filename>access.xml</filename>
@@ -62,7 +59,6 @@
 			<folder>tmpl</folder>
 			<folder>src</folder>
 		</files>
-		
 		<languages folder="lang_admin">
 			<language tag="en-GB">en-GB/com_cgchat.sys.ini</language>
 			<language tag="en-GB">en-GB/com_cgchat.ini</language>
@@ -70,4 +66,8 @@
 			<language tag="fr-FR">fr-FR/com_cgchat.ini</language>
 		</languages>
 	</administration>
+	<changelogurl>https://raw.githubusercontent.com/conseilgouz/com_cgchat_j4/master/com_cgchat_changelog.xml</changelogurl>
+	<updateservers>
+	<server type="extension" name="com_cgchat" priority="1">https://raw.githubusercontent.com/conseilgouz/updates_github/master/com_cgchat_update.xml</server>
+	</updateservers>
 </extension>
