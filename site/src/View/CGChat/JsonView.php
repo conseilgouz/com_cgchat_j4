@@ -271,7 +271,7 @@ class JsonView extends BaseHtmlView {
 			}
 			$query = $db->getQuery(true);
 			$columns = array('name','userid','text','time','color','row','token','session','img','url','ip');
-			$values = array($db->q($kuser->name),$db->q($kuser->id),$db->q(addslashes($txt)),$db->q(time()),$db->q($kuser->color),$db->q($kuser->row),$db->q($kuser->token),$db->q($kuser->session),$db->q($kuser->img),$db->q(CGChatLinks::getUserLink($kuser->id)),$db->q($_SERVER['REMOTE_ADDR']));
+			$values = array($db->q($kuser->name),$db->q($kuser->id),$db->q($txt),$db->q(time()),$db->q($kuser->color),$db->q($kuser->row),$db->q($kuser->token),$db->q($kuser->session),$db->q($kuser->img),$db->q(CGChatLinks::getUserLink($kuser->id)),$db->q($_SERVER['REMOTE_ADDR']));
 			$query->insert($db->quoteName('#__cgchat'))
 			->columns($db->quoteName($columns))
 			->values(implode(',', $values));
@@ -303,7 +303,7 @@ class JsonView extends BaseHtmlView {
 		$result['hora'] = gmdate($params->get("formato_hora", "G:i--"), $t + $kuser->gmt*3600);
 		$result['txt'] = '';
 		if ($txt)
-			$result['txt'] = $txt; //$txt;
+			$result['txt'] = $txt; 
 		return $result;
 	}
 	function retardo() {

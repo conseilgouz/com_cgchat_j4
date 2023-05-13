@@ -28,6 +28,7 @@ class CGChatHelper {
 			$txt = substr($txt, 0, $max_strlen);
 		$txt = ' '.trim($txt).' ';
 		$txt = str_replace("@", "/", $txt);		
+		$txt = str_replace("\\x27", "'", $txt);		
 		$txt = htmlspecialchars($txt, ENT_NOQUOTES);
 		$txt = self::make_links($txt);
 		$txt = self::convert_smilies($txt);

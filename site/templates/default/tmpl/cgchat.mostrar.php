@@ -18,7 +18,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 	<div><?php echo Text::_('COM_CGCHAT_TEMPLATE'); ?>: <?php echo $this->templates; ?></div>
 	<div id="KIDE_opciones_colores"></div>
 	<br />
-	<button onclick="cgchat.save_options()"><?php echo Text::_("COM_CGCHAT_SAVE"); ?></button> <button onclick="cgchat.retardo_input()"><?php echo JText::_("COM_CGCHAT_RETARDO_INPUT"); ?></button>
+	<button onclick="cgchat.save_options()"><?php echo Text::_("COM_CGCHAT_SAVE"); ?></button> <button onclick="cgchat.retardo_input()"><?php echo Text::_("COM_CGCHAT_RETARDO_INPUT"); ?></button>
 </div>
 
 <div id="KIDE_mensaje" class="KIDE_mostrar" style="display: none">
@@ -86,18 +86,18 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 					· <a href="javascript:cgchat.show('KIDE_usuario_banear_span')"><?php echo Text::_("COM_CGCHAT_MENSAJE_BANEAR"); ?></a>
 					<span id="KIDE_usuario_banear_span" style="display: none">
 						<select name="kide_usuario_banear_dias" style="padding:0">
-							<option value="0"><?php echo ucfirst(JText::_("COM_CGCHAT_DAYS")); ?></option>
+							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_DAYS")); ?></option>
 							<?php echo CGChatHelper::opciones(15); ?>
 						</select>
 						<select name="kide_usuario_banear_horas" style="padding:0">
-							<option value="0"><?php echo ucfirst(JText::_("COM_CGCHAT_HOURS")); ?></option>
+							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_HOURS")); ?></option>
 							<?php echo CGChatHelper::opciones(24); ?>
 						</select>
 						<select name="kide_usuario_banear_minutos" style="padding:0">
-							<option value="0"><?php echo ucfirst(JText::_("COM_CGCHAT_MINUTES")); ?></option>
+							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_MINUTES")); ?></option>
 							<?php echo CGChatHelper::opciones(60); ?>
 						</select>
-						<button style="padding:0" id="KIDE_usuario_banear"><?php echo JText::_("COM_CGCHAT_MENSAJE_BANEAR_MIN"); ?></button>
+						<button style="padding:0" id="KIDE_usuario_banear"><?php echo Text::_("COM_CGCHAT_MENSAJE_BANEAR_MIN"); ?></button>
 					</span>
 				</span>
 				<?php endif; ?>
@@ -112,7 +112,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 </div>
 	
 <div id="KIDE_rangos" class="KIDE_mostrar" style="display: none">
-	<?php echo JText::_("COM_CGCHAT_RANGOS"); ?>: <br />
+	<?php echo Text::_("COM_CGCHAT_RANGOS"); ?>: <br />
 	<img class="KIDE_r KIDE_bg_admin" src="<?php echo $this->include_html("otras", "blank.png"); ?>" alt="" /> &nbsp; <?php echo Text::_("COM_CGCHAT_ADMINISTRADOR"); ?><br />
 	<img class="KIDE_r KIDE_bg_registered" src="<?php echo $this->include_html("otras", "blank.png"); ?>" alt="" /> &nbsp; <?PHP echo Text::_("COM_CGCHAT_REGISTRADO") ;?><br />
 	<img class="KIDE_r KIDE_bg_guest" src="<?php echo $this->include_html("otras", "blank.png"); ?>" alt="" /> &nbsp; <?php echo Text::_("COM_CGCHAT_INVITADO"); ?><br />

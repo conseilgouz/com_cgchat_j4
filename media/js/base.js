@@ -445,8 +445,10 @@ var cgchat = {
 			if (!cgchat.trim(txt)) return;
 			this.visible('KIDE_img_ajax', true);
 			urltxt = encodeURIComponent(txt);
-			// JSON : replace @ by / , ~ by <br />  
-			url = this.ajax_url+"&task=add&txt="+urltxt.replaceAll('%0A',' ~ ').replaceAll('%3A',':').replaceAll('%2F','@')+"&"+this.token+'=1&format=json';
+			// JSON : replace @ by / , ~ by <br />, ' by   \\x27
+			urltxt = urltxt.replaceAll('%0A',' ~ ').replaceAll('%3A',':').replaceAll('%2F','@').replaceAll(/'/g, '\\x27');
+			urltxt = urltxt.replaceAll('%3E','').replaceAll('%3C',''); // cleanup other chars < > 
+			url = this.ajax_url+"&task=add&txt="+urltxt+"&"+this.token+'=1&format=json';
 			Joomla.request({
 				method : 'POST',
 				url : url,
