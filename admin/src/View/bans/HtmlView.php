@@ -25,25 +25,20 @@ class HtmlView extends BaseHtmlView {
 	protected $pagination;
 	protected $state;
 
-	public function display($tpl = null)
-	{
+	public function display($tpl = null) {
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
-
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			throw new GenericDataException(implode("\n", $errors), 500);
 			return false;
 		}
-
 		$this->addToolbar();
 		parent::display($tpl);
 	}
-	protected function addToolbar()
-	{
+	protected function addToolbar() {
 		$state	= $this->get('State');
-
 		ToolbarHelper::title(Text::_('COM_CGCHAT_MANAGER_BANS'));
 		ToolbarHelper::addNew('ban.add','JTOOLBAR_NEW');
 		ToolbarHelper::editList('ban.edit','JTOOLBAR_EDIT');

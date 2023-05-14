@@ -23,8 +23,7 @@ class HtmlView extends BaseHtmlView {
 	protected $state;
 	protected $item;
 	protected $form;
-	public function display($tpl = null)
-	{
+	public function display($tpl = null) {
 		$this->state	= $this->get('State');
 		$this->item		= $this->get('Item');
 		$this->form		= $this->get('Form');
@@ -38,11 +37,7 @@ class HtmlView extends BaseHtmlView {
 		$this->addToolbar();
 		parent::display($tpl);
 	}
-
-	protected function addToolbar()
-	{
-		// JRequest::setVar('hidemainmenu', true);
-
+	protected function addToolbar()	{
 		$user		= Factory::getUser();
 		$isNew		= ($this->item->id == 0);
 

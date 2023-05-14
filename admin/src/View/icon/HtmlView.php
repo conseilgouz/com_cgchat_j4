@@ -23,18 +23,15 @@ class HtmlView extends BaseHtmlView {
 	protected $state;
 	protected $item;
 	protected $form;
-	public function display($tpl = null)
-	{
+	public function display($tpl = null) {
 		$this->state	= $this->get('State');
 		$this->item		= $this->get('Item');
 		$this->form		= $this->get('Form');
-
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			throw new GenericDataException(implode("\n", $errors), 500);
 			return false;
 		}
-		
 		$model	= $this->getModel();
 		$icon	= $model->loadFormData();
 		$isNew	= ($icon->id < 1);
@@ -44,16 +41,10 @@ class HtmlView extends BaseHtmlView {
 		$this->addToolbar();
 		parent::display($tpl);
 	}
-
-	protected function addToolbar()
-	{
-		// JRequest::setVar('hidemainmenu', true);
-
+	protected function addToolbar() {
 		$user		= Factory::getUser();
 		$isNew		= ($this->item->id == 0);
-
 		ToolBarHelper::title(Text::_('COM_CGCHAT_MANAGER_ICONO'));
-
 		ToolBarHelper::apply('icon.apply', 'JTOOLBAR_APPLY');
 		ToolBarHelper::save('icon.save', 'JTOOLBAR_SAVE');
 		if (empty($this->item->id)) {
