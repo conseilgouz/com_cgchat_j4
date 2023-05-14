@@ -42,12 +42,6 @@
 			</field>
 		</fieldset>
 		<fieldset name="integration" label="COM_CGCHAT_LABEL_INTEGRATION">
-			<field label="COM_CGCHAT_PERFIL_FB_T" description="COM_CGCHAT_PERFIL_FB_D" type="list" default="0" name="perfil_fb">
-				<option value="0">COM_CGCHAT_NO</option>
-				<option value="1">COM_CGCHAT_YES</option>
-			</field>
-			<field label="COM_CGCHAT_PERFIL_FB_APP_ID" type="text" name="fb_app_id" />
-			<field label="COM_CGCHAT_PERFIL_FB_APP_SECRET" type="text" name="fb_app_secret" />
 			<field label="COM_CGCHAT_PERFIL_LINK" type="list" default="0" name="perfil_link">
 				<option value="0">Gravatar</option>
 				<option value="js">JomSocial</option>
