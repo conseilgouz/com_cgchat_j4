@@ -448,7 +448,7 @@ var cgchat = {
 			// JSON : replace @ by / , ~ by <br />, ' by   \\x27
 			urltxt = urltxt.replaceAll('%0A',' ~ ').replaceAll('%3A',':').replaceAll('%2F','@').replaceAll(/'/g, '\\x27');
 			urltxt = urltxt.replaceAll('%3E','').replaceAll('%3C',''); // cleanup other chars < > 
-			url = this.ajax_url+"&task=add&txt="+urltxt+"&"+this.token+'=1&format=json';
+			url = this.ajax_url+'&task=add&txt='+urltxt+'&color='+cgchat.color+'&'+this.token+'=1&format=json';
 			Joomla.request({
 				method : 'POST',
 				url : url,

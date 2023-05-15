@@ -246,7 +246,7 @@ class JsonView extends BaseHtmlView {
 		}
         $input = Factory::getApplication()->input;
 		$txt = $input->getRaw('txt', '', 'post', 'string');
-
+		$color = $input->get('color', '', 'post', 'string');
 		$id = 0;
 		if ($txt && $txt != Text::_("COM_CGCHAT_NOSPAM")) {
 			$db->setQuery('SHOW TABLE STATUS LIKE "'.$db->getPrefix().'cgchat"');
@@ -272,7 +272,7 @@ class JsonView extends BaseHtmlView {
 			}
 			$query = $db->getQuery(true);
 			$columns = array('name','userid','text','time','color','row','token','session','img','url','ip');
-			$values = array($db->q($kuser->name),$db->q($kuser->id),$db->q($txt),$db->q(time()),$db->q($kuser->color),$db->q($kuser->row),$db->q($kuser->token),$db->q($kuser->session),$db->q($kuser->img),$db->q(CGChatLinks::getUserLink($kuser->id)),$db->q($_SERVER['REMOTE_ADDR']));
+			$values = array($db->q($kuser->name),$db->q($kuser->id),$db->q($txt),$db->q(time()),$db->q($color),$db->q($kuser->row),$db->q($kuser->token),$db->q($kuser->session),$db->q($kuser->img),$db->q(CGChatLinks::getUserLink($kuser->id)),$db->q($_SERVER['REMOTE_ADDR']));
 			$query->insert($db->quoteName('#__cgchat'))
 			->columns($db->quoteName($columns))
 			->values(implode(',', $values));
