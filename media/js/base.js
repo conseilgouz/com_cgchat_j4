@@ -11,8 +11,8 @@ var cgchat = {
 	debug: true,
 	abort_time_extra: 6000,
 	sids: [],
-	mostrar_colores_iniciado: false,
-	privados_encontrado: false,
+	mostrar_colores_iniciado: false, // color
+	privados_encontrado: false, // private chat
 	retardo_avisar: false,
 	shift_pressed: false,
 	shift_priv_pressed: false,
@@ -123,7 +123,7 @@ var cgchat = {
 			document.write(html);
 		}); 
 	},
-	iniciar: function() {
+	iniciar: function() { // init
 		if (!cgchat.encendido) {
 			cgchat.encendido = true;
 			cgchat.attr('encendido', 'src', cgchat.img_encendido[2]);
@@ -160,7 +160,7 @@ var cgchat = {
 	sessions: function() {
 		cgchat.ajax("sessions");
 	},
-	sonido: function() {
+	sonido: function() { // sound
 		if (this.sound != -1) {
 			if (this.sound == 1) {
 				this.sound = 0;
@@ -346,7 +346,7 @@ var cgchat = {
 		this.retardo_avisar = true;
 		this.ajax("retardo");
 	},
-	mostrar_iconos: function() {
+	mostrar_iconos: function() { // show icons
 		if (this.$('KIDE_iconos')) {
 			this.save_config('icons_hidden', this.css('KIDE_iconos', 'display') == 'none' ? 0 : 1);
 			this.show('KIDE_iconos');
@@ -355,7 +355,7 @@ var cgchat = {
 	play_msg_sound: function() {
 		this.html('KIDE_msg_sound', '<audio autoplay style="height:0;width:0"><source src="'+this.sound_src+'" type="audio/mpeg"></audio>');
 	},
-	mostrar_opciones: function() {
+	mostrar_opciones: function() { // show options
 		if (!this.mostrar_colores_iniciado) {
 			this.mostrar_colores_iniciado = true;
 			this.show_colors();
@@ -389,7 +389,7 @@ var cgchat = {
 			this.events.lanzar('onSetColor', c);
 		}
 	},
-	borrar: function(id) {
+	borrar: function(id) { // remove
 		if (id > 0) {
 			this.show("KIDE_id_"+id, false);
 			this.show("KIDE_mensaje", false)
@@ -404,8 +404,8 @@ var cgchat = {
 	getDocumentHeight: function() {
 		return window.innerHeight ? window.innerHeight : document.documentElement.clientHeight;
 	},
-	banear: function(sid, tipo) {
-		var dias = this.form('kide_'+tipo+'_banear_dias');
+	banear: function(sid, tipo) { // banned
+		var dias = this.form('kide_'+tipo+'_banear_dias'); 
 		var horas = this.form('kide_'+tipo+'_banear_horas');
 		var minutos = this.form('kide_'+tipo+'_banear_minutos');
 		if (dias>0 || horas>0 || minutos>0)
@@ -413,7 +413,7 @@ var cgchat = {
 	},
 	ajax: function(tipo, tmp) {
 		var ajax = new XMLHttpRequest();
-		if (tipo == "reload") { 
+		if (tipo == "reload") {  // reload
 			url = this.ajax_url+"&task=reload&privs="+(cgchat.privados_encontrado?0:1)+"&id="+this.n+"&token="+this.token+'&format=json';
 			setTimeout(function(){ajax.abort();}, cgchat.refresh_time+cgchat.abort_time_extra);
 			Joomla.request({
@@ -439,7 +439,7 @@ var cgchat = {
 			})
 			
 		}
-		else if (tipo == "insertar") {
+		else if (tipo == "insertar") { // insert
 			var txt = this.val('KIDE_txt');
 			cgchat.val('KIDE_txt', '');
 			if (!cgchat.trim(txt)) return;
@@ -448,7 +448,7 @@ var cgchat = {
 			// JSON : replace @ by / , ~ by <br />, ' by   \\x27
 			urltxt = urltxt.replaceAll('%0A',' ~ ').replaceAll('%3A',':').replaceAll('%2F','@').replaceAll(/'/g, '\\x27');
 			urltxt = urltxt.replaceAll('%3E','').replaceAll('%3C',''); // cleanup other chars < > 
-			url = this.ajax_url+'&task=add&txt='+urltxt+'&color='+cgchat.color+'&'+this.token+'=1&format=json';
+			url = this.ajax_url+"&task=add&txt="+urltxt+"&"+this.token+'=1&format=json';
 			Joomla.request({
 				method : 'POST',
 				url : url,
@@ -479,7 +479,7 @@ var cgchat = {
 				onError: function(message) {console.log(message.responseText)}
 			})
 		}
-		else if (tipo == "borrar") {
+		else if (tipo == "borrar") { // remove
 			url = this.ajax_url+"&task=borrar&id="+tmp+"&"+this.token+'=1&format=json';
 			Joomla.request({
 				method : 'POST',
@@ -541,10 +541,10 @@ var cgchat = {
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
-		} else if (tipo == "banear") {
-			var dias = this.form('kide_'+tmp[1]+'_banear_dias');
-			var horas = this.form('kide_'+tmp[1]+'_banear_horas');
-			var minutos = this.form('kide_'+tmp[1]+'_banear_minutos');
+		} else if (tipo == "banear") { // banned
+			var dias = this.form('kide_'+tmp[1]+'_banear_dias'); // days ?
+			var horas = this.form('kide_'+tmp[1]+'_banear_horas'); // hours ?
+			var minutos = this.form('kide_'+tmp[1]+'_banear_minutos'); // minutes ?
 			url = this.ajax_url+"&task=banear"+"&"+"session="+tmp[0]+"&dias="+dias+"&horas="+horas+"&minutos="+minutos+'&'+this.token+"=1&format=json";
 			Joomla.request({
 				method : 'POST',
@@ -574,7 +574,7 @@ var cgchat = {
 	}
 };
 
-// eventos
+// events
 
 cgchat.events = {
 	list: [],

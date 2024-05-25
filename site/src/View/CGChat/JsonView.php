@@ -10,17 +10,19 @@
 namespace ConseilGouz\Component\CGChat\Site\View\CGChat;
 
 defined('_JEXEC') or die;
-use Joomla\CMS\Factory;
-use Joomla\Registry\Registry;
-use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Plugin\PluginHelper;
-use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Router\Route;
 use Joomla\CMS\Access\Access;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\JsonView as BaseHtmlView;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Responses\JsonResponse;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
 use Joomla\Component\Content\Site\Helper\RouteHelper;
 use Joomla\Component\Content\Site\Model\ArticleModel; // 4.0. compatibility
-use Joomla\CMS\MVC\View\JsonView as BaseHtmlView;
-use Joomla\CMS\Language\Text;
+use Joomla\Registry\Registry;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatUser;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatLinks;
@@ -29,9 +31,9 @@ class JsonView extends BaseHtmlView {
 
 	function display($tpl = null)
 	{
-	    if (!\JSession::checkToken('get'))
+	    if (!Session::checkToken('get'))
 	    {
-	        echo new \JResponseJson(null, Text::_('JINVALID_TOKEN'), true);
+	        echo new JsonResponse(null, Text::_('JINVALID_TOKEN'), true);
 			exit;
 	    }
 		
