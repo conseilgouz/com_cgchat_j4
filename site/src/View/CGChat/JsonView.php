@@ -45,11 +45,11 @@ class JsonView extends BaseHtmlView
             echo json_encode(self::reload());
             exit;
         }
-        if ($task == 'borrar') {
+        if ($task == 'borrar') { // remove
             echo json_encode(self::borrar());
             exit;
         }
-        if ($task == 'banear') {
+        if ($task == 'banear') { // banned
             echo json_encode(self::banear());
             exit;
         }
@@ -63,6 +63,7 @@ class JsonView extends BaseHtmlView
         }
         exit;
     }
+    // Delete
     public function borrar()
     {
         $input = Factory::getApplication()->input;
@@ -80,7 +81,7 @@ class JsonView extends BaseHtmlView
                 $db->execute();
             } else {
                 $query = $db->getQuery(true);
-                $conditions = array($db->qn('id'). ' = '.$id,$db - qn('session') .'='.$db->q('session') );
+                $conditions = array($db->qn('id'). ' = '.$id,$db->qn('session') .'='.$db->q('session') );
                 $query->delete($db->quoteName('#__cgchat'));
                 $query->where($conditions);
                 $db->setQuery($query);
@@ -89,6 +90,7 @@ class JsonView extends BaseHtmlView
         }
         return [];
     }
+    // Ban
     public function banear()
     {
         $input = Factory::getApplication()->input;
@@ -340,6 +342,7 @@ class JsonView extends BaseHtmlView
         }
         return $result;
     }
+    // Delay
     public function retardo()
     {
         $result = [];

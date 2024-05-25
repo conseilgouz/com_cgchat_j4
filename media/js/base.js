@@ -145,7 +145,7 @@ var cgchat = {
 	text: function(row) {
 		return cgchat.defined(row.textContent) ? row.textContent : row.text;
 	},
-	recargar: function() {
+	recargar: function() { // reload
 		cgchat.ajax("reload");
 	},
 	getUser: function(sid) {
@@ -342,7 +342,7 @@ var cgchat = {
 		if (!cgchat.encendido)
 			cgchat.iniciar();
 	},
-	retardo_input: function() {
+	retardo_input: function() { // Delay
 		this.retardo_avisar = true;
 		this.ajax("retardo");
 	},
@@ -471,9 +471,6 @@ var cgchat = {
 						cgchat.ajustar_scroll();
 					}
 					cgchat.visible('KIDE_img_ajax', false);
-					/*if (result.js && result.js.length) {
-						eval(cgchat.text(result.js));
-					}*/
 					cgchat.events.lanzar('onAjaxInsertar', result); // to check
 				},
 				onError: function(message) {console.log(message.responseText)}
@@ -520,7 +517,7 @@ var cgchat = {
 				onError: function(message) {console.log(message.responseText)}
 			})
 			
-		} else if (tipo == "retardo") {
+		} else if (tipo == "retardo") { // Delay
 			url = this.ajax_url+"&task=retardo"+"&"+this.token+"=1&format=json";
 			Joomla.request({
 				method : 'POST',
@@ -584,7 +581,7 @@ cgchat.events = {
 			this.list[name] = [];
 		this.list[name].push(func);
 	},
-	lanzar: function(name, params) {
+	lanzar: function(name, params) { // start
 		var stop = false;
 		if (this.list[name]) {
 			if (!params) params = [];
