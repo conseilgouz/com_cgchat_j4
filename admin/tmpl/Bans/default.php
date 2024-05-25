@@ -62,7 +62,7 @@ $saveOrder	= $listOrder == 'a.ordering';
 					<?php echo $item->session; ?>
 				</td>
 				<td>
-					<?php echo $item->time; ?>
+					<?php echo HTMLHelper::_('date', $item->time); ?>
 				</td>
 				<td class="center">
 					<?php echo (int) $item->id; ?>
