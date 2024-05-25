@@ -15,7 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\JsonView as BaseHtmlView;
-use Joomla\CMS\Responses\JsonResponse;
+use Joomla\CMS\Response\JsonResponse;
 use Joomla\CMS\Session\Session;
 use Joomla\Database\DatabaseInterface;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatUser;
