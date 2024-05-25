@@ -1,12 +1,13 @@
 <?php
 /**
-* CG Chat Component  - Joomla 4.x Component 
+* CG Chat Component  - Joomla 4.x/5.x Component
 * Version			: 1.0.0
 * Package			: CG Chat
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : Kide ShoutBox
 */
+
 namespace ConseilGouz\Component\CGChat\Administrator\Controller;
 
 \defined('_JEXEC') or die;
@@ -19,79 +20,74 @@ use Joomla\CMS\Uri\Uri;
 
 class MessageController extends FormController
 {
-	protected function allowAdd($data = array())
-	{
-		// Initialise variables.
-	    $user		= $this->app->getIdentity();
-		$allow		= null;
-		if ($allow === null) {
-			// In the absense of better information, revert to the component permissions.
-			return parent::allowAdd($data);
-		} else {
-			return $allow;
-		}
-	}
-	protected function allowEdit($data = array(), $key = 'id')
-	{
-		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
-		$user = $this->app->getIdentity();
+    protected function allowAdd($data = array())
+    {
+        // Initialise variables.
+        $user		= $this->app->getIdentity();
+        $allow		= null;
+        if ($allow === null) {
+            // In the absense of better information, revert to the component permissions.
+            return parent::allowAdd($data);
+        } else {
+            return $allow;
+        }
+    }
+    protected function allowEdit($data = array(), $key = 'id')
+    {
+        $recordId = (int) isset($data[$key]) ? $data[$key] : 0;
+        $user = $this->app->getIdentity();
 
-		// Zero record (id:0), return component edit permission by calling parent controller method
-		if (!$recordId)
-		{
-			return parent::allowEdit($data, $key);
-		}
+        // Zero record (id:0), return component edit permission by calling parent controller method
+        if (!$recordId) {
+            return parent::allowEdit($data, $key);
+        }
 
-		// Check edit on the record asset (explicit or inherited)
-		if ($user->authorise('core.edit', 'com_cgchat.message.' . $recordId))
-		{
-			return true;
-		}
+        // Check edit on the record asset (explicit or inherited)
+        if ($user->authorise('core.edit', 'com_cgchat.message.' . $recordId)) {
+            return true;
+        }
 
-		// Check edit own on the record asset (explicit or inherited)
-		if ($user->authorise('core.edit.own', 'com_cgchat.message.' . $recordId))
-		{
-			// Existing record already has an owner, get it
-			$record = $this->getModel()->getItem($recordId);
+        // Check edit own on the record asset (explicit or inherited)
+        if ($user->authorise('core.edit.own', 'com_cgchat.message.' . $recordId)) {
+            // Existing record already has an owner, get it
+            $record = $this->getModel()->getItem($recordId);
 
-			if (empty($record))
-			{
-				return false;
-			}
+            if (empty($record)) {
+                return false;
+            }
 
-			// Grant if current user is owner of the record
-			return $user->id == $record->created_by;
-		}
+            // Grant if current user is owner of the record
+            return $user->id == $record->created_by;
+        }
 
-		return false;
-	
-	}
-	/**
-	 */
-	public function cancel($key = null)
-	{
-		// $result = parent::cancel();
-		$app = Factory::getApplication();
-		$return = Uri::base().'index.php?option=com_cgchat&view=messages';
-		$app->redirect($return);
-		return true;
-	}
+        return false;
+
+    }
+    /**
+     */
+    public function cancel($key = null)
+    {
+        // $result = parent::cancel();
+        $app = Factory::getApplication();
+        $return = Uri::base().'index.php?option=com_cgchat&view=messages';
+        $app->redirect($return);
+        return true;
+    }
 
     public function save($key = null, $urlVar = null)
-    {       
+    {
         // Check for request forgeries.
         Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
 
         // Initialise variables.
         $app = Factory::getApplication();
-        $model= $this->getModel('message'); 
+        $model = $this->getModel('message');
         $data = $app->input->getVar('jform', array(), 'post', 'array');
         $task = $this->getTask();
         $context = 'com_cgchat.edit.message';
         $recordId = $app->input->getInt('id');
-        
-        if (!$this->checkEditId($context, $recordId))
-        {
+
+        if (!$this->checkEditId($context, $recordId)) {
             // Somehow the person just went to the form and saved it - we don't allow that.
             $this->setError(Text::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $recordId));
             $this->setMessage($this->getError(), 'error');
@@ -103,20 +99,15 @@ class MessageController extends FormController
         // Populate the row id from the session.
         $data['id'] = $recordId;
         // Check for validation errors.
-        if ($data === false)
-        {
+        if ($data === false) {
             // Get the validation messages.
             $errors = $model->getErrors();
 
             // Push up to three validation messages out to the user.
-            for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++)
-            {
-                if ($errors[$i] instanceof Exception)
-                {
+            for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++) {
+                if ($errors[$i] instanceof Exception) {
                     $app->enqueueMessage($errors[$i]->getMessage(), 'warning');
-                }
-                else
-                {
+                } else {
                     $app->enqueueMessage($errors[$i], 'warning');
                 }
             }
@@ -127,8 +118,7 @@ class MessageController extends FormController
             return false;
         }
         // Attempt to save the data.
-        if (!$model->save($data))
-        {
+        if (!$model->save($data)) {
             // Save the data in the session.
             $app->setUserState('com_cgchat.edit.message.data', $data);
             // Redirect back to the edit screen.
@@ -139,8 +129,7 @@ class MessageController extends FormController
 
         $this->setMessage(Text::_('Save sucess!'));
         // Redirect the user and adjust session state based on the chosen task.
-        switch ($task)
-        {
+        switch ($task) {
             case 'apply':
                 // Set the row data in the session.
                 $recordId = $model->getState($this->context . '.id');
@@ -165,5 +154,5 @@ class MessageController extends FormController
                 $this->setRedirect(Route::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
                 break;
         }
-    }                    	
+    }
 }
