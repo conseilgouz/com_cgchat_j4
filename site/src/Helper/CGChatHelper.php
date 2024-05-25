@@ -13,6 +13,7 @@ namespace ConseilGouz\Component\CGChat\Site\Helper;
 defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\Database\DatabaseInterface;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatUser;
@@ -119,7 +120,7 @@ class CGChatHelper
         $params = ComponentHelper::getParams('com_cgchat');
         $urls = $params->get("urls_text", "text");
         if ($urls == "text") {
-            return preg_replace("/(\n| )(http[^ |\n]+)/", '\1<a rel="nofollow" target="_blank" href="\2">'.$params->get("urls_text_personalized", "«link»").'</a>', $text);
+            return preg_replace("/(\n| )(http[^ |\n]+)/", '\1<a rel="nofollow" target="_blank" href="\2">'.$params->get("urls_text_personalized", Text::_('COM_CGCHAT_LINK')).'</a>', $text);
         } elseif ($urls == "link") {
             return preg_replace("/(\n| )(http[^ |\n]+)/", '\1<a rel="nofollow" target="_blank" href="\2">\2</a>', $text);
         }
@@ -143,7 +144,7 @@ class CGChatHelper
 
         if (count($aux) > $show) {
             if ($params->get('icons_window', 'popup') == "no_window") {
-                return ' <a href="javascript:cgchat.show(\'KIDE_mas_iconos\')">'.JText::_('COM_CGCHAT_MAS_ICONOS').'</a>';
+                return ' <a href="javascript:cgchat.show(\'KIDE_mas_iconos\')">'.Text::_('COM_CGCHAT_MAS_ICONOS').'</a>';
             } else {
                 $xy = explode('x', $params->get('icons_popup_size', '500x500'));
                 if (!($xy[0] > 0)) {
@@ -155,10 +156,10 @@ class CGChatHelper
                 if ($params->get('icons_window', 'popup') == 'popup') {
                     $size = ',width='.$xy[0].',height='.$xy[1];
                     $onclick = "cgchat.open_popup_smileys('".$size."');return false;";
-                    return ' <a href="'.Route::_(KIDE_AJAX.'&task=more_smileys').'" onclick="'.$onclick.'">'.JText::_('COM_CGCHAT_MAS_ICONOS').'</a>';
+                    return ' <a href="'.Route::_(KIDE_AJAX.'&task=more_smileys').'" onclick="'.$onclick.'">'.Text::_('COM_CGCHAT_MAS_ICONOS').'</a>';
                 } else {
                     $rel = "{handler: 'iframe', size: {x: ".$xy[0].", y: ".$xy[1]."}, onClose: function() {}}";
-                    return ' <a class="modal" href="'.Route::_(KIDE_AJAX.'&task=more_smileys').'" rel="'.$rel.'">'.JText::_('COM_CGCHAT_MAS_ICONOS').'</a>';
+                    return ' <a class="modal" href="'.Route::_(KIDE_AJAX.'&task=more_smileys').'" rel="'.$rel.'">'.Text::_('COM_CGCHAT_MAS_ICONOS').'</a>';
                 }
             }
         }

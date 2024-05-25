@@ -56,7 +56,7 @@ class CGChatUser
         self::saveNewOptions();
         $app = Factory::getApplication();
         $session = $app->getSession();
-        $user = $app->getUser();
+        $user = $app->getIdentity();
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $params = ComponentHelper::getParams('com_cgchat');
         $this->session = $session->get('session', 0, 'cgchat');

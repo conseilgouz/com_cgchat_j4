@@ -34,7 +34,6 @@ class HtmlView extends BaseHtmlView
         $this->items		= $this->get('Items');
         $this->pagination	= $this->get('Pagination');
         $this->state		= $this->get('State');
-        $input = Factory::getApplication()->input;
 
         if (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
             $this->setLayout('emptystate');
@@ -46,7 +45,6 @@ class HtmlView extends BaseHtmlView
         }
 
         $this->addToolbar();
-        // $this->sidebar = JHtmlSidebar::render();
 
         parent::display($tpl);
     }

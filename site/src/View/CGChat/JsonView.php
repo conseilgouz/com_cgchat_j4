@@ -67,7 +67,7 @@ class JsonView extends BaseHtmlView
     public function borrar()
     {
         $input = Factory::getApplication()->input;
-        $id = $input->get('id');
+        $id = (int)$input->get('id');
         $kuser = CGChatUser::getInstance();
         $db = Factory::getContainer()->get(DatabaseInterface::class);
 
@@ -99,10 +99,10 @@ class JsonView extends BaseHtmlView
         $params = ComponentHelper::getParams('com_cgchat');
         $out = [];
         if ($kuser->row == 1) {
-            $session = $input->get('session');
-            $dias = $input->get('dias');
-            $horas = $input->get('horas');
-            $minutos = $input->get('minutos');
+            $session = (int)$input->get('session');
+            $dias = (int)$input->get('dias');
+            $horas = (int)$input->get('horas');
+            $minutos = (int)$input->get('minutos');
             $t = (($dias * 24 + $horas) * 60 + $minutos) * 60;
             if ($t > 0 && $session) {
                 $t += time();
@@ -157,7 +157,7 @@ class JsonView extends BaseHtmlView
             return $result;
         }
         $db = Factory::getContainer()->get(DatabaseInterface::class);
-        $id = $input->get('id');
+        $id = (int)$input->get('id');
         $params = ComponentHelper::getParams('com_cgchat');
         $query = $db->getQuery(true);
         $query->select('*')
@@ -218,7 +218,7 @@ class JsonView extends BaseHtmlView
         $query = $db->getQuery(true);
         $query->select('*')
         ->from($db->quoteName('#__cgchat'))
-        ->where('id>'.$input->get('id').' AND token!='.$kuser->token)
+        ->where('id>'.(int)$input->get('id').' AND token!='.$kuser->token)
         ->order('id ASC');
         $db->setQuery($query);
         $rows = $db->loadObjectList();
@@ -353,7 +353,7 @@ class JsonView extends BaseHtmlView
     {
         $result = [];
         $input = Factory::getApplication()->input;
-        $session = $input->get('session');
+        $session = $input->get('session', '', 'ALNUM');
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $query = $db->getQuery(true);
         $conditions = array($db->qn('session'). ' = '.$db->q($session));

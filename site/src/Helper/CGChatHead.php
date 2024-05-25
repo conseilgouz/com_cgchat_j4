@@ -39,8 +39,11 @@ class CGChatHead
         $com_id = $app->input->getInt('Itemid');
         /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
         $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-        // $wa->registerAndUseStyle('iso',$comfield.'css/isotope.css');
-        $wa->registerAndUseScript('cgchat', $comfield.'js/base.js');
+        if ((bool)Factory::getConfig()->get('debug')) { // debug mode 
+            Factory::getApplication()->getDocument()->addScript(''.URI::base(true).'/media/com_cgchat/js/base.js'); 
+        } else { 
+            $wa->registerAndUseScript('cgchat', $comfield.'js/base.js');
+        }
         $tpl->include_html("js", "cgchat");
 
         $db->setQuery("SELECT id FROM #__cgchat ORDER BY id DESC LIMIT 1");
