@@ -4,11 +4,15 @@
 		<type>component</type>
 		<version>1.0.1</version>
         <note>
-            <item>Update : 13/05/2023</item>
+            <item>Update : 25/05/2024</item>
         </note>
         <addition>
             <item>Add kill session on exit</item>
         </addition>
+        <fix>
+            <item>Joomla 5.x compatibility</item>
+            <item>Clean up code</item>
+        </fix>
 	</changelog>
 	<changelog>
 		<element>com_cgchat</element>
