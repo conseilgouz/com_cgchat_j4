@@ -175,17 +175,19 @@ var cgchat = {
 		}
 	},
 	save_config: function(param, value) {
-		var config = document.cookie.match(/kide_config=([^;]*)/);
-		if (config && config[1]) {
-			config = decodeURIComponent(config[1]);
-			if (config.search(eval('/'+param+'=/')) > -1)
-				config = config.replace(eval('/'+param+'=[^;]*/'), param+'='+value);
-			else
-				config += ';'+param+'='+value;
+        var config = document.cookie.match(/kide_config=([^;]*)/);
+        if (config && config[1]) {
+            config = decodeURIComponent(config[1]);
+            if (config.search(eval('/'+param+'=/')) > -1)
+                config = config.replace(eval('/'+param+'=[^;]*/'), param+'='+value);
+            else
+                config += ';'+param+'='+value;
 		}
 		else
 			config = param+'='+value;
-		document.cookie = 'kide_config='+encodeURIComponent(config)+'; path=/';
+       	$secure = "";
+        if (window.location.protocol == "https:") $secure="secure;"; 
+        document.cookie = 'kide_config='+encodeURIComponent(config)+'; path=/;samesite=lax;'+$secure;
 	},
 	ahora: function() {
 		var ya = new Date();
@@ -448,7 +450,9 @@ var cgchat = {
 			// JSON : replace @ by / , ~ by <br />, ' by   \\x27
 			urltxt = urltxt.replaceAll('%0A',' ~ ').replaceAll('%3A',':').replaceAll('%2F','@').replaceAll(/'/g, '\\x27');
 			urltxt = urltxt.replaceAll('%3E','').replaceAll('%3C',''); // cleanup other chars < > 
-			url = this.ajax_url+"&task=add&txt="+urltxt+"&"+this.token+'=1&format=json';
+            color = '';
+            if (this.color) color = "&color="+this.color;
+			url = this.ajax_url+"&task=add&txt="+urltxt+"&"+this.token+'=1&format=json'+color;
 			Joomla.request({
 				method : 'POST',
 				url : url,
