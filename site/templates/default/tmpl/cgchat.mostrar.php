@@ -112,7 +112,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 </div>
 	
 <div id="KIDE_rangos" class="KIDE_mostrar" style="display: none">
-	<?php echo Text::_("COM_CGCHAT_RANGOS"); ?>: <br />
+	<?php echo Text::_("COM_CGCHAT_ROWS"); ?>: <br />
 	<img class="KIDE_r KIDE_bg_admin" src="<?php echo $this->include_html("otras", "blank.png"); ?>" alt="" /> &nbsp; <?php echo Text::_("COM_CGCHAT_ADMINISTRADOR"); ?><br />
 	<img class="KIDE_r KIDE_bg_registered" src="<?php echo $this->include_html("otras", "blank.png"); ?>" alt="" /> &nbsp; <?PHP echo Text::_("COM_CGCHAT_REGISTRADO") ;?><br />
 	<img class="KIDE_r KIDE_bg_guest" src="<?php echo $this->include_html("otras", "blank.png"); ?>" alt="" /> &nbsp; <?php echo Text::_("COM_CGCHAT_INVITADO"); ?><br />

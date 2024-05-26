@@ -38,7 +38,7 @@ $rows_alias = array("special", "admin", "registered", "guest");
 					<?php echo HTMLHelper::_('grid.sort', 'COM_CGCHAT_USERID', 'a.userid', $listDirn, $listOrder); ?>
 				</th>
 				<th width="10%">
-					<?php echo HTMLHelper::_('grid.sort', 'COM_CGCHAT_RANGO', 'a.row', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('grid.sort', 'COM_CGCHAT_ROW', 'a.row', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
 					<?php echo HTMLHelper::_('grid.sort', 'COM_CGCHAT_COLOR', 'a.color', $listDirn, $listOrder); ?>
