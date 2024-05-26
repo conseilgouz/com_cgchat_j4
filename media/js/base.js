@@ -116,7 +116,7 @@ var cgchat = {
 	addHTMLInBody: function(html) {
 		this.onLoad(function() {
 			var div = document.createElement('div');
-			div.setAttribute('class', 'KIDE_div');
+			div.setAttribute('class', 'CGCHAT_div');
 			div.innerHTML = html;
 			cgchat.insertAfter(div, document.body.lastChild);
 		}, function(){
@@ -254,10 +254,10 @@ var cgchat = {
 	tiempo: function(t) {
 		t = Number(t);
 		if (t <= 0) {
-			cgchat.show('KIDE_tiempo_p', false);
+			cgchat.show('CGCHAT_tiempo_p', false);
 			return;
 		}
-		cgchat.show('KIDE_tiempo_p', true);
+		cgchat.show('CGCHAT_tiempo_p', true);
 		t -= this.retardo;
 		var time = new Date();
 		time = time.getTime();
@@ -285,7 +285,7 @@ var cgchat = {
 			}
 		}
 		if (!out) out = '1 '+this.msg.lang[8];
-		cgchat.html('KIDE_tiempoK', out); 
+		cgchat.html('CGCHAT_tiempoK', out); 
 	},
 	insertSmile: function(text) {
 		cgchat.insertAtCursor(document.forms.kideForm.txt, text);
@@ -326,8 +326,8 @@ var cgchat = {
 	filter_smilies: function(s) {
 		s = " "+s+" ";
 		for (var i = 0; i < this.smilies.length; i++) {
-			s = s.replace(" "+this.smilies[i][0], '<img alt="' + this.smilies[i][0] + '" title="' + this.smilies[i][0] + '" src="' + this.smilies[i][1] + '" class="KIDE_icono" />');
-			s = s.replace(" "+this.smilies[i][0].toLowerCase(), '<img alt="' + this.smilies[i][0] + '" title="' + this.smilies[i][0] + '" src="' + this.smilies[i][1] + '" class=KIDE_icono" />')
+			s = s.replace(" "+this.smilies[i][0], '<img alt="' + this.smilies[i][0] + '" title="' + this.smilies[i][0] + '" src="' + this.smilies[i][1] + '" class="CGCHAT_icono" />');
+			s = s.replace(" "+this.smilies[i][0].toLowerCase(), '<img alt="' + this.smilies[i][0] + '" title="' + this.smilies[i][0] + '" src="' + this.smilies[i][1] + '" class=CGCHAT_icono" />')
 		}
 		return s;
 	},
@@ -349,28 +349,28 @@ var cgchat = {
 		this.ajax("retardo");
 	},
 	mostrar_iconos: function() { // show icons
-		if (this.$('KIDE_iconos')) {
-			this.save_config('icons_hidden', this.css('KIDE_iconos', 'display') == 'none' ? 0 : 1);
-			this.show('KIDE_iconos');
+		if (this.$('CGCHAT_iconos')) {
+			this.save_config('icons_hidden', this.css('CGCHAT_iconos', 'display') == 'none' ? 0 : 1);
+			this.show('CGCHAT_iconos');
 		}
 	},
 	play_msg_sound: function() {
-		this.html('KIDE_msg_sound', '<audio autoplay style="height:0;width:0"><source src="'+this.sound_src+'" type="audio/mpeg"></audio>');
+		this.html('CGCHAT_msg_sound', '<audio autoplay style="height:0;width:0"><source src="'+this.sound_src+'" type="audio/mpeg"></audio>');
 	},
 	mostrar_opciones: function() { // show options
 		if (!this.mostrar_colores_iniciado) {
 			this.mostrar_colores_iniciado = true;
 			this.show_colors();
 		}
-		this.show('KIDE_opciones');
+		this.show('CGCHAT_opciones');
 	},
 	save_options: function() {
-		this.show('KIDE_opciones', false);
+		this.show('CGCHAT_opciones', false);
 		if (this.color)
 			this.save_config("color", this.color);
 		this.save_config("hidden_session", this.attr('hidden_session', 'checked')?1:0);
-		if (this.form("KIDE_template") != this.template) {
-			this.save_config("template", this.form("KIDE_template"));
+		if (this.form("CGCHAT_template") != this.template) {
+			this.save_config("template", this.form("CGCHAT_template"));
 			location.reload();
 		}
 	},
@@ -387,14 +387,14 @@ var cgchat = {
 	set_color: function(c) {
 		if (this.can_write) {
 			this.color = c;
-			this.css('KIDE_txt', 'color', "#"+c);
+			this.css('CGCHAT_txt', 'color', "#"+c);
 			this.events.lanzar('onSetColor', c);
 		}
 	},
 	borrar: function(id) { // remove
 		if (id > 0) {
-			this.show("KIDE_id_"+id, false);
-			this.show("KIDE_mensaje", false)
+			this.show("CGCHAT_id_"+id, false);
+			this.show("CGCHAT_mensaje", false)
 			this.ajax("borrar", id);
 		}
 		else
@@ -442,10 +442,10 @@ var cgchat = {
 			
 		}
 		else if (tipo == "insertar") { // insert
-			var txt = this.val('KIDE_txt');
-			cgchat.val('KIDE_txt', '');
+			var txt = this.val('CGCHAT_txt');
+			cgchat.val('CGCHAT_txt', '');
 			if (!cgchat.trim(txt)) return;
-			this.visible('KIDE_img_ajax', true);
+			this.visible('CGCHAT_img_ajax', true);
 			urltxt = encodeURIComponent(txt);
 			// JSON : replace @ by / , ~ by <br />, ' by   \\x27
 			urltxt = urltxt.replaceAll('%0A',' ~ ').replaceAll('%3A',':').replaceAll('%2F','@').replaceAll(/'/g, '\\x27');
@@ -474,7 +474,7 @@ var cgchat = {
 						cgchat.tiempo(cgchat.last_time);
 						cgchat.ajustar_scroll();
 					}
-					cgchat.visible('KIDE_img_ajax', false);
+					cgchat.visible('CGCHAT_img_ajax', false);
 					cgchat.events.lanzar('onAjaxInsertar', result); // to check
 				},
 				onError: function(message) {console.log(message.responseText)}
@@ -498,11 +498,14 @@ var cgchat = {
 					var result = JSON.parse(data);
 					if (cgchat.show_sessions) {
 						cgchat.sids = [];
-						cgchat.html('KIDE_usuarios', '');
+						cgchat.html('CGCHAT_usuarios', '');
 						var alias, name;
 						for (var i=result.length-1; i>=0; i--) {
 							row = result[i];
 							var sid = row.session;
+                            if ((row.userid > 0) && (row.userid == cgchat.userid)) {
+                                row.class += ' me';
+                            }
 							cgchat.sids[sid] = {
 									row: row.row,
 									name: row.name,
@@ -553,7 +556,7 @@ var cgchat = {
 				onSuccess: function(data, xhr) {
 					var out = JSON.parse(data);
 					alert(out);
-					cgchat.show('KIDE_'+tmp[1]+'_banear_span', false);
+					cgchat.show('CGCHAT_'+tmp[1]+'_banear_span', false);
 					cgchat.form('kide_'+tmp[1]+'_banear_dias', 0);
 					cgchat.form('kide_'+tmp[1]+'_banear_horas', 0);
 					cgchat.form('kide_'+tmp[1]+'_banear_minutos', 0);

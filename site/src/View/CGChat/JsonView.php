@@ -174,8 +174,8 @@ class JsonView extends BaseHtmlView
                 $one['class'] = CGChatHelper::getRow($u->row, 'CGCHAT_');
                 $one['session'] = $u->session;
                 $one['profile'] = CGChatLinks::getUserLink($u->userid);
-                $row['userid'] = $u->userid;
-                $row['img'] = $u->img;
+                $one['userid'] = $u->userid;
+                $one['img'] = $u->img;
                 $result[] = $one;
             }
         }
@@ -194,8 +194,8 @@ class JsonView extends BaseHtmlView
                 $one['class'] = CGChatHelper::getRow($u->row, 'CGCHAT_');
                 $one['session'] = $u->session;
                 $one['profile'] = "";
-                $row['userid'] = "0";
-                $row['img'] = $u->img;
+                $one['userid'] = "0";
+                $one['img'] = $u->img;
                 $result[] = $one;
             }
         }

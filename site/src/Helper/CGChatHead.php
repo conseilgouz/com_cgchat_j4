@@ -106,8 +106,8 @@ class CGChatHead
 	');
 
         $doc->addStyleDeclaration('
-	'.($kuser->color ? '#KIDE_txt { color: #'.$kuser->color.'; }' : '').'
-	#KIDE_usuarios_td { vertical-align: '.$order.' }');
+	'.($kuser->color ? '#CGCHAT_txt { color: #'.$kuser->color.'; }' : '').'
+	#CGCHAT_usuarios_td { vertical-align: '.$order.' }');
 
         if ($session->get('gmt', null, 'kide') === null) {
             self::addScript('

@@ -12,7 +12,7 @@ use Joomla\CMS\Factory;
 
 ?>
 
-<div class="KIDE_div" id="KIDE_div"<?php if (Factory::getApplication()->getInput()->get('tmpl') == "component") echo ' style="padding:10px"'; ?>>
+<div class="CGCHAT_div" id="CGCHAT_div"<?php if (Factory::getApplication()->getInput()->get('tmpl') == "component") echo ' style="padding:10px"'; ?>>
 	<form id="kideForm" name="kideForm" method="post" onsubmit="return false" action="">
 		<?php 	
 		if ($this->user->can_read) {
@@ -23,7 +23,7 @@ use Joomla\CMS\Factory;
 		$this->display("form");  
 		?>
 	</form>
-	<span id="KIDE_msg_sound"></span>
+	<span id="CGCHAT_msg_sound"></span>
 </div>
 
 <?php $this->display("extra"); ?>
@@ -32,8 +32,8 @@ use Joomla\CMS\Factory;
 <script type="text/javascript">
 <!--
 cgchat.onLoad(function() {
-	cgchat.$('KIDE_msgs').onmousedown = function() { cgchat.scrolling = true };
-	cgchat.$('KIDE_msgs').onmouseup = function() { cgchat.scrolling = false };
+	cgchat.$('CGCHAT_msgs').onmousedown = function() { cgchat.scrolling = true };
+	cgchat.$('CGCHAT_msgs').onmouseup = function() { cgchat.scrolling = false };
 	if (cgchat.$('privado_full_x')) {
 		cgchat.$('privado_full_x').onmousedown = function() { cgchat.scrolling_privados = true };
 		cgchat.$('privado_full_x').onmouseup = function() { cgchat.scrolling_privados = false };
@@ -41,9 +41,9 @@ cgchat.onLoad(function() {
 	<?php if ($this->autoiniciar) : ?>
 	cgchat.iniciar();
 	<?php else : ?>
-	cgchat.$("KIDE_div").onmouseover = function() {
+	cgchat.$("CGCHAT_div").onmouseover = function() {
 		cgchat.iniciar();
-		cgchat.$("KIDE_div").onmouseover = '';
+		cgchat.$("CGCHAT_div").onmouseover = '';
 	};
 	<?php endif; ?>
 	cgchat.tiempo(cgchat.last_time);

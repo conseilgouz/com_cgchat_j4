@@ -23,19 +23,19 @@ elseif ($this->user->row == 3 && !$this->user->can_write) {
 }
 else {
 ?>
-	<div id="KIDE_form">
+	<div id="CGCHAT_form">
 		<br />
 		<div>
 			<?php echo Text::_("COM_CGCHAT_NOMBRE"); ?>: 
-			<em id="KIDE_my_name"><?php echo stripslashes($this->user->name); ?></em>
+			<em id="CGCHAT_my_name"><?php echo stripslashes($this->user->name); ?></em>
 		</div>
-		<div><?php echo JText::_("COM_CGCHAT_MESSAGE"); ?>: <img style="display:none" id="KIDE_img_ajax" alt="<?php echo JText::_("COM_CGCHAT_LOADING"); ?>" src="<?php echo $this->include_html("otras", "ajax.gif"); ?>" class="KIDE_icono"/></div>
-		<textarea <?php echo $this->maxlength; ?> class="<?php echo CGChatHelper::getRow($this->user->row, 'KIDE_dc_'); ?>" id="KIDE_txt" cols="50" rows="4" name="txt" onkeypress="return cgchat.pressedEnter(event, false)" onkeydown="cgchat.check_shift(event, false, false)" onkeyup="cgchat.check_shift(event, true, false)"></textarea>
+		<div><?php echo JText::_("COM_CGCHAT_MESSAGE"); ?>: <img style="display:none" id="CGCHAT_img_ajax" alt="<?php echo JText::_("COM_CGCHAT_LOADING"); ?>" src="<?php echo $this->include_html("otras", "ajax.gif"); ?>" class="CGCHAT_icono"/></div>
+		<textarea <?php echo $this->maxlength; ?> class="<?php echo CGChatHelper::getRow($this->user->row, 'CGCHAT_dc_'); ?>" id="CGCHAT_txt" cols="50" rows="4" name="txt" onkeypress="return cgchat.pressedEnter(event, false)" onkeydown="cgchat.check_shift(event, false, false)" onkeyup="cgchat.check_shift(event, true, false)"></textarea>
 		<?php if ($this->button_send) : ?>
-		<br /><button id="KIDE_button_send" onclick="cgchat.sm()"><?php echo Text::_("COM_CGCHAT_SEND"); ?></button>
+		<br /><button id="CGCHAT_button_send" onclick="cgchat.sm()"><?php echo Text::_("COM_CGCHAT_SEND"); ?></button>
 		<?php endif; ?>
 		<br /><br />
-		<div id="KIDE_iconos" style="display:<?php echo $this->user->icons_hidden ? 'none' : 'block'; ?>">
+		<div id="CGCHAT_iconos" style="display:<?php echo $this->user->icons_hidden ? 'none' : 'block'; ?>">
 			<?php echo CGChatHelper::smilies_html($this->com).CGChatHelper::moreSmileys($this->com); ?>
 		</div>
 	</div>

@@ -65,7 +65,7 @@ class HtmlView extends BaseHtmlView
         foreach ($folders as $f) {
             $s[] = (object)array('text' => $f);
         }
-        $templates = HTMLHelper::_('select.genericlist', $s, 'KIDE_template', 'class="inputbox"', 'text', 'text', $kuser->template);
+        $templates = HTMLHelper::_('select.genericlist', $s, 'CGCHAT_template', 'class="inputbox"', 'text', 'text', $kuser->template);
 
         $tpl->assign('com', 'com');
         $tpl->assign('show_hour', 1);

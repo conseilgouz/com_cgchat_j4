@@ -22,20 +22,20 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 <table width="100%" border="1">
 	<?php foreach ($this->msgs as $r) : ?>
 	<tr>
-		<td class="KIDE_history_td"><?php echo gmdate($this->fecha, $r->time + $this->user->gmt*3600); ?></td>
-		<td class="KIDE_history_td">
+		<td class="CGCHAT_history_td"><?php echo gmdate($this->fecha, $r->time + $this->user->gmt*3600); ?></td>
+		<td class="CGCHAT_history_td">
 			<?php $url = CGChatLinks::getUserLink($r->userid); ?>
 			<?php if ($url) : ?>
 			<a href="<?php echo $url; ?>">
 			<?php endif; ?>
-				<span class="<?php echo CGChatHelper::getRow($r->row, 'KIDE_'); ?>">
+				<span class="<?php echo CGChatHelper::getRow($r->row, 'CGCHAT_'); ?>">
 					<?php echo $r->name; ?>
 				</span>
 			<?php if ($url) : ?>
 			</a>
 			<?php endif; ?>
 		</td>
-		<td <?php echo $r->color ? 'style="color:#'.$r->color.'"' : 'class="'.CGChatHelper::getRow($r->row, 'KIDE_dc_').'"'; ?>>
+		<td <?php echo $r->color ? 'style="color:#'.$r->color.'"' : 'class="'.CGChatHelper::getRow($r->row, 'CGCHAT_dc_').'"'; ?>>
 			<?php echo str_replace('\"','"',$r->text); ?>
 		</td>
 	</tr>
