@@ -30,19 +30,19 @@ class CGChatLinks
     {
         $this->params = ComponentHelper::getParams('com_cgchat');
         $u = URI::getInstance();
-        $perfil = $this->params->get('perfil_link');
-        if ($perfil == 'cb') {
+        $profil = $this->params->get('profil_link');
+        if ($profil == 'cb') {
             $this->setLink('com_comprofiler', 'task=userProfile&user=');
-        } elseif ($perfil == "cbe") {
+        } elseif ($profil == "cbe") {
             $this->setLink("com_cbe", "task=userProfile&user=");
-        } elseif ($perfil == 'cbe25') {
+        } elseif ($profil == 'cbe25') {
             $this->setLink('com_cbe', 'view=profile&userid=');
-        } elseif ($perfil == 'js') {
+        } elseif ($profil == 'js') {
             $this->setLink('com_community', 'view=profile&userid=');
-        } elseif ($perfil == 'kunena') {
+        } elseif ($profil == 'kunena') {
             $this->setLink('com_kunena', 'func=profile&userid=');
             //$this->setLink('com_kunena', 'func=fbprofile&task=showprf&userid='); //old kunena link
-        } elseif ($perfil == 'aup') {
+        } elseif ($profil == 'aup') {
             $this->setLink('com_alphauserpoints', 'view=account&userid=');
         }
 
@@ -130,20 +130,20 @@ class CGChatLinks
         $avatar = '';
         if ($user->id) {
             $db = Factory::getContainer()->get(DatabaseInterface::class);
-            $perfil = $this->params->get('perfil_link');
-            if ($perfil == 'js') {
+            $profil = $this->params->get('profil_link');
+            if ($profil == 'js') {
                 $db->setQuery('SELECT thumb FROM #__community_users WHERE userid='.$user->id);
                 $tmp = $db->loadResult();
                 if ($tmp && strpos($tmp, '/default_thumb.jpg') === false && file_exists(JPATH_ROOT.'/'.$tmp)) {
                     $avatar = URI::root().$tmp;
                 }
-            } elseif ($perfil == 'kunena') {
+            } elseif ($profil == 'kunena') {
                 $db->setQuery('SELECT avatar FROM #__kunena_users WHERE userid='.$user->id);
                 $tmp = $db->loadResult();
                 if ($tmp && file_exists(JPATH_ROOT.'/media/kunena/avatars/'.$tmp)) {
                     $avatar = URI::root().'media/kunena/avatars/'.$tmp;
                 }
-            } elseif ($perfil == 'cb') {
+            } elseif ($profil == 'cb') {
                 $db->setQuery('SELECT avatar FROM #__comprofiler WHERE user_id='.$user->id);
                 $tmp = $db->loadResult();
                 if ($tmp && strpos($tmp, '/default_thumb.jpg') === false) {
@@ -153,7 +153,7 @@ class CGChatLinks
                         $avatar = URI::root().'images/comprofiler/'.$tmp;
                     }
                 }
-            } elseif ($perfil == "cbe") {
+            } elseif ($profil == "cbe") {
                 $db->setQuery("SELECT avatar FROM #__cbe WHERE user_id=".$user->id);
                 $tmp = $db->loadResult();
                 if ($tmp && strpos($tmp, "/default_thumb.jpg") === false) {
@@ -163,19 +163,19 @@ class CGChatLinks
                         $avatar = URI::root()."images/cbe/".$tmp;
                     }
                 }
-            } elseif ($perfil == 'cbe25') {
+            } elseif ($profil == 'cbe25') {
                 $db->setQuery('SELECT thumb FROM #__cbe_users WHERE userid='.$user->id);
                 $tmp = $db->loadResult();
                 if ($tmp && strpos($tmp, '/default_thumb.jpg') === false && file_exists(JPATH_ROOT.'/'.$tmp)) {
                     $avatar = URI::root().$tmp;
                 }
-            } elseif ($perfil == 'aup') {
+            } elseif ($profil == 'aup') {
                 $db->setQuery('SELECT avatar FROM #__alpha_userpoints WHERE userid='.$user->id);
                 $tmp = $db->loadResult();
                 if ($tmp && file_exists(JPATH_ROOT.'/components/com_alphauserpoints/assets/images/avatars/'.$tmp)) {
                     $avatar = URI::root().'components/com_alphauserpoints/assets/images/avatars/'.$tmp;
                 }
-            } elseif ($perfil == 'agora') {
+            } elseif ($profil == 'agora') {
                 $db->setQuery('SELECT id FROM #__agora_users WHERE jos_id='.$user->id.' AND use_avatar = 1');
                 $tmp = $db->loadResult();
                 if ($tmp > 0) {

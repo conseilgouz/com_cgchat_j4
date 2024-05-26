@@ -137,8 +137,8 @@ class JsonView extends BaseHtmlView
                 $gmt =  $kuser->gmt;
                 $blocktime = (string) gmdate($params->get("formato_fecha", "j-n G:i:s"), $t + ($gmt * 3600));
                 $name = CGChatHelper::getUserPerSession($session);
-                $out[] = sprintf(Text::_("COM_CGCHAT_IP_BANEADA"), $session, $name, $blocktime);
-                // str_replace("%s1", $session, str_replace("%s2", gmdate($params->get("formato_fecha", "j-n G:i:s"), $t+ ($gmt *3600)), Text::_("COM_CGCHAT_IP_BANEADA")));
+                $out[] = sprintf(Text::_("COM_CGCHAT_IP_BANNED"), $session, $name, $blocktime);
+                // str_replace("%s1", $session, str_replace("%s2", gmdate($params->get("formato_fecha", "j-n G:i:s"), $t+ ($gmt *3600)), Text::_("COM_CGCHAT_IP_BANNED")));
             }
         }
         return $out;
@@ -273,7 +273,7 @@ class JsonView extends BaseHtmlView
             $query->where('time<"'.time());
             $db->setQuery($query);
             $db->execute();
-            $db->setQuery('INSERT INTO #__cgchat (name,userid,text,time,color,row,session,token,img,url) VALUES ("System", 0, "'.str_replace("%name", $kuser->name, Text::_("COM_CGCHAT_USER_BANEADO")).'", '.time().', "'.$params->get('color_sp', '000').'", 0, 0, 0, "", "")');
+            $db->setQuery('INSERT INTO #__cgchat (name,userid,text,time,color,row,session,token,img,url) VALUES ("System", 0, "'.str_replace("%name", $kuser->name, Text::_("COM_CGCHAT_USER_BANNED")).'", '.time().', "'.$params->get('color_sp', '000').'", 0, 0, 0, "", "")');
             $db->query();
             $result['banned'] = 1;
             return $result;

@@ -42,7 +42,7 @@
 			</field>
 		</fieldset>
 		<fieldset name="integration" label="COM_CGCHAT_LABEL_INTEGRATION">
-			<field label="COM_CGCHAT_PERFIL_LINK" type="list" default="0" name="perfil_link">
+			<field label="COM_CGCHAT_PROFIL_LINK" type="list" default="0" name="profil_link">
 				<option value="0">Gravatar</option>
 				<option value="js">JomSocial</option>
 				<option value="cb">Community Builder</option>
@@ -68,11 +68,11 @@
 			<field label="COM_CGCHAT_ICONS_POPUP_SIZE_T" description="COM_CGCHAT_ICONS_POPUP_SIZE_D" type="text" default="500x500" name="icons_popup_size" />
 			<field label="COM_CGCHAT_AVATAR_MAXHEIGHT" description="COM_CGCHAT_AVATAR_MAXHEIGHT_DESC" type="text" default="30px" name="avatar_maxheight" />
 			<field label="COM_CGCHAT_FORMAT_HOUR" type="text" default="G:i--" name="formato_hora" />
-			<field label="COM_CGCHAT_MENSAJES_A_MOSTRAR" type="text" default="36" name="msgs_limit" />
-			<field label="COM_CGCHAT_MENSAJES_A_GUARDAR" type="text" default="500" name="msgs_saved" />
-			<field label="COM_CGCHAT_MENSAJES_MAX_STRLEN_T" description="COM_CGCHAT_MENSAJES_MAX_STRLEN_D" type="text" default="3000" name="msgs_max_strlen" />
+			<field label="COM_CGCHAT_MESSAGES_A_MOSTRAR" type="text" default="36" name="msgs_limit" />
+			<field label="COM_CGCHAT_MESSAGES_A_GUARDAR" type="text" default="500" name="msgs_saved" />
+			<field label="COM_CGCHAT_MESSAGES_MAX_STRLEN_T" description="COM_CGCHAT_MESSAGES_MAX_STRLEN_D" type="text" default="3000" name="msgs_max_strlen" />
 			<field label="COM_CGCHAT_FORMATO_FECHA" type="text" default="j-n G:i:s" name="formato_fecha" />
-			<field label="COM_CGCHAT_MENSAJES_EN_HISTORIAL" type="text" default="50" name="msgs_history" />
+			<field label="COM_CGCHAT_MESSAGES_EN_HISTORIAL" type="text" default="50" name="msgs_history" />
 			<field label="COM_CGCHAT_PAGINAS_EN_HISTORIAL" type="text" default="5" name="pages_history" />
 			<field label="COM_CGCHAT_SESSION_TIME" type="text" default="200" name="session_time" />
 			<field label="COM_CGCHAT_REFRESH_TIME" type="text" default="6" name="refresh_time" />
@@ -83,7 +83,7 @@
 				<option value="0">COM_CGCHAT_NO</option>
 				<option value="1">COM_CGCHAT_YES</option>
 			</field>
-			<field label="COM_CGCHAT_BANEAR_MINUTOS" type="text" default="5" name="baneado" />
+			<field label="COM_CGCHAT_BAN_MINUTOS" type="text" default="5" name="baneado" />
 			<field label="COM_CGCHAT_REFRESH_TIME_PRIVATES" type="text" default="6" name="refresh_time_privates" />
 		</fieldset>
 		<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">

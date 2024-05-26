@@ -29,7 +29,7 @@ else {
 			<?php echo Text::_("COM_CGCHAT_NOMBRE"); ?>: 
 			<em id="KIDE_my_name"><?php echo stripslashes($this->user->name); ?></em>
 		</div>
-		<div><?php echo JText::_("COM_CGCHAT_MENSAJE"); ?>: <img style="display:none" id="KIDE_img_ajax" alt="<?php echo JText::_("COM_CGCHAT_LOADING"); ?>" src="<?php echo $this->include_html("otras", "ajax.gif"); ?>" class="KIDE_icono"/></div>
+		<div><?php echo JText::_("COM_CGCHAT_MESSAGE"); ?>: <img style="display:none" id="KIDE_img_ajax" alt="<?php echo JText::_("COM_CGCHAT_LOADING"); ?>" src="<?php echo $this->include_html("otras", "ajax.gif"); ?>" class="KIDE_icono"/></div>
 		<textarea <?php echo $this->maxlength; ?> class="<?php echo CGChatHelper::getRow($this->user->row, 'KIDE_dc_'); ?>" id="KIDE_txt" cols="50" rows="4" name="txt" onkeypress="return cgchat.pressedEnter(event, false)" onkeydown="cgchat.check_shift(event, false, false)" onkeyup="cgchat.check_shift(event, true, false)"></textarea>
 		<?php if ($this->button_send) : ?>
 		<br /><button id="KIDE_button_send" onclick="cgchat.sm()"><?php echo Text::_("COM_CGCHAT_SEND"); ?></button>

@@ -93,12 +93,12 @@ class CGChatHead
 
 	cgchat.msg = {
 		espera_por_favor: \''.addslashes(Text::_("COM_CGCHAT_ESPERA_POR_FAVOR")).'\',
-		mensaje_borra: \''.addslashes(Text::_("COM_CGCHAT_MENSAJE_BORRAR")).'\',
+		mensaje_borra: \''.addslashes(Text::_("COM_CGCHAT_MESSAGE_REMOVE")).'\',
 		retardo_frase: \''.addslashes(Text::_("COM_CGCHAT_RETARDO_FRASE")).'\',
 		lang: [\''.addslashes(Text::_("COM_CGCHAT_MONTH")).'\', \''.addslashes(Text::_("COM_CGCHAT_MONTHS")).'\', \''.addslashes(Text::_("COM_CGCHAT_DAY")).'\', \''.addslashes(Text::_("COM_CGCHAT_DAYS")).'\', \''.addslashes(Text::_("COM_CGCHAT_HOUR")).'\', \''.addslashes(Text::_("COM_CGCHAT_HOURS")).'\', \''.addslashes(Text::_("COM_CGCHAT_MINUTE")).'\', \''.addslashes(Text::_("COM_CGCHAT_MINUTES")).'\', \''.addslashes(Text::_("COM_CGCHAT_SECOND")).'\', \''.addslashes(Text::_("COM_CGCHAT_SECONDS")).'\'],
-		privados_usuario_cerrado: \''.addslashes(Text::_("COM_CGCHAT_PRIVADOS_USUARIO_CERRADO")).'\',
-		privados_nuevos: \''.addslashes(str_replace("%url", Route::_("index.php?option=com_cgchat"), Text::_("COM_CGCHAT_PRIVADOS_NUEVOS"))).'\',
-		privados_need_login: \''.addslashes(Text::_('COM_CGCHAT_PRIVADOS_NEED_LOGIN')).'\'
+		privados_usuario_cerrado: \''.addslashes(Text::_("COM_CGCHAT_PRIVATES_USUARIO_CERRADO")).'\',
+		privados_nuevos: \''.addslashes(str_replace("%url", Route::_("index.php?option=com_cgchat"), Text::_("COM_CGCHAT_PRIVATES_NUEVOS"))).'\',
+		privados_need_login: \''.addslashes(Text::_('COM_CGCHAT_PRIVATES_NEED_LOGIN')).'\'
 	};
 	cgchat.smilies = [
 		'.CGChatHelper::smilies_js().'

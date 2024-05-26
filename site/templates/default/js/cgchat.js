@@ -11,14 +11,14 @@ cgchat.mensaje = function(name, uid, id, url, ti, session, row, img) {
 	this.html('KIDE_tiempo_msg', ti);
 	this.attr('KIDE_mensaje_img', 'src', img ? img : this.img_blank);
 	if (url) {
-		this.attr('KIDE_mensaje_perfil', 'href', url);
-		this.show("KIDE_mensaje_perfil_span", true);
+		this.attr('KIDE_mensaje_profil', 'href', url);
+		this.show("KIDE_mensaje_profil_span", true);
 		this.attr('KIDE_mensaje_img_enlace', 'href', url);
 		this.attr('KIDE_mensaje_img_enlace', 'target', '_blank');
 		this.css('KIDE_mensaje_img', 'cursos', 'pointer');
 	}
 	else {
-		this.show("KIDE_mensaje_perfil_span", false);
+		this.show("KIDE_mensaje_profil_span", false);
 		this.attr('KIDE_mensaje_img_enlace', 'href', 'javascript:void(0)');
 		this.attr('KIDE_mensaje_img_enlace', 'target', '');
 		this.css('KIDE_mensaje_img', 'cursor', 'default');
@@ -46,14 +46,14 @@ cgchat.mostrar_usuario = function(uid, name, row, session, url, img) {
 	this.attr('KIDE_usuario_name', 'className', "KIDE_"+this.rows[row]);
 	this.attr('KIDE_usuario_img', 'src', img ? img : this.img_blank);
 	if (url) {
-		this.attr('KIDE_usuario_perfil', 'href', url);
-		this.show("KIDE_usuario_perfil_mostrar", true);
+		this.attr('KIDE_usuario_profil', 'href', url);
+		this.show("KIDE_usuario_profil_mostrar", true);
 		this.attr('KIDE_usuario_img_enlace', 'href', url);
 		this.attr('KIDE_usuario_img_enlace', 'target', '_blank');
 		this.css('KIDE_usuario_img', 'cursor', 'pointer');
 	}
 	else {
-		this.show("KIDE_usuario_perfil_mostrar", false);
+		this.show("KIDE_usuario_profil_mostrar", false);
 		this.attr('KIDE_usuario_img_enlace', 'href', 'javascript:void(0)');
 		this.attr('KIDE_usuario_img_enlace', 'target', '');
 		this.css('KIDE_mensaje_img', 'cursor', 'default');
