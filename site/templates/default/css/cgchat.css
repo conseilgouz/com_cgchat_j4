@@ -55,7 +55,7 @@ a.CGCHAT_cerrar_x {
 	color: black;
 	padding: 3px
 }
-#CGCHAT_usuarios .me {
+#CGCHAT_users .me {
     text-decoration : underline;
 }
 /* PRIVATES */
@@ -172,7 +172,7 @@ a.CGCHAT_cerrar_x {
 	background-color: white;
 	border: 2px inset black
 }
-#CGCHAT_usuarios_top { 
+#CGCHAT_users_top { 
 	float: left;
 	width: 120px;
 	overflow-x: hidden; 
@@ -182,7 +182,7 @@ a.CGCHAT_cerrar_x {
 	padding: 1px;
 	margin-right: 5px;
 }
-#CGCHAT_usuarios { 
+#CGCHAT_users { 
 	padding: 5px
 }
 #CGCHAT_output div {

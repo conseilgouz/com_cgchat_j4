@@ -498,7 +498,7 @@ var cgchat = {
 					var result = JSON.parse(data);
 					if (cgchat.show_sessions) {
 						cgchat.sids = [];
-						cgchat.html('CGCHAT_usuarios', '');
+						cgchat.html('CGCHAT_users', '');
 						var alias, name;
 						for (var i=result.length-1; i>=0; i--) {
 							row = result[i];

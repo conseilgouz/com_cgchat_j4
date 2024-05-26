@@ -21,8 +21,8 @@ $p_tiempo = '
 </p>';
 ?>
 <?php if ($this->show_sessions) : ?>
-<div id="CGCHAT_usuarios_top">
-	<div id="CGCHAT_usuarios"></div>
+<div id="CGCHAT_users_top">
+	<div id="CGCHAT_users"></div>
 </div>
 <?php endif; ?>
 <div id="CGCHAT_msgs">

@@ -45,33 +45,33 @@ cgchat.mensaje = function(name, uid, id, url, ti, session, row, img) {
 	}
 	this.show("CGCHAT_mensaje", true);
 };
-cgchat.mostrar_usuario = function(uid, name, row, session, url, img) {
-	this.html('CGCHAT_usuario_name', name);
-	this.attr('CGCHAT_usuario_name', 'className', "CGCHAT_"+this.rows[row]);
-	this.attr('CGCHAT_usuario_img', 'src', img ? img : this.img_blank);
+cgchat.mostrar_user = function(uid, name, row, session, url, img) {
+	this.html('CGCHAT_user_name', name);
+	this.attr('CGCHAT_user_name', 'className', "CGCHAT_"+this.rows[row]);
+	this.attr('CGCHAT_user_img', 'src', img ? img : this.img_blank);
 	if (url) {
-		this.attr('CGCHAT_usuario_profil', 'href', url);
-		this.show("CGCHAT_usuario_profil_mostrar", true);
-		this.attr('CGCHAT_usuario_img_enlace', 'href', url);
-		this.attr('CGCHAT_usuario_img_enlace', 'target', '_blank');
-		this.css('CGCHAT_usuario_img', 'cursor', 'pointer');
+		this.attr('CGCHAT_user_profil', 'href', url);
+		this.show("CGCHAT_user_profil_mostrar", true);
+		this.attr('CGCHAT_user_img_enlace', 'href', url);
+		this.attr('CGCHAT_user_img_enlace', 'target', '_blank');
+		this.css('CGCHAT_user_img', 'cursor', 'pointer');
 	}
 	else {
-		this.show("CGCHAT_usuario_profil_mostrar", false);
-		this.attr('CGCHAT_usuario_img_enlace', 'href', 'javascript:void(0)');
-		this.attr('CGCHAT_usuario_img_enlace', 'target', '');
+		this.show("CGCHAT_user_profil_mostrar", false);
+		this.attr('CGCHAT_user_img_enlace', 'href', 'javascript:void(0)');
+		this.attr('CGCHAT_user_img_enlace', 'target', '');
 		this.css('CGCHAT_mensaje_img', 'cursor', 'default');
 	}
 	if (this.row == 1) {
-		this.show('CGCHAT_usuario_banear_span', false);
+		this.show('CGCHAT_user_banear_span', false);
 		if (session != '0' && row != 1) {
-			this.show('CGCHAT_usuario_banear_span1', true);
-			this.attr('CGCHAT_usuario_banear', 'onclick', function() { cgchat.banear(session, 'usuario'); }); 
+			this.show('CGCHAT_user_banear_span1', true);
+			this.attr('CGCHAT_user_banear', 'onclick', function() { cgchat.banear(session, 'user'); }); 
 		}
 		else
-			this.show('CGCHAT_usuario_banear_span1', false);
+			this.show('CGCHAT_user_banear_span1', false);
 	}
-	this.show("CGCHAT_usuario", true);
+	this.show("CGCHAT_user", true);
 };
 cgchat.insertNewContent = function(uid,name,text,url,ti,color,row,id,session,yo,hora,img) {
 	if (text.replace(/ /g, "") != "") {
@@ -107,9 +107,9 @@ cgchat.insert_session = function(user) {
 	var div = document.createElement('div');
 	div.setAttribute('style', 'cursor:pointer');
 	div.setAttribute('class', user._class);
-	div.onclick = function() { cgchat.mostrar_usuario(user.id, user.name, user.row, user.session, user.profile, user.img) };
+	div.onclick = function() { cgchat.mostrar_user(user.id, user.name, user.row, user.session, user.profile, user.img) };
 	div.innerHTML = user.name;
-	this.$('CGCHAT_usuarios').insertBefore(div, this.$('CGCHAT_usuarios').firstChild);
+	this.$('CGCHAT_users').insertBefore(div, this.$('CGCHAT_users').firstChild);
 };
 cgchat.change_name_keyup = function(e, t) {
 	if (this.isEnter(e)) {

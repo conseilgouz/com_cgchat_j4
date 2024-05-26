@@ -71,41 +71,41 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 	</table>
 </div>
 
-<div id="CGCHAT_usuario" class="CGCHAT_mostrar" style="display: none">
+<div id="CGCHAT_user" class="CGCHAT_mostrar" style="display: none">
 	<table width="100%">
 		<tr>
 			<td>
-				· <span id="CGCHAT_usuario_name"></span>
-				<span id="CGCHAT_usuario_profil_mostrar">
+				· <span id="CGCHAT_user_name"></span>
+				<span id="CGCHAT_user_profil_mostrar">
 					<br />
-					· <a target="_blank" id="CGCHAT_usuario_profil" href="javascript:void(0)"><?php echo Text::_("COM_CGCHAT_VERPROFIL"); ?></a>
+					· <a target="_blank" id="CGCHAT_user_profil" href="javascript:void(0)"><?php echo Text::_("COM_CGCHAT_VERPROFIL"); ?></a>
 				</span>
 				<?php if ($this->user->row == 1) : ?>
-				<span id="CGCHAT_usuario_banear_span1">
+				<span id="CGCHAT_user_banear_span1">
 					<br />
-					· <a href="javascript:cgchat.show('CGCHAT_usuario_banear_span')"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN"); ?></a>
-					<span id="CGCHAT_usuario_banear_span" style="display: none">
-						<select name="kide_usuario_banear_dias" style="padding:0">
+					· <a href="javascript:cgchat.show('CGCHAT_user_banear_span')"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN"); ?></a>
+					<span id="CGCHAT_user_banear_span" style="display: none">
+						<select name="kide_user_banear_dias" style="padding:0">
 							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_DAYS")); ?></option>
 							<?php echo CGChatHelper::opciones(15); ?>
 						</select>
-						<select name="kide_usuario_banear_horas" style="padding:0">
+						<select name="kide_user_banear_horas" style="padding:0">
 							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_HOURS")); ?></option>
 							<?php echo CGChatHelper::opciones(24); ?>
 						</select>
-						<select name="kide_usuario_banear_minutos" style="padding:0">
+						<select name="kide_user_banear_minutos" style="padding:0">
 							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_MINUTES")); ?></option>
 							<?php echo CGChatHelper::opciones(60); ?>
 						</select>
-						<button style="padding:0" id="CGCHAT_usuario_banear"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN_MIN"); ?></button>
+						<button style="padding:0" id="CGCHAT_user_banear"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN_MIN"); ?></button>
 					</span>
 				</span>
 				<?php endif; ?>
 				<br />
-				<a href="" id="CGCHAT_usuario_img_enlace"><img style="border:0" id="CGCHAT_usuario_img" src="<?php echo $this->include_html('otras', 'blank.png'); ?>" alt="" class="CGCHAT_avatar" /></a>
+				<a href="" id="CGCHAT_user_img_enlace"><img style="border:0" id="CGCHAT_user_img" src="<?php echo $this->include_html('otras', 'blank.png'); ?>" alt="" class="CGCHAT_avatar" /></a>
 			</td>
 			<td style="text-align: right; vertical-align: top">
-				<a href="javascript:cgchat.show('CGCHAT_usuario',false)" class="CGCHAT_cerrar_x">X</a>
+				<a href="javascript:cgchat.show('CGCHAT_user',false)" class="CGCHAT_cerrar_x">X</a>
 			</td>
 		</tr>
 	</table>

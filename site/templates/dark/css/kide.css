@@ -171,7 +171,7 @@ a.CGCHAT_cerrar_x {
 	background-color: black;
 	border: 2px inset white
 }
-#CGCHAT_usuarios_top { 
+#CGCHAT_users_top { 
 	float: left;
 	width: 120px;
 	overflow-x: hidden; 
@@ -181,7 +181,7 @@ a.CGCHAT_cerrar_x {
 	padding: 1px;
 	margin-right: 5px;
 }
-#CGCHAT_usuarios { 
+#CGCHAT_users { 
 	padding: 5px
 }
 #CGCHAT_output div {
