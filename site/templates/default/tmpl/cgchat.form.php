@@ -27,13 +27,8 @@ else {
 		<br />
 		<div>
 			<?php echo Text::_("COM_CGCHAT_NOMBRE"); ?>: 
-			<?php if ($this->user->id) : ?>
 			<em id="KIDE_my_name"><?php echo stripslashes($this->user->name); ?></em>
-			<?php else : ?>
-			<input maxlength="20" size="15" type="text" name="KIDE_nuevo_nick" onkeyup="return cgchat.change_name_keyup(event, this)" onblur="cgchat.change_name(this)" value="<?php echo stripslashes($this->user->name); ?>" />
-			<?php endif; ?>
 		</div>
-		
 		<div><?php echo JText::_("COM_CGCHAT_MENSAJE"); ?>: <img style="display:none" id="KIDE_img_ajax" alt="<?php echo JText::_("COM_CGCHAT_LOADING"); ?>" src="<?php echo $this->include_html("otras", "ajax.gif"); ?>" class="KIDE_icono"/></div>
 		<textarea <?php echo $this->maxlength; ?> class="<?php echo CGChatHelper::getRow($this->user->row, 'KIDE_dc_'); ?>" id="KIDE_txt" cols="50" rows="4" name="txt" onkeypress="return cgchat.pressedEnter(event, false)" onkeydown="cgchat.check_shift(event, false, false)" onkeyup="cgchat.check_shift(event, true, false)"></textarea>
 		<?php if ($this->button_send) : ?>
