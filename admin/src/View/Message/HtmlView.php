@@ -57,7 +57,7 @@ class HtmlView extends BaseHtmlView
         }
         $isNew		= ($this->item->id == 0);
 
-        ToolBarHelper::title($isNew ? Text::_('CG_ISO_ITEM_NEW') : Text::_('CG_ISO_ITEM_EDIT'), '#xs#.png');
+        ToolBarHelper::title($isNew ? Text::_('COM_CGCHAT_NEW_MESSAGE') : Text::_('COM_CGCHAT_EDIT_MESSAGE'), '#xs#.png');
 
         // If not checked out, can save the item.
         if ($canDo->get('core.edit')) {
