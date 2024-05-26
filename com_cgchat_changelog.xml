@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.0.3</version>
+        <note>
+            <item>Update : 26/05/2024</item>
+        </note>
+        <fix>
+            <item>Translate Language files constants to english</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.0.2</version>
         <note>
             <item>Update : 26/05/2024</item>

@@ -2,7 +2,7 @@
 <extension method="upgrade" type="component" version="4.0">
 	<name>CG Chat</name>
 	<creationDate>2024-05-26</creationDate>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<author>ConseilGouz</author>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
 	<description>CG Chatbox</description>
