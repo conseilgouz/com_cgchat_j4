@@ -31,7 +31,7 @@ $saveOrder	= $listOrder == 'a.ordering';
 					<?php echo HTMLHelper::_('grid.sort', 'IP', 'a.ip', $listDirn, $listOrder); ?>
 				</th>
 				<th>
-					<?php echo HTMLHelper::_('grid.sort', 'COM_CGCHAT_SESION', 'a.sesion', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('grid.sort', 'COM_CGCHAT_SESSION', 'a.sesion', $listDirn, $listOrder); ?>
 				</th>
 				<th>
 					<?php echo HTMLHelper::_('grid.sort', 'COM_CGCHAT_BAN_TIME', 'a.time', $listDirn, $listOrder); ?>

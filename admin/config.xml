@@ -74,9 +74,9 @@
 			<field label="COM_CGCHAT_FORMATO_FECHA" type="text" default="j-n G:i:s" name="formato_fecha" />
 			<field label="COM_CGCHAT_MENSAJES_EN_HISTORIAL" type="text" default="50" name="msgs_history" />
 			<field label="COM_CGCHAT_PAGINAS_EN_HISTORIAL" type="text" default="5" name="pages_history" />
-			<field label="COM_CGCHAT_SESION_TIME" type="text" default="200" name="session_time" />
+			<field label="COM_CGCHAT_SESSION_TIME" type="text" default="200" name="session_time" />
 			<field label="COM_CGCHAT_REFRESH_TIME" type="text" default="6" name="refresh_time" />
-			<field label="COM_CGCHAT_REFRESH_TIME_SESION" type="text" default="30" name="refresh_time_sesion" />
+			<field label="COM_CGCHAT_REFRESH_TIME_SESSION" type="text" default="30" name="refresh_time_sesion" />
 		</fieldset>
 		<fieldset name="pro" label="COM_CGCHAT_LABEL_PRO">
 			<field label="COM_CGCHAT_ENABLE_PRIVATES" type="list" default="1" name="enable_privates">
