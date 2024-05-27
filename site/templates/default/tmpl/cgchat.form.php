@@ -13,16 +13,18 @@ use Joomla\CMS\Language\Text;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatLinks;
 
-if ($this->user->row == 4) {
-    echo "<div id='cgchat_banned'><br />".str_replace("%s", gmdate($this->fecha, $this->user->bantime + $this->user->gmt * 3600), Text::_("COM_CGCHAT_BANNED"))."</div>";
-} elseif ($this->user->row == 3 && !$this->user->can_write) {
+if ($this->user->row == 3 && !$this->user->can_write) {
     $l = CGChatLinks::getLoginURL();
     $r = CGChatLinks::getRegisterURL();
     echo "<br />". str_replace("%s1", $r, str_replace("%s2", $l, Text::_("COM_CGCHAT_CHAT_PARA_SOLO_REGISTRADOS")));
 } else {
-    ?>
+    if ($this->user->row == 4) {
+    echo "<div id='cgchat_banned'><br />".str_replace("%s", gmdate($this->fecha, $this->user->bantime + $this->user->gmt * 3600), Text::_("COM_CGCHAT_BANNED"))."</div>";
+    echo '<div id="CGCHAT_form" style="display:none">';
+    } else{ ?>
     <div id='cgchat_banned' style="display:none"><br /><?php echo Text::_("COM_CGCHAT_BANNED");?></div>
 	<div id="CGCHAT_form">
+    <?php } ?>
 		<br />
 		<div>
 			<?php echo Text::_("COM_CGCHAT_NOMBRE"); ?>: 

@@ -591,6 +591,7 @@ var cgchat = {
 					alert(out);
                     cgchat.show('CGCHAT_user',false);
 					cgchat.show('CGCHAT_'+tmp[1]+'_banear_span', false);
+                    cgchat.ajax('sessions');
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
