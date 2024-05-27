@@ -24,7 +24,7 @@ $wa->useScript('keepalive')
 
 ?>
 <script type="text/javascript">
-	function kide_show_img(img) {
+	function chat_show_img(img) {
 		document.getElementById('cgchat_image').src = "<?php echo URI::root().'components/com_cgchat/templates/default/images/icons/'; ?>"+img;
 	}
 </script>

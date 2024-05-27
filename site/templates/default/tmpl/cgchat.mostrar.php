@@ -45,15 +45,15 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 					<br />
 					· <a href="javascript:cgchat.show('CGCHAT_mensaje_banear_span')"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN"); ?></a>
 					<span id="CGCHAT_mensaje_banear_span" style="display: none">
-						<select name="kide_mensaje_banear_dias" style="padding:0">
+						<select name="chat_mensaje_banear_dias" style="padding:0">
 							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_DAYS")); ?></option>
 							<?php echo CGChatHelper::opciones(15); ?>
 						</select>
-						<select name="kide_mensaje_banear_horas" style="padding:0">
+						<select name="chat_mensaje_banear_horas" style="padding:0">
 							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_HOURS")); ?></option>
 							<?php echo CGChatHelper::opciones(24); ?>
 						</select>
-						<select name="kide_mensaje_banear_minutos" style="padding:0">
+						<select name="chat_mensaje_banear_minutos" style="padding:0">
 							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_MINUTES")); ?></option>
 							<?php echo CGChatHelper::opciones(60); ?>
 						</select>
@@ -90,15 +90,15 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 					<br />
 					· <a href="javascript:cgchat.show('CGCHAT_user_banear_span')"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN"); ?></a>
 					<span id="CGCHAT_user_banear_span" style="display: none">
-						<select name="kide_user_banear_dias" style="padding:0">
+						<select name="chat_user_banear_dias" style="padding:0">
 							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_DAYS")); ?></option>
 							<?php echo CGChatHelper::opciones(15); ?>
 						</select>
-						<select name="kide_user_banear_horas" style="padding:0">
+						<select name="chat_user_banear_horas" style="padding:0">
 							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_HOURS")); ?></option>
 							<?php echo CGChatHelper::opciones(24); ?>
 						</select>
-						<select name="kide_user_banear_minutos" style="padding:0">
+						<select name="chat_user_banear_minutos" style="padding:0">
 							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_MINUTES")); ?></option>
 							<?php echo CGChatHelper::opciones(60); ?>
 						</select>

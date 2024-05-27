@@ -175,7 +175,7 @@ var cgchat = {
 		}
 	},
 	save_config: function(param, value) {
-        var config = document.cookie.match(/kide_config=([^;]*)/);
+        var config = document.cookie.match(/chat_config=([^;]*)/);
         if (config && config[1]) {
             config = decodeURIComponent(config[1]);
             if (config.search(eval('/'+param+'=/')) > -1)
@@ -187,7 +187,7 @@ var cgchat = {
 			config = param+'='+value;
        	$secure = "";
         if (window.location.protocol == "https:") $secure="secure;"; 
-        document.cookie = 'kide_config='+encodeURIComponent(config)+'; path=/;samesite=lax;'+$secure;
+        document.cookie = 'chat_config='+encodeURIComponent(config)+'; path=/;samesite=lax;'+$secure;
 	},
 	ahora: function() {
 		var ya = new Date();
@@ -410,9 +410,9 @@ var cgchat = {
 		return window.innerHeight ? window.innerHeight : document.documentElement.clientHeight;
 	},
 	banear: function(sid, tipo) { // banned
-		var dias = this.form('kide_'+tipo+'_banear_dias'); 
-		var horas = this.form('kide_'+tipo+'_banear_horas');
-		var minutos = this.form('kide_'+tipo+'_banear_minutos');
+		var dias = this.form('chat_'+tipo+'_banear_dias'); 
+		var horas = this.form('chat_'+tipo+'_banear_horas');
+		var minutos = this.form('chat_'+tipo+'_banear_minutos');
 		if (dias>0 || horas>0 || minutos>0)
 			this.ajax("banear", [sid, tipo]);
 	},
@@ -563,9 +563,9 @@ var cgchat = {
 				onError: function(message) {console.log(message.responseText)}
 			})
 		} else if (tipo == "banear") { // banned
-			var dias = this.form('kide_'+tmp[1]+'_banear_dias'); // days ?
-			var horas = this.form('kide_'+tmp[1]+'_banear_horas'); // hours ?
-			var minutos = this.form('kide_'+tmp[1]+'_banear_minutos'); // minutes ?
+			var dias = this.form('chat_'+tmp[1]+'_banear_dias'); // days ?
+			var horas = this.form('chat_'+tmp[1]+'_banear_horas'); // hours ?
+			var minutos = this.form('chat_'+tmp[1]+'_banear_minutos'); // minutes ?
 			url = this.ajax_url+"&task=banear"+"&"+"session="+tmp[0]+"&dias="+dias+"&horas="+horas+"&minutos="+minutos+'&'+this.token+"=1&format=json";
 			Joomla.request({
 				method : 'POST',
@@ -574,9 +574,9 @@ var cgchat = {
 					var out = JSON.parse(data);
 					alert(out);
 					cgchat.show('CGCHAT_'+tmp[1]+'_banear_span', false);
-					cgchat.form('kide_'+tmp[1]+'_banear_dias', 0);
-					cgchat.form('kide_'+tmp[1]+'_banear_horas', 0);
-					cgchat.form('kide_'+tmp[1]+'_banear_minutos', 0);
+					cgchat.form('chat_'+tmp[1]+'_banear_dias', 0);
+					cgchat.form('chat_'+tmp[1]+'_banear_horas', 0);
+					cgchat.form('chat_'+tmp[1]+'_banear_minutos', 0);
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
