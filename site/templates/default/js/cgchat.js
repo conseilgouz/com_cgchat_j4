@@ -53,7 +53,7 @@ cgchat.mostrar_user = function(uid, name, row, session, url, img) {
         this.show("CGCHAT_user_to_private", true); // allow private messages
         this.attr('CGCHAT_user_go_to_private', 'href', 'javascript:cgchat.ask_private('+uid+')');
     } else {
-        this.show("CGCHAT_user_to_private", false); // allow private messages
+        this.show("CGCHAT_user_to_private", false); // no private messages
         this.attr('CGCHAT_user_go_to_private', 'href', 'javascript:void(0)');
     }
 	if (url) {

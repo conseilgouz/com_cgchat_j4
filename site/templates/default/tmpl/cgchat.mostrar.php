@@ -40,7 +40,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 					<br />
 					· <a id="CGCHAT_mensaje_ocultar" href="javascript:void(0)"><?php echo Text::_("COM_CGCHAT_HIDE_MESSAGE"); ?></a>
 				</span>
-				<?php if ($this->user->row == 1) : ?>
+				<?php if ($this->user->row == 1) : // admin ?>
 				<span id="CGCHAT_mensaje_banear_span1">
 					<br />
 					· <a href="javascript:cgchat.show('CGCHAT_mensaje_banear_span')"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN"); ?></a>
@@ -80,12 +80,12 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 					<br />
 					· <a target="_blank" id="CGCHAT_user_profil" href="javascript:void(0)"><?php echo Text::_("COM_CGCHAT_VERPROFIL"); ?></a>
 				</span>
-                <?php if ($this->user->row < 3) : ?>
+                <?php if ($this->user->row < 3) : // not visitor/banned ?>
                 <span id="CGCHAT_user_to_private">
                 <a id="CGCHAT_user_go_to_private" href="javascript:void(0)"><?php echo Text::_("COM_CGCHAT_TO_PRIVATE"); ?></a>
                 </span>
                 <?php endif; ?>
-				<?php if ($this->user->row == 1) : ?>
+				<?php if ($this->user->row == 1) : // admin ?>
 				<span id="CGCHAT_user_banear_span1">
 					<br />
 					· <a href="javascript:cgchat.show('CGCHAT_user_banear_span')"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN"); ?></a>
