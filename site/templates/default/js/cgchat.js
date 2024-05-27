@@ -72,6 +72,8 @@ cgchat.mostrar_user = function(uid, name, row, session, url, img) {
         if (session != '0' && row != 1) {
             this.show('CGCHAT_user_banear_span', true);
             this.attr('CGCHAT_user_banear', 'onclick', function() { cgchat.banear(session, 'user'); }); 
+        } else {
+            this.show('CGCHAT_user_banear_span', false);
         }
 	} else {
         this.show('CGCHAT_user_banear_span', false);
