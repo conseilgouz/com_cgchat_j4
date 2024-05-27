@@ -1,6 +1,6 @@
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.0.0
+* Version			: 1.1.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -516,7 +516,7 @@ var cgchat = {
 					if (cgchat.show_sessions) {
 						cgchat.sids = [];
 						cgchat.html('CGCHAT_users', '');
-						var alias, name;
+						var alias, name,hasprivate;
 						for (var i=result.length-1; i>=0; i--) {
 							row = result[i];
 							var sid = row.session;
@@ -535,10 +535,14 @@ var cgchat = {
 							};
                             if ((cgchat.userid > 0) && (row.userid == cgchat.userid ) && row.private ) {
                                 cgchat.save_config("private",row.private );
+                                hasprivate = true;
                             }
 							cgchat.events.lanzar('onAjaxSession', cgchat.getUser(sid));
 							cgchat.insert_session(cgchat.getUser(sid));
 						}
+                        if (!hasprivate) {
+                           cgchat.save_config("private",0 );
+                        }
 					}
 					setTimeout(cgchat.sessions, cgchat.refresh_time_session);
 				},
