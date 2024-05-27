@@ -58,6 +58,9 @@ a.CGCHAT_cerrar_x {
 #CGCHAT_users .me {
     text-decoration : underline;
 }
+#CGCHAT_users .banned {
+    text-decoration : line-through;
+}
 /* PRIVATES */
 
 .CGCHAT_div #privado_full_x {

@@ -129,11 +129,9 @@ class JsonView extends BaseHtmlView
         $params = ComponentHelper::getParams('com_cgchat');
         $out = [];
         if ($kuser->row == 1) {
-            $session = (int)$input->get('session');
-            $dias = (int)$input->get('dias');
-            $horas = (int)$input->get('horas');
-            $minutos = (int)$input->get('minutos');
-            $t = (($dias * 24 + $horas) * 60 + $minutos) * 60;
+            $session = $input->get('session');
+            $minutos = $params->get('baneado', 10);
+            $t = $minutos * 60;
             if ($t > 0 && $session) {
                 $t += time();
                 $query = $db->getQuery(true);
@@ -186,6 +184,7 @@ class JsonView extends BaseHtmlView
         if (!$input->get('show_sessions')) {
             return $result;
         }
+        $kuser = CGChatUser::getInstance();
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $id = (int)$input->get('id');
         $params = ComponentHelper::getParams('com_cgchat');
@@ -200,6 +199,10 @@ class JsonView extends BaseHtmlView
             foreach ($users as $u) {
                 $one = [];
                 $one['row'] =  $u->row;
+                if ($time = CGChatUser::isBanned($u->session)) {
+                    $one['row'] = 4; // banned
+                    $one['banned'] = gmdate($params->get("formato_fecha", "j-n G:i:s"), $time + $kuser->gmt * 3600);
+                }
                 $one['name'] = htmlspecialchars($u->name);
                 $one['class'] = CGChatHelper::getRow($u->row, 'CGCHAT_');
                 $one['session'] = $u->session;
@@ -221,6 +224,10 @@ class JsonView extends BaseHtmlView
             foreach ($users as $u) {
                 $one = [];
                 $one['row'] =  $u->row;
+                if ($time = CGChatUser::isBanned($u->session)) {
+                    $one['row'] = 4; // banned
+                    $one['banned'] = gmdate($params->get("formato_fecha", "j-n G:i:s"), $time + $kuser->gmt * 3600);
+                }
                 $one['name'] = htmlspecialchars($u->name);
                 $one['class'] = CGChatHelper::getRow($u->row, 'CGCHAT_');
                 $one['session'] = $u->session;

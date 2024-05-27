@@ -35,13 +35,12 @@ cgchat.mensaje = function(name, uid, id, url, ti, session, row, img) {
 		this.show('CGCHAT_mensaje_borrar_span', false);
 	this.attr('CGCHAT_mensaje_ocultar', 'href', 'javascript:cgchat.show("CGCHAT_id_'+id+'")');
 	if (this.row == 1) {
-		this.show('CGCHAT_mensaje_banear_span', false);
 		if (session != '0' && row != 1) {
-			this.show('CGCHAT_mensaje_banear_span1', true);
+			this.show('CGCHAT_mensaje_banear_span', true);
 			this.attr('CGCHAT_mensaje_banear', 'onclick', function() { cgchat.banear(session, 'mensaje'); });
 		}
-		else
-			this.show('CGCHAT_mensaje_banear_span1', false);
+    } else {
+        this.show('CGCHAT_mensaje_banear_span', false);
 	}
 	this.show("CGCHAT_mensaje", true);
 };
@@ -69,15 +68,14 @@ cgchat.mostrar_user = function(uid, name, row, session, url, img) {
 		this.attr('CGCHAT_user_img_enlace', 'target', '');
 		this.css('CGCHAT_mensaje_img', 'cursor', 'default');
 	}
-	if (this.row == 1) {
-		this.show('CGCHAT_user_banear_span', false);
-		if (session != '0' && row != 1) {
-			this.show('CGCHAT_user_banear_span1', true);
-			this.attr('CGCHAT_user_banear', 'onclick', function() { cgchat.banear(session, 'user'); }); 
-		}
-		else
-			this.show('CGCHAT_user_banear_span1', false);
-	}
+    if (this.row == 1) {
+        if (session != '0' && row != 1) {
+            this.show('CGCHAT_user_banear_span', true);
+            this.attr('CGCHAT_user_banear', 'onclick', function() { cgchat.banear(session, 'user'); }); 
+        }
+	} else {
+        this.show('CGCHAT_user_banear_span', false);
+    }
 	this.show("CGCHAT_user", true);
 };
 cgchat.insertNewContent = function(uid,name,text,url,ti,color,row,id,session,yo,hora,img) {

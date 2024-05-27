@@ -89,6 +89,7 @@ class CGChatUser
 
         if (!$this->id) {
             $this->row = 3;
+            $session->set('private', 0, 'cgchat');
         } elseif (CGChatHelper::isAdmin()) {
             $this->row = 1;
         } else {
@@ -181,7 +182,16 @@ class CGChatUser
         $session->set('cgchat_ban', $ban);
         return $banned;
     }
-
+    public static function isBanned($session)
+    {
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+        $query = $db->getQuery(true);
+        $query->select($db->qn('time'))
+            ->from('#__cgchat_bans')
+            ->where($db->qn('session') .'='.$db->q($session));
+        $db->setQuery($query);
+        return $db->loadResult();
+    }
     public function banear()
     {
         $this->row = 4;

@@ -89,6 +89,11 @@ class CGChatHelper
         $query->where('time< '.$time);
         $db->setQuery($query);
         $db->execute();
+        if ($kuser->private) { // private discussion : check user still connected
+            if (!self::stillActive($kuser->private)) {
+                $kuser->private = 0;
+            }
+        }
         if ($kuser->can_write) {
             $query = $db->getQuery(true);
             $columns = array('name','userid','row','time','session','img','private','hidden','key');
@@ -100,6 +105,14 @@ class CGChatHelper
             $db->setQuery($query);
             $db->execute();
         }
+    }
+    public static function stillActive($userid) {
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+        $query = $db->getQuery(true);
+        $query->select('s.key')->from('#__cgchat_session s')
+        ->where($db->qn('userid').' = '.$db->q($userid));
+        $db->setQuery($query);
+        return $db->loadResult();
     }
     public static function getUserPerSession($session)
     {

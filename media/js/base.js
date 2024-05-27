@@ -410,11 +410,7 @@ var cgchat = {
 		return window.innerHeight ? window.innerHeight : document.documentElement.clientHeight;
 	},
 	banear: function(sid, tipo) { // banned
-		var dias = this.form('chat_'+tipo+'_banear_dias'); 
-		var horas = this.form('chat_'+tipo+'_banear_horas');
-		var minutos = this.form('chat_'+tipo+'_banear_minutos');
-		if (dias>0 || horas>0 || minutos>0)
-			this.ajax("banear", [sid, tipo]);
+        this.ajax("banear", sid);
 	},
 	ajax: function(tipo, tmp) {
 		var ajax = new XMLHttpRequest();
@@ -492,7 +488,7 @@ var cgchat = {
 				url : url,
 				onSuccess: function(data, xhr) {
 					var out = JSON.parse(data);
-                    cgchat.ajax('sessions');
+//                     cgchat.ajax('sessions');
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
@@ -520,8 +516,11 @@ var cgchat = {
 						for (var i=result.length-1; i>=0; i--) {
 							row = result[i];
 							var sid = row.session;
-                            if ((row.userid > 0) && (row.userid == cgchat.userid)) {
+                            if ((row.userid > 0) && (row.userid == cgchat.userid)) { // myself
                                 row.class += ' me';
+                            }
+                            if (row.row == 4 ) { // banned
+                                row.class += ' banned';
                             }
 							cgchat.sids[sid] = {
 									row: row.row,
@@ -536,6 +535,18 @@ var cgchat = {
                             if ((cgchat.userid > 0) && (row.userid == cgchat.userid ) && row.private ) {
                                 cgchat.save_config("private",row.private );
                                 hasprivate = true;
+                            }
+                            if (row.session == cgchat.session ) {
+                                if ((row.row == 4) && (row.banned)) {
+                                    msg = cgchat.html('cgchat_banned');
+                                    msg = msg.replace('%s',row.banned);
+                                    cgchat.html('cgchat_banned',msg);
+                                    cgchat.show('cgchat_banned',true);
+                                    cgchat.show('CGCHAT_form',false);
+                                } else {
+                                    cgchat.show('cgchat_banned',false);
+                                    cgchat.show('CGCHAT_form',true);
+                                }
                             }
 							cgchat.events.lanzar('onAjaxSession', cgchat.getUser(sid));
 							cgchat.insert_session(cgchat.getUser(sid));
@@ -571,20 +582,15 @@ var cgchat = {
 				onError: function(message) {console.log(message.responseText)}
 			})
 		} else if (tipo == "banear") { // banned
-			var dias = this.form('chat_'+tmp[1]+'_banear_dias'); // days ?
-			var horas = this.form('chat_'+tmp[1]+'_banear_horas'); // hours ?
-			var minutos = this.form('chat_'+tmp[1]+'_banear_minutos'); // minutes ?
-			url = this.ajax_url+"&task=banear"+"&"+"session="+tmp[0]+"&dias="+dias+"&horas="+horas+"&minutos="+minutos+'&'+this.token+"=1&format=json";
+			url = this.ajax_url+"&task=banear"+"&"+"session="+tmp+'&'+this.token+"=1&format=json";
 			Joomla.request({
 				method : 'POST',
 				url : url,
 				onSuccess: function(data, xhr) {
 					var out = JSON.parse(data);
 					alert(out);
+                    cgchat.show('CGCHAT_user',false);
 					cgchat.show('CGCHAT_'+tmp[1]+'_banear_span', false);
-					cgchat.form('chat_'+tmp[1]+'_banear_dias', 0);
-					cgchat.form('chat_'+tmp[1]+'_banear_horas', 0);
-					cgchat.form('chat_'+tmp[1]+'_banear_minutos', 0);
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
