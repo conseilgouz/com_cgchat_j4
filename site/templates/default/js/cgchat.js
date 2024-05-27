@@ -49,6 +49,13 @@ cgchat.mostrar_user = function(uid, name, row, session, url, img) {
 	this.html('CGCHAT_user_name', name);
 	this.attr('CGCHAT_user_name', 'className', "CGCHAT_"+this.rows[row]);
 	this.attr('CGCHAT_user_img', 'src', img ? img : this.img_blank);
+    if ((uid > 0) &&(row < 3) && (uid != this.userid)) {// connected user
+        this.show("CGCHAT_user_to_private", true); // allow private messages
+        this.attr('CGCHAT_user_go_to_private', 'href', 'javascript:cgchat.ask_private('+uid+')');
+    } else {
+        this.show("CGCHAT_user_to_private", false); // allow private messages
+        this.attr('CGCHAT_user_go_to_private', 'href', 'javascript:void(0)');
+    }
 	if (url) {
 		this.attr('CGCHAT_user_profil', 'href', url);
 		this.show("CGCHAT_user_profil_mostrar", true);

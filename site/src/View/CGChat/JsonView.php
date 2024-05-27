@@ -61,6 +61,10 @@ class JsonView extends BaseHtmlView
             echo json_encode(self::kill());
             exit;
         }
+        if ($task == 'askprivate') { // ask to one user to go to private
+            echo json_encode(self::askprivate());
+            exit;
+        }
         exit;
     }
     // Delete
@@ -89,6 +93,32 @@ class JsonView extends BaseHtmlView
             }
         }
         return [];
+    }
+    // ask to private messages
+    public function askprivate()
+    {
+        $out = [];
+        $input = Factory::getApplication()->input;
+        $kuser = CGChatUser::getInstance();
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+        $params = ComponentHelper::getParams('com_cgchat');
+        $user = (int)$input->get('user');
+        $query = $db->getQuery(true);
+        $query->select($db->qn('key'))->from('#__cgchat_session')->where($db->qn('userid').' = '.$db->q($user));
+        $db->setQuery($query);
+        $key = $db->loadResult();
+        if ($key) {
+            $query = $db->getQuery(true);
+            $fields = array($db->qn('private') . ' = ' . $kuser->id);
+            $conditions = array($db->qn('key') . ' = '.$key);
+            $query->update($db->quoteName('#__cgchat_session'))->set($fields)->where($conditions);
+            $db->setQuery($query);
+            $db->execute();
+            $out[] = sprintf(Text::_("COM_CGCHAT_ASKING_PRIVATE"), $user, $kuser->name, $kuser->id);
+        } else {
+            $out[] = sprintf(Text::_("COM_CGCHAT_NO_PRIVATE"), $user, $kuser->name, $kuser->id);
+        }
+        return $out;
     }
     // Ban
     public function banear()
@@ -175,6 +205,7 @@ class JsonView extends BaseHtmlView
                 $one['session'] = $u->session;
                 $one['profile'] = CGChatLinks::getUserLink($u->userid);
                 $one['userid'] = $u->userid;
+                $one['private'] = $u->private;
                 $one['img'] = $u->img;
                 $result[] = $one;
             }
@@ -195,6 +226,7 @@ class JsonView extends BaseHtmlView
                 $one['session'] = $u->session;
                 $one['profile'] = "";
                 $one['userid'] = "0";
+                $one['private'] = "0";
                 $one['img'] = $u->img;
                 $result[] = $one;
             }
@@ -215,9 +247,13 @@ class JsonView extends BaseHtmlView
             $refresh = 2;
         }
         $input = Factory::getApplication()->input;
+        $table = '#__cgchat';
+        if ($input->get('privs') == 1) {
+            $table = '#__cgchat_private';
+        }
         $query = $db->getQuery(true);
         $query->select('*')
-        ->from($db->quoteName('#__cgchat'))
+        ->from($db->quoteName($table))
         ->where('id>'.(int)$input->get('id').' AND token!='.$kuser->token)
         ->order('id ASC');
         $db->setQuery($query);

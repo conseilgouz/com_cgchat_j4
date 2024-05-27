@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `#__cgchat_private` (
 `time` int(12) NOT NULL,
 `session` varchar(32) NOT NULL,
 `key` int(7) NOT NULL,
+`token` int(12) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='private messages';
 CREATE TABLE IF NOT EXISTS `#__cgchat_private_offline` (

@@ -92,11 +92,11 @@ class CGChatHelper
         if ($kuser->can_write) {
             $query = $db->getQuery(true);
             $columns = array('name','userid','row','time','session','img','private','hidden','key');
-            $values = array($db->quote($kuser->name),$kuser->id,$kuser->row,$db->quote(time()),$db->quote($kuser->session),$db->quote($kuser->img),$db->quote($kuser->hidden_session),0,$db->quote($kuser->key));
+            $values = array($db->quote($kuser->name),$kuser->id,$kuser->row,$db->quote(time()),$db->quote($kuser->session),$db->quote($kuser->img),0,$db->quote($kuser->hidden_session),$db->quote($kuser->key));
             $query->insert($db->quoteName('#__cgchat_session'))
                 ->columns($db->quoteName($columns))
                 ->values(implode(',', $values));
-            $query .= " ON DUPLICATE KEY UPDATE name=".$db->quote($kuser->name).",time=".time().",private=".$kuser->hidden_session.",img=".$db->quote($kuser->img);
+            $query .= " ON DUPLICATE KEY UPDATE name=".$db->quote($kuser->name).",time=".time().",hidden=".$kuser->hidden_session.",img=".$db->quote($kuser->img);
             $db->setQuery($query);
             $db->execute();
         }
