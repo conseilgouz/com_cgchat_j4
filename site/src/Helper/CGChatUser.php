@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Chat Component  - Joomla 4.x Component
-* Version			: 1.0.0
+* Version			: 1.1.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -45,6 +45,7 @@ class CGChatUser
     public $token;
     public $img;
     public $hidden_session;
+    public $private;
     public $template;
     public $key;
     public $bantime;
@@ -139,6 +140,7 @@ class CGChatUser
         $this->gmt =  $session->get("gmt", 0, 'cgchat');
         $this->retardo = $session->get("retardo", 0, 'cgchat');
         $this->hidden_session = $session->get("hidden_session", 0, 'cgchat');
+        $this->private = $session->get("private", 0, 'cgchat');
         $this->img = CGChatLinks::getAvatar();
     }
 
@@ -209,9 +211,9 @@ class CGChatUser
     public function saveNewOptions()
     {
         $config = self::getCookieConfigArray();
-        if (!headers_sent()) {
-            setcookie('cgchat_config', '', 0, '/');
-        }
+        //        if (!headers_sent()) {
+        //            setcookie('cgchat_config', '', 0, '/');
+        //        }
         $session = Factory::getApplication()->getSession();
         foreach ($config as $k => $v) {
             $session->set($k, $v, 'cgchat');

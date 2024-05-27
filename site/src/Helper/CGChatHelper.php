@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.0.0
+* Version			: 1.1.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -92,7 +92,7 @@ class CGChatHelper
         if ($kuser->can_write) {
             $query = $db->getQuery(true);
             $columns = array('name','userid','row','time','session','img','private','hidden','key');
-            $values = array($db->quote($kuser->name),$kuser->id,$kuser->row,$db->quote(time()),$db->quote($kuser->session),$db->quote($kuser->img),0,$db->quote($kuser->hidden_session),$db->quote($kuser->key));
+            $values = array($db->quote($kuser->name),$kuser->id,$kuser->row,$db->quote(time()),$db->quote($kuser->session),$db->quote($kuser->img),$db->quote($kuser->private),$db->quote($kuser->hidden_session),$db->quote($kuser->key));
             $query->insert($db->quoteName('#__cgchat_session'))
                 ->columns($db->quoteName($columns))
                 ->values(implode(',', $values));

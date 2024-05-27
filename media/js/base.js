@@ -175,7 +175,7 @@ var cgchat = {
 		}
 	},
 	save_config: function(param, value) {
-        var config = document.cookie.match(/chat_config=([^;]*)/);
+        var config = document.cookie.match(/cgchat_config=([^;]*)/);
         if (config && config[1]) {
             config = decodeURIComponent(config[1]);
             if (config.search(eval('/'+param+'=/')) > -1)
@@ -185,9 +185,9 @@ var cgchat = {
 		}
 		else
 			config = param+'='+value;
-       	$secure = "";
-        if (window.location.protocol == "https:") $secure="secure;"; 
-        document.cookie = 'chat_config='+encodeURIComponent(config)+'; path=/;samesite=lax;'+$secure;
+       	issecure = "";
+        if (window.location.protocol == "https:") issecure="secure;";
+        document.cookie = 'cgchat_config='+encodeURIComponent(config)+'; path=/;samesite=lax;'+issecure;
 	},
 	ahora: function() {
 		var ya = new Date();
@@ -529,9 +529,13 @@ var cgchat = {
 									_class: row.class,
 									session: row.session,
 									profile: row.profile,
+									private: row.private,
 									id: row.userid,
 									img: row.img
 							};
+                            if ((cgchat.userid > 0) && (row.userid == cgchat.userid ) && row.private ) {
+                                cgchat.save_config("private",row.private );
+                            }
 							cgchat.events.lanzar('onAjaxSession', cgchat.getUser(sid));
 							cgchat.insert_session(cgchat.getUser(sid));
 						}
