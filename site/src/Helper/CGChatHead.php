@@ -74,6 +74,7 @@ class CGChatHead
 	cgchat.session = "'.$kuser->session.'";
 	cgchat.row = '.$kuser->row.';
 	cgchat.rows = ["'.implode('","', CGChatHelper::getRows()).'"];
+	cgchat.rowtitles = ["'.implode('","', CGChatHelper::getRowTitles()).'"];
 	cgchat.can_read = '.($kuser->can_read ? 'true' : 'false').';
 	cgchat.can_write = '.($kuser->can_write ? 'true' : 'false').';
 	cgchat.show_avatar = '.($params->get("show_avatar", 0) ? 'true' : 'false').';

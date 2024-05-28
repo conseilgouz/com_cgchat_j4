@@ -374,16 +374,6 @@ var cgchat = {
 			location.reload();
 		}
 	},
-	change_name: function(t) {
-		var v = t.value;
-		v = v.substr(0, 20);
-		if (v && v != this.name) {
-			this.name = v;
-			this.save_config("name", v);
-		}
-		else
-			t.value = this.name;
-	},
 	set_color: function(c) {
 		if (this.can_write) {
 			this.color = c;
@@ -526,6 +516,7 @@ var cgchat = {
 									row: row.row,
 									name: row.name,
 									_class: row.class,
+                                    title:  cgchat.rowtitles[row.row],
 									session: row.session,
 									profile: row.profile,
 									private: row.private,

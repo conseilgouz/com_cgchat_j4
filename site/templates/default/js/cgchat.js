@@ -12,6 +12,7 @@
 cgchat.mensaje = function(name, uid, id, url, ti, session, row, img) {
 	this.html('CGCHAT_mensaje_username', name);
 	this.attr('CGCHAT_mensaje_username', 'className', "CGCHAT_"+cgchat.rows[row]);
+    this.attr('CGCHAT_mensaje_username', 'title', this.rowtitles[row]);
 	this.html('CGCHAT_tiempo_msg', ti);
 	this.attr('CGCHAT_mensaje_img', 'src', img ? img : this.img_blank);
 	if (url) {
@@ -47,6 +48,7 @@ cgchat.mensaje = function(name, uid, id, url, ti, session, row, img) {
 cgchat.mostrar_user = function(uid, name, row, session, url, img) {
 	this.html('CGCHAT_user_name', name);
 	this.attr('CGCHAT_user_name', 'className', "CGCHAT_"+this.rows[row]);
+    this.attr('CGCHAT_user_name', 'title', this.rowtitles[row]);
 	this.attr('CGCHAT_user_img', 'src', img ? img : this.img_blank);
     if ((uid > 0) &&(row < 3) && (uid != this.userid)) {// connected user
         this.show("CGCHAT_user_to_private", true); // allow private messages
@@ -71,6 +73,8 @@ cgchat.mostrar_user = function(uid, name, row, session, url, img) {
     if (this.row == 1) {
         if (session != '0' && row != 1) {
             this.show('CGCHAT_user_banear_span', true);
+            this.attr('CGCHAT_user_banear','checked','');
+            if (row == 4) this.attr('CGCHAT_user_banear','checked','checked');
             this.attr('CGCHAT_user_banear', 'onclick', function() { cgchat.banear(session, 'user'); }); 
         } else {
             this.show('CGCHAT_user_banear_span', false);
@@ -114,17 +118,10 @@ cgchat.insert_session = function(user) {
 	var div = document.createElement('div');
 	div.setAttribute('style', 'cursor:pointer');
 	div.setAttribute('class', user._class);
+	div.setAttribute('title', user.title);
 	div.onclick = function() { cgchat.mostrar_user(user.id, user.name, user.row, user.session, user.profile, user.img) };
 	div.innerHTML = user.name;
 	this.$('CGCHAT_users').insertBefore(div, this.$('CGCHAT_users').firstChild);
-};
-cgchat.change_name_keyup = function(e, t) {
-	if (this.isEnter(e)) {
-		this.change_name(t);
-		this.foco('CGCHAT_txt');
-		return false;
-	}
-	return true;
 };
 cgchat.show_colors = function() {
 	if (!cgchat.html('CGCHAT_opciones_colores')) {

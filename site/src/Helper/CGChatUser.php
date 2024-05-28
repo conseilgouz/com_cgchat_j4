@@ -188,7 +188,8 @@ class CGChatUser
         $query = $db->getQuery(true);
         $query->select($db->qn('time'))
             ->from('#__cgchat_bans')
-            ->where($db->qn('session') .'='.$db->q($session));
+            ->where($db->qn('session') .'='.$db->q($session))
+            ->where($db->qn('time').'>'.time());
         $db->setQuery($query);
         return $db->loadResult();
     }

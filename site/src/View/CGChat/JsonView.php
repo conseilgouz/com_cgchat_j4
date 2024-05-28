@@ -129,7 +129,7 @@ class JsonView extends BaseHtmlView
         $params = ComponentHelper::getParams('com_cgchat');
         $out = [];
         if ($kuser->row == 1) {
-            $session    = $input->get('session');
+            $session    = $input->get('session', '', 'ALNUM');
             $flag       = $input->get('flag');
             if ($flag == "false") {
                 $conditions = array($db->qn('session').' LIKE '.$db->q($session));

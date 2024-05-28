@@ -3,8 +3,8 @@
 * CG Chat Component  - Joomla 4.x Component 
 * Version			: 1.0.0
 * Package			: CG Chat
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From Kide ShoutBox
 */
 defined('_JEXEC') or die(); 
@@ -40,27 +40,6 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 					<br />
 					· <a id="CGCHAT_mensaje_ocultar" href="javascript:void(0)"><?php echo Text::_("COM_CGCHAT_HIDE_MESSAGE"); ?></a>
 				</span>
-				<?php if ($this->user->row == 1) : // admin ?>
-				<span id="CGCHAT_mensaje_banear_span1">
-					<br />
-					· <a href="javascript:cgchat.show('CGCHAT_mensaje_banear_span')"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN"); ?></a>
-					<span id="CGCHAT_mensaje_banear_span" style="display: none">
-						<select name="chat_mensaje_banear_dias" style="padding:0">
-							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_DAYS")); ?></option>
-							<?php echo CGChatHelper::opciones(15); ?>
-						</select>
-						<select name="chat_mensaje_banear_horas" style="padding:0">
-							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_HOURS")); ?></option>
-							<?php echo CGChatHelper::opciones(24); ?>
-						</select>
-						<select name="chat_mensaje_banear_minutos" style="padding:0">
-							<option value="0"><?php echo ucfirst(Text::_("COM_CGCHAT_MINUTES")); ?></option>
-							<?php echo CGChatHelper::opciones(60); ?>
-						</select>
-						<button style="padding:0" id="CGCHAT_mensaje_banear"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN_MIN"); ?></button>
-					</span>
-				</span>
-				<?php endif; ?>
 				<br />
 				<a href="" id="CGCHAT_mensaje_img_enlace"><img style="border:0" id="CGCHAT_mensaje_img" src="<?php echo $this->include_html('otras', 'blank.png'); ?>" alt="" class="CGCHAT_avatar" /></a>
 			</td>

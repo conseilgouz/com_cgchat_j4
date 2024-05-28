@@ -56,6 +56,10 @@ class CGChatHelper
     {
         return array("special", "admin", "registered", "guest", "guest");
     }
+    public static function getRowTitles()
+    {
+        return array(Text::_('COM_CGCHAT_ESPECIAL'),Text::_('COM_CGCHAT_ADMINISTRADOR'),Text::_('COM_CGCHAT_REGISTRADO'), Text::_('COM_CGCHAT_INVITADO'),Text::_('COM_CGCHAT_ISBANNED'));
+    }
     public static function isAdmin($id = 0)
     {
         if ($id) {
