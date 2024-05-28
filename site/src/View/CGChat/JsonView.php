@@ -49,8 +49,8 @@ class JsonView extends BaseHtmlView
             echo json_encode(self::borrar());
             exit;
         }
-        if ($task == 'banear') { // banned
-            echo json_encode(self::banear());
+        if ($task == 'ban') { // banned
+            echo json_encode(self::ban());
             exit;
         }
         if ($task == 'retardo') {
@@ -121,7 +121,7 @@ class JsonView extends BaseHtmlView
         return $out;
     }
     // Ban
-    public function banear()
+    public function ban()
     {
         $input = Factory::getApplication()->input;
         $kuser = CGChatUser::getInstance();
@@ -129,44 +129,54 @@ class JsonView extends BaseHtmlView
         $params = ComponentHelper::getParams('com_cgchat');
         $out = [];
         if ($kuser->row == 1) {
-            $session = $input->get('session');
-            $minutos = $params->get('baneado', 10);
-            $t = $minutos * 60;
-            if ($t > 0 && $session) {
-                $t += time();
+            $session    = $input->get('session');
+            $flag       = $input->get('flag');
+            if ($flag == "false") {
+                $conditions = array($db->qn('session').' LIKE '.$db->q($session));
                 $query = $db->getQuery(true);
-                $conditions = array($db->qn('time'). ' < '.time() );
                 $query->delete($db->quoteName('#__cgchat_bans'));
                 $query->where($conditions);
                 $db->setQuery($query);
                 $db->execute();
-                $query = $db->getQuery(true);
-                $query->select('id')->from('#__cgchat_bans')->where($db->qn('session').' = '.$db->q($session));
-                $db->setQuery($query);
-                $id = $db->loadResult();
-                $query = $db->getQuery(true);
-                if ($id) {
-                    $fields = array($db->qn('time') . ' = ' . $db->q($t));
-                    $conditions = array($db->qn('id') . ' = '.$id);
-                    $query->update($db->quoteName('#__cgchat_bans'))->set($fields)->where($conditions);
-                    $db->setQuery($query);
-                    $db->execute();
-                } else {
-                    $query = $db->getQuery(true);
-                    $columns = array('session','time');
-                    $values = array($db->q($session),$t);
-                    $query
-                    ->insert($db->quoteName('#__cgchat_bans'))
-                    ->columns($db->quoteName($columns))
-                    ->values(implode(',', $values));
-                    $db->setQuery($query);
-                    $db->execute();
-                }
-                $gmt =  $kuser->gmt;
-                $blocktime = (string) gmdate($params->get("formato_fecha", "j-n G:i:s"), $t + ($gmt * 3600));
                 $name = CGChatHelper::getUserPerSession($session);
-                $out[] = sprintf(Text::_("COM_CGCHAT_IP_BANNED"), $session, $name, $blocktime);
-                // str_replace("%s1", $session, str_replace("%s2", gmdate($params->get("formato_fecha", "j-n G:i:s"), $t+ ($gmt *3600)), Text::_("COM_CGCHAT_IP_BANNED")));
+                $out[] = sprintf(Text::_("COM_CGCHAT_IP_UNBANNED"), $session, $name);
+            } else { // ban
+                $minutos = $params->get('baneado', 10);
+                $t = $minutos * 60;
+                if ($t > 0 && $session) {
+                    $t += time();
+                    $query = $db->getQuery(true);
+                    $conditions = array($db->qn('time'). ' < '.time() );
+                    $query->delete($db->quoteName('#__cgchat_bans'));
+                    $query->where($conditions);
+                    $db->setQuery($query);
+                    $db->execute();
+                    $query = $db->getQuery(true);
+                    $query->select('id')->from('#__cgchat_bans')->where($db->qn('session').' = '.$db->q($session));
+                    $db->setQuery($query);
+                    $id = $db->loadResult();
+                    $query = $db->getQuery(true);
+                    if ($id) {
+                        $fields = array($db->qn('time') . ' = ' . $db->q($t));
+                        $conditions = array($db->qn('id') . ' = '.$id);
+                        $query->update($db->quoteName('#__cgchat_bans'))->set($fields)->where($conditions);
+                        $db->setQuery($query);
+                        $db->execute();
+                    } else {
+                        $query = $db->getQuery(true);
+                        $columns = array('session','time');
+                        $values = array($db->q($session),$t);
+                        $query->insert($db->quoteName('#__cgchat_bans'))
+                            ->columns($db->quoteName($columns))
+                            ->values(implode(',', $values));
+                        $db->setQuery($query);
+                        $db->execute();
+                    }
+                    $gmt =  $kuser->gmt;
+                    $blocktime = (string) gmdate($params->get("formato_fecha", "j-n G:i:s"), $t + ($gmt * 3600));
+                    $name = CGChatHelper::getUserPerSession($session);
+                    $out[] = sprintf(Text::_("COM_CGCHAT_IP_BANNED"), $session, $name, $blocktime);
+                }
             }
         }
         return $out;

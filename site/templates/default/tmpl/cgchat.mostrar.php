@@ -81,14 +81,16 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 					· <a target="_blank" id="CGCHAT_user_profil" href="javascript:void(0)"><?php echo Text::_("COM_CGCHAT_VERPROFIL"); ?></a>
 				</span>
                 <?php if ($this->user->row < 3) : // not visitor/banned ?>
-                <span id="CGCHAT_user_to_private">
-                <a id="CGCHAT_user_go_to_private" href="javascript:void(0)"><?php echo Text::_("COM_CGCHAT_TO_PRIVATE"); ?></a>
+                <span id="CGCHAT_user_to_private" class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="CGCHAT_user_go_to_private">
+                    <label class="form-check-label" for="flexSwitchCheckDefault"><?php echo Text::_("COM_CGCHAT_TO_PRIVATE"); ?></label>
                 </span>
                 <?php endif; ?>
 				<?php if ($this->user->row == 1) : // admin ?>
-				<span id="CGCHAT_user_banear_span" style="display:none">
+				<span id="CGCHAT_user_banear_span" class="form-check form-switch" style="display:none">
 					<br />
-                    <button style="padding:0" id="CGCHAT_user_banear"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN_MIN"); ?></button>
+                    <input class="form-check-input" type="checkbox" id="CGCHAT_user_banear">
+                    <label class="form-check-label" for="flexSwitchCheckDefault"><?php echo Text::_("COM_CGCHAT_MESSAGE_BAN_MIN"); ?></label>
 				</span>
 				<?php endif; ?>
 				<br />

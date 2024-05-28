@@ -401,7 +401,7 @@ var cgchat = {
             alert(this.msg.mensaje_borrar);
 	},
     ask_private : function(auser) {
-		this.ajax("ask_private", auser);
+        this.ajax("ask_private", [auser,document.getElementById('CGCHAT_user_to_private').checked]);
     },
 	getDocumentWidth: function() {
 		return window.innerWidth ? window.innerWidth : document.documentElement.clientWidth;
@@ -410,7 +410,7 @@ var cgchat = {
 		return window.innerHeight ? window.innerHeight : document.documentElement.clientHeight;
 	},
 	banear: function(sid, tipo) { // banned
-        this.ajax("banear", sid);
+        this.ajax("ban", [sid,document.getElementById('CGCHAT_user_banear').checked]);
 	},
 	ajax: function(tipo, tmp) {
 		var ajax = new XMLHttpRequest();
@@ -482,7 +482,7 @@ var cgchat = {
         else if (tipo == "privados_insertar") { // private message
         }
         else if (tipo == "ask_private") { // ask private messages authorization to one user 
-			url = this.ajax_url+"&task=askprivate&user="+tmp+"&"+this.token+"=1&format=json";
+			url = this.ajax_url+"&task=askprivate&user="+tmp[0]+"&private="+tmp[1]+"&"+this.token+"=1&format=json";
 			Joomla.request({
 				method : 'POST',
 				url : url,
@@ -581,8 +581,8 @@ var cgchat = {
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
-		} else if (tipo == "banear") { // banned
-			url = this.ajax_url+"&task=banear"+"&"+"session="+tmp+'&'+this.token+"=1&format=json";
+		} else if (tipo == "ban") { // banned
+			url = this.ajax_url+"&task=ban"+"&"+"session="+tmp[0]+'&flag='+tmp[1]+'&'+this.token+"=1&format=json";
 			Joomla.request({
 				method : 'POST',
 				url : url,
@@ -590,7 +590,6 @@ var cgchat = {
 					var out = JSON.parse(data);
 					alert(out);
                     cgchat.show('CGCHAT_user',false);
-					cgchat.show('CGCHAT_'+tmp[1]+'_banear_span', false);
                     cgchat.ajax('sessions');
 				},
 				onError: function(message) {console.log(message.responseText)}
