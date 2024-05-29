@@ -151,6 +151,7 @@ class JsonView extends BaseHtmlView
         $db->setQuery($query);
         $db->execute();
         $out['private'] = $userid;
+        $kuser->private = $userid;
         return $out;
     }
     // close to private messages
@@ -165,7 +166,6 @@ class JsonView extends BaseHtmlView
         $query->select($db->qn('key'))->from('#__cgchat_session')->where($db->qn('userid').' = '.$db->q($kuser->id));
         $db->setQuery($query);
         $key = $db->loadResult();
-
         $query = $db->getQuery(true);
         $fields = array($db->qn('private') . ' = 0');
         $out['userid'] = 0;
@@ -173,10 +173,7 @@ class JsonView extends BaseHtmlView
         $query->update($db->quoteName('#__cgchat_session'))->set($fields)->where($conditions);
         $db->setQuery($query);
         $db->execute();
-
         // close user talking to me
-        $userid = (int)$input->get('user');
-        $kuser = CGChatUser::getInstance();
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $userid = (int)$input->get('user');
         $query = $db->getQuery(true);

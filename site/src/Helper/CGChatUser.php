@@ -187,7 +187,7 @@ class CGChatUser
             $ban[$ban[0]] = time();
             $ban[0]++;
         }
-        $session->set('cgchat_ban', $ban);
+        $session->set('cgchat_ban', $ban, 'cgchat');
         return $banned;
     }
     public static function isBanned($session)

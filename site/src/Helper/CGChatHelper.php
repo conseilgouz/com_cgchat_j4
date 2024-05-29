@@ -105,7 +105,7 @@ class CGChatHelper
         $query->insert($db->quoteName('#__cgchat_session'))
             ->columns($db->quoteName($columns))
             ->values(implode(',', $values));
-        $query .= " ON DUPLICATE KEY UPDATE name=".$db->quote($kuser->name).",time=".time().",hidden=".$kuser->hidden_session.",img=".$db->quote($kuser->img).",private=".$db->quote($kuser->private);
+        $query .= " ON DUPLICATE KEY UPDATE name=".$db->quote($kuser->name).",time=".time().",hidden=".$kuser->hidden_session.",img=".$db->quote($kuser->img);
         $db->setQuery($query);
         $db->execute();
         //  }
