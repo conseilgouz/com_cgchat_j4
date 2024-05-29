@@ -537,6 +537,7 @@ var cgchat = {
                                 } else {
                                     cgchat.show('cgchat_banned',false);
                                     cgchat.show('CGCHAT_form',true);
+                                    cgchat.show('CGCHAT_user',false);
                                 }
                             }
 							cgchat.events.lanzar('onAjaxSession', cgchat.getUser(sid));
@@ -579,7 +580,6 @@ var cgchat = {
 				url : url,
 				onSuccess: function(data, xhr) {
 					var out = JSON.parse(data);
-					alert(out);
                     cgchat.show('CGCHAT_user',false);
                     cgchat.ajax('sessions');
 				},

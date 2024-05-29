@@ -99,17 +99,25 @@ class CGChatUser
             $query = $db->getQuery(true);
             $query->select('*')
             ->from('#__cgchat_bans')
-            ->where("(".$db->qn('session') .'='.$db->q($this->session)." OR ip=".$db->q($_SERVER['REMOTE_ADDR']).") AND time > ".time());
+            ->where('time > '.time());
+            $ip = $_SERVER['REMOTE_ADDR'] ;
+            if (($ip == '::1') || ($ip == '127.0.0.1')) {// localhost : ignore address
+                $query->where($db->qn('session') .'='.$db->q($this->session));
+            } else {
+                $query->where("(".$db->qn('session') .'='.$db->q($this->session)." OR ip=".$db->q($_SERVER['REMOTE_ADDR']).")");
+            }
             $db->setQuery($query);
             $ban = $db->loadObject();
             if ($ban) {
-                if ($ban->ip != $_SERVER['REMOTE_ADDR']) {
-                    $query = $db->getQuery(true);
-                    $fields = array($db->qn('ip') . ' = ' . $db->q($_SERVER['REMOTE_ADDR']));
-                    $conditions = array($db->qn('id') . ' = '.$ban->id);
-                    $query->update($db->quoteName('#__cgchat_bans'))->set($fields)->where($conditions);
-                    $db->setQuery($query);
-                    $result = $db->execute();
+                if (!(($ip == '::1') || ($ip == '127.0.0.1'))) {// localhost : ignore address
+                    if ($ban->ip != $_SERVER['REMOTE_ADDR']) {
+                        $query = $db->getQuery(true);
+                        $fields = array($db->qn('ip') . ' = ' . $db->q($_SERVER['REMOTE_ADDR']));
+                        $conditions = array($db->qn('id') . ' = '.$ban->id);
+                        $query->update($db->quoteName('#__cgchat_bans'))->set($fields)->where($conditions);
+                        $db->setQuery($query);
+                        $result = $db->execute();
+                    }
                 }
                 $time = (int)$ban->time;
                 if ($time > 0) {

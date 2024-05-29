@@ -139,7 +139,7 @@ class JsonView extends BaseHtmlView
                 $db->setQuery($query);
                 $db->execute();
                 $name = CGChatHelper::getUserPerSession($session);
-                $out[] = sprintf(Text::_("COM_CGCHAT_IP_UNBANNED"), $session, $name);
+                $out[] = self::add(sprintf(Text::_("COM_CGCHAT_IP_UNBANNED"), $name),'008000');
             } else { // ban
                 $minutos = $params->get('baneado', 10);
                 $t = $minutos * 60;
@@ -175,7 +175,7 @@ class JsonView extends BaseHtmlView
                     $gmt =  $kuser->gmt;
                     $blocktime = (string) gmdate($params->get("formato_fecha", "j-n G:i:s"), $t + ($gmt * 3600));
                     $name = CGChatHelper::getUserPerSession($session);
-                    $out[] = sprintf(Text::_("COM_CGCHAT_IP_BANNED"), $session, $name, $blocktime);
+                    $out[] = self::add(sprintf(Text::_("COM_CGCHAT_IP_BANNED"), $name, $blocktime),'ff0000');
                 }
             }
         }
@@ -305,7 +305,7 @@ class JsonView extends BaseHtmlView
         }
         return $result;
     }
-    public function add()
+    public function add($message = "",$color = "")
     {
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $params = ComponentHelper::getParams('com_cgchat');
@@ -323,7 +323,7 @@ class JsonView extends BaseHtmlView
         if ($kuser->checkBan()) {
             $query = $db->getQuery(true);
             $query->delete($db->quoteName('#__cgchat_bans'));
-            $query->where('time<"'.time());
+            $query->where($db->qn('time').'<'.time());
             $db->setQuery($query);
             $db->execute();
             $db->setQuery('INSERT INTO #__cgchat (name,userid,text,time,color,row,session,token,img,url) VALUES ("System", 0, "'.str_replace("%name", $kuser->name, Text::_("COM_CGCHAT_USER_BANNED")).'", '.time().', "'.$params->get('color_sp', '000').'", 0, 0, 0, "", "")');
@@ -331,9 +331,13 @@ class JsonView extends BaseHtmlView
             $result['banned'] = 1;
             return $result;
         }
-        $input = Factory::getApplication()->input;
-        $txt = $input->getRaw('txt', '', 'post', 'string');
-        $color = $input->get('color', '', 'post', 'string');
+        if ($message) {
+            $txt = $message;
+        } else {
+            $input = Factory::getApplication()->input;
+            $txt = $input->getRaw('txt', '', 'post', 'string');
+            $color = $input->get('color', '', 'post', 'string');
+        }
         $id = 0;
         if ($txt && $txt != Text::_("COM_CGCHAT_NOSPAM")) {
             $db->setQuery('SHOW TABLE STATUS LIKE "'.$db->getPrefix().'cgchat"');

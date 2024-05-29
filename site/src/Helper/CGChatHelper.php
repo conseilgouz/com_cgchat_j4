@@ -98,19 +98,27 @@ class CGChatHelper
                 $kuser->private = 0;
             }
         }
-        if ($kuser->can_write) {
-            $query = $db->getQuery(true);
-            $columns = array('name','userid','row','time','session','img','private','hidden','key');
-            $values = array($db->quote($kuser->name),$kuser->id,$kuser->row,$db->quote(time()),$db->quote($kuser->session),$db->quote($kuser->img),$db->quote($kuser->private),$db->quote($kuser->hidden_session),$db->quote($kuser->key));
-            $query->insert($db->quoteName('#__cgchat_session'))
-                ->columns($db->quoteName($columns))
-                ->values(implode(',', $values));
-            $query .= " ON DUPLICATE KEY UPDATE name=".$db->quote($kuser->name).",time=".time().",hidden=".$kuser->hidden_session.",img=".$db->quote($kuser->img);
-            $db->setQuery($query);
-            $db->execute();
-        }
+        // if ($kuser->can_write) {
+        $query = $db->getQuery(true);
+        $columns = array('name','userid','row','time','session','img','private','hidden','key');
+        $values = array($db->quote($kuser->name),$kuser->id,$kuser->row,$db->quote(time()),$db->quote($kuser->session),$db->quote($kuser->img),$db->quote($kuser->private),$db->quote($kuser->hidden_session),$db->quote($kuser->key));
+        $query->insert($db->quoteName('#__cgchat_session'))
+            ->columns($db->quoteName($columns))
+            ->values(implode(',', $values));
+        $query .= " ON DUPLICATE KEY UPDATE name=".$db->quote($kuser->name).",time=".time().",hidden=".$kuser->hidden_session.",img=".$db->quote($kuser->img);
+        $db->setQuery($query);
+        $db->execute();
+        //  }
+        // delete obsolete bans
+        $query = $db->getQuery(true);
+        $query->delete($db->quoteName('#__cgchat_bans'));
+        $query->where($db->qn('time').'<'.time());
+        $db->setQuery($query);
+        $db->execute();
+
     }
-    public static function stillActive($userid) {
+    public static function stillActive($userid)
+    {
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $query = $db->getQuery(true);
         $query->select('s.key')->from('#__cgchat_session s')
@@ -122,9 +130,8 @@ class CGChatHelper
     {
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $query = $db->getQuery(true);
-        $query->select('u.name')->from('#__cgchat_session s')
-        ->join('left', '#__users as u on u.id = s.userid')
-        ->where($db->qn('session').' = '.$db->q($session));
+        $query->select('name')->from('#__cgchat_session s')
+        ->where($db->qn('session').' LIKE '.$db->q($session));
         $db->setQuery($query);
         $name = $db->loadResult();
         if (!$name) {
