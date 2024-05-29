@@ -105,7 +105,7 @@ class CGChatHelper
         $query->insert($db->quoteName('#__cgchat_session'))
             ->columns($db->quoteName($columns))
             ->values(implode(',', $values));
-        $query .= " ON DUPLICATE KEY UPDATE name=".$db->quote($kuser->name).",time=".time().",hidden=".$kuser->hidden_session.",img=".$db->quote($kuser->img);
+        $query .= " ON DUPLICATE KEY UPDATE name=".$db->quote($kuser->name).",time=".time().",hidden=".$kuser->hidden_session.",img=".$db->quote($kuser->img).",private=".$db->quote($kuser->private);
         $db->setQuery($query);
         $db->execute();
         //  }
@@ -126,12 +126,34 @@ class CGChatHelper
         $db->setQuery($query);
         return $db->loadResult();
     }
+    public static function checkPrivate($userid)
+    {
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+        $query = $db->getQuery(true);
+        $query->select('s.private')->from('#__cgchat_session s')
+        ->where($db->qn('userid').' = '.$db->q($userid));
+        $db->setQuery($query);
+        return $db->loadResult();
+    }
     public static function getUserPerSession($session)
     {
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $query = $db->getQuery(true);
         $query->select('name')->from('#__cgchat_session s')
         ->where($db->qn('session').' LIKE '.$db->q($session));
+        $db->setQuery($query);
+        $name = $db->loadResult();
+        if (!$name) {
+            $name = "user not found";
+        }
+        return $name;
+    }
+    public static function getUserPerId($id)
+    {
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+        $query = $db->getQuery(true);
+        $query->select('name')->from('#__cgchat_session s')
+        ->where($db->qn('userid').' = '.$db->q($id));
         $db->setQuery($query);
         $name = $db->loadResult();
         if (!$name) {

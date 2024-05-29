@@ -27,7 +27,7 @@ if ($this->user->row == 3 && !$this->user->can_write) {
     <?php } ?>
 		<br />
 		<div>
-			<?php echo Text::_("COM_CGCHAT_NOMBRE"); ?>: 
+			<?php echo Text::_("COM_CGCHAT_NAME"); ?>: 
 			<em id="CGCHAT_my_name"><?php echo stripslashes($this->user->name); ?></em>
 		</div>
 		<div><?php echo Text::_("COM_CGCHAT_MESSAGE"); ?>: <img style="display:none" id="CGCHAT_img_ajax" alt="<?php echo Text::_("COM_CGCHAT_LOADING"); ?>" src="<?php echo $this->include_html("otras", "ajax.gif"); ?>" class="CGCHAT_icono"/></div>

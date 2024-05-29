@@ -45,7 +45,7 @@ cgchat.mensaje = function(name, uid, id, url, ti, session, row, img) {
 	}
 	this.show("CGCHAT_mensaje", true);
 };
-cgchat.mostrar_user = function(uid, name, row, session, url, img) {
+cgchat.mostrar_user = function(uid, name, row, session, url, img, private) {
 	this.html('CGCHAT_user_name', name);
 	this.attr('CGCHAT_user_name', 'className', "CGCHAT_"+this.rows[row]);
     this.attr('CGCHAT_user_name', 'title', this.rowtitles[row]);
@@ -70,8 +70,22 @@ cgchat.mostrar_user = function(uid, name, row, session, url, img) {
 		this.attr('CGCHAT_user_img_enlace', 'target', '');
 		this.css('CGCHAT_mensaje_img', 'cursor', 'default');
 	}
+    if (this.row < 3) {
+        if ((session != '0') && (row != 1) && (row < 3)) {
+            this.show('CGCHAT_user_to_private', true);
+            this.attr('CGCHAT_user_go_to_private','checked','');
+            if (private) { // already in private mode
+                this.attr('CGCHAT_user_go_to_private','checked','checked'); 
+            }
+            this.attr('CGCHAT_user_to_private', 'onclick', function() { cgchat.ask_private(uid); }); 
+        } else {
+            this.show('CGCHAT_user_banear_span', false);
+        }
+	} else {
+        this.show('CGCHAT_user_banear_span', false);
+    }
     if (this.row == 1) {
-        if (session != '0' && row != 1) {
+        if (session != '0' && row != 1 ) {
             this.show('CGCHAT_user_banear_span', true);
             this.attr('CGCHAT_user_banear','checked','');
             if (row == 4) this.attr('CGCHAT_user_banear','checked','checked');
@@ -84,7 +98,7 @@ cgchat.mostrar_user = function(uid, name, row, session, url, img) {
     }
 	this.show("CGCHAT_user", true);
 };
-cgchat.insertNewContent = function(uid,name,text,url,ti,color,row,id,session,yo,hora,img) {
+cgchat.insertNewContent = function(uid,name,text,url,ti,color,row,id,session,yo,hora,img,private) {
 	if (text.replace(/ /g, "") != "") {
 		var c = color.length>0 ? 'style="color:#'+color+'" class="CGCHAT_msg"' : 'class="CGCHAT_dc_'+this.rows[row]+' CGCHAT_msg"';
 		var div = this.$('CGCHAT_msgs');
@@ -119,7 +133,7 @@ cgchat.insert_session = function(user) {
 	div.setAttribute('style', 'cursor:pointer');
 	div.setAttribute('class', user._class);
 	div.setAttribute('title', user.title);
-	div.onclick = function() { cgchat.mostrar_user(user.id, user.name, user.row, user.session, user.profile, user.img) };
+	div.onclick = function() { cgchat.mostrar_user(user.id, user.name, user.row, user.session, user.profile, user.img, user.private) };
 	div.innerHTML = user.name;
 	this.$('CGCHAT_users').insertBefore(div, this.$('CGCHAT_users').firstChild);
 };

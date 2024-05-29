@@ -48,6 +48,8 @@ class CGChatHead
 
         $db->setQuery("SELECT id FROM #__cgchat ORDER BY id DESC LIMIT 1");
         $id = $db->loadResult();
+        $db->setQuery("SELECT id FROM #__cgchat_private ORDER BY id DESC LIMIT 1");
+        $last_private = $db->loadResult();
 
         $refresh_time_session = intval($params->get("refresh_time_session", 30));
         if ($refresh_time_session < 5) {
@@ -85,6 +87,8 @@ class CGChatHead
 	cgchat.refresh_time_privates = '.$params->get('refresh_time_privates', 6).'*1000;
 	
 	cgchat.n = '.(int)$id.';
+    cgchat.p = '.(int)$last_private.';
+    cgchat.private = '.(int)$kuser->private.';
 	cgchat.name = "'.$kuser->name.'";
 	cgchat.userid = '.$kuser->id.';
 	cgchat.sound = '.$kuser->sound.';

@@ -12,7 +12,7 @@ var cgchat = {
 	abort_time_extra: 6000,
 	sids: [],
 	mostrar_colores_iniciado: false, // color
-	privados_encontrado: false, // private chat
+	private: false, // private chat
 	retardo_avisar: false,
 	shift_pressed: false,
 	shift_priv_pressed: false,
@@ -391,7 +391,17 @@ var cgchat = {
             alert(this.msg.mensaje_borrar);
 	},
     ask_private : function(auser) {
-        this.ajax("ask_private", [auser,document.getElementById('CGCHAT_user_to_private').checked]);
+        this.ajax("ask_private", [auser,document.getElementById('CGCHAT_user_go_to_private').checked]);
+    },
+    close_private : function() {
+        this.ajax("close_private");
+    },
+    accept_private : function(abool) {
+        if (!abool) {
+            this.ajax("close_private");
+        } else {
+            this.ajax("accept_private");
+        }
     },
 	getDocumentWidth: function() {
 		return window.innerWidth ? window.innerWidth : document.documentElement.clientWidth;
@@ -405,15 +415,28 @@ var cgchat = {
 	ajax: function(tipo, tmp) {
 		var ajax = new XMLHttpRequest();
 		if (tipo == "reload") {  // reload
-			url = this.ajax_url+"&task=reload&privs="+(cgchat.privados_encontrado?1:0)+"&id="+this.n+"&token="+this.token+'&format=json';
+            lastid = this.n;
+            if (cgchat.private) lastid = this.p;
+			url = this.ajax_url+"&task=reload&privs="+cgchat.private+"&id="+lastid+"&token="+this.token+'&format=json';
 			setTimeout(function(){ajax.abort();}, cgchat.refresh_time+cgchat.abort_time_extra);
 			Joomla.request({
 				method : 'POST',
 				url : url,
 				onSuccess: function(data, xhr) {
 					var result = JSON.parse(data);
+                    if (result.privaterequest) {
+                        user = cgchat.getUserById(result.privaterequest);
+                        cgchat.show('CGCHAT_GOCHAT',true);
+                        msg = cgchat.html('CGCHAT_GOCHAT');
+                        msg = msg.replace('%s',user.name);
+                        cgchat.html('CGCHAT_GOCHAT',msg);
+                    }
 					if (result.last_id) {
-						cgchat.n = result['last_id'];
+                        if (cgchat.private) {
+                            cgchat.p = result['last_id'];
+                        } else {
+                            cgchat.n = result['last_id'];
+                        }
 						cgchat.last_time = result['last_time'];
 						for (var i=0; i < result.messages.length; i++) {
 							row = result.messages[i];
@@ -441,7 +464,7 @@ var cgchat = {
 			urltxt = urltxt.replaceAll('%3E','').replaceAll('%3C',''); // cleanup other chars < > 
             color = '';
             if (this.color) color = "&color="+this.color;
-			url = this.ajax_url+"&task=add&txt="+urltxt+"&"+this.token+'=1&format=json'+color;
+			url = this.ajax_url+"&task=add&privs="+cgchat.private+"&txt="+urltxt+"&"+this.token+'=1&format=json'+color;
 			Joomla.request({
 				method : 'POST',
 				url : url,
@@ -453,12 +476,16 @@ var cgchat = {
 					}
 					if (result.comment) {
 						var texto = result.comment;
-						cgchat.insertNewContent(0,'System',texto,'',cgchat.ahora(),'',0,0,0,false,result.hora,''); 
+						cgchat.insertNewContent(0,'System',texto,'',cgchat.ahora(),'',0,0,0,false,result.hora,'',cgchat.private); 
 					}
 					if (result.txt && result.txt.length) {
 						var texto = result.txt;
-						cgchat.insertNewContent(cgchat.userid,cgchat.name,texto.length?texto:txt,cgchat.url,cgchat.ahora(),cgchat.color,cgchat.row,result.id,cgchat.session,true,result.hora,result.img);
-						cgchat.n = result.id;
+						cgchat.insertNewContent(cgchat.userid,cgchat.name,texto.length?texto:txt,cgchat.url,cgchat.ahora(),cgchat.color,cgchat.row,result.id,cgchat.session,true,result.hora,result.img,cgchat.private);
+                        if (cgchat.private) {
+                            cgchat.p = result.id;
+                        } else {
+                            cgchat.n = result.id;
+                        }
 						cgchat.last_time = result.tiempo;
 						cgchat.tiempo(cgchat.last_time);
 						cgchat.ajustar_scroll();
@@ -469,8 +496,6 @@ var cgchat = {
 				onError: function(message) {console.log(message.responseText)}
 			})
 		}
-        else if (tipo == "privados_insertar") { // private message
-        }
         else if (tipo == "ask_private") { // ask private messages authorization to one user 
 			url = this.ajax_url+"&task=askprivate&user="+tmp[0]+"&private="+tmp[1]+"&"+this.token+"=1&format=json";
 			Joomla.request({
@@ -478,7 +503,35 @@ var cgchat = {
 				url : url,
 				onSuccess: function(data, xhr) {
 					var out = JSON.parse(data);
-//                     cgchat.ajax('sessions');
+                    cgchat.ajax('sessions');
+				},
+				onError: function(message) {console.log(message.responseText)}
+			})
+        }
+        else if (tipo == "close_private") { // close private messages
+			url = this.ajax_url+"&task=closeprivate&user="+cgchat.userid+"&"+this.token+"=1&format=json";
+			Joomla.request({
+				method : 'POST',
+				url : url,
+				onSuccess: function(data, xhr) {
+					var out = JSON.parse(data);
+                    cgchat.private = 0;
+                    cgchat.show('CGCHAT_GOCHAT',false)
+                    cgchat.ajax('sessions');
+				},
+				onError: function(message) {console.log(message.responseText)}
+			})
+        }
+        else if (tipo == "accept_private") { // close private messages
+			url = this.ajax_url+"&task=acceptprivate&user="+cgchat.userid+"&"+this.token+"=1&format=json";
+			Joomla.request({
+				method : 'POST',
+				url : url,
+				onSuccess: function(data, xhr) {
+					var out = JSON.parse(data);
+                    cgchat.private = out.private;
+                    cgchat.show('CGCHAT_GOCHAT',false);
+                    cgchat.ajax('sessions');
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})

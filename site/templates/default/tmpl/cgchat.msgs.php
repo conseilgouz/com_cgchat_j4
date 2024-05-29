@@ -32,7 +32,7 @@ $p_tiempo = '
 		if (!count($this->msgs))
 			echo '<span></span>';
 		else {
-			foreach ($this->msgs as $r) {													
+			foreach ($this->msgs as $r) {
 				$tiempo = gmdate($this->fecha, $r->time + $this->user->gmt*3600);
 				echo '<div id="CGCHAT_id_'.$r->id.'" class="CGCHAT_msg_top">';
 				if ($this->show_hour) echo '<span class="CGCHAT_msg_hour">'.gmdate($this->formato_hora, $r->time + $this->user->gmt*3600).'</span> ';

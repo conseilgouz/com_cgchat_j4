@@ -81,7 +81,20 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 		</tr>
 	</table>
 </div>
-	
+<div id="CGCHAT_GOCHAT" class="CGCHAT_mostrar container" style="display: none">
+    <div class="row">
+        <div class="col">
+        <?php echo Text::_("COM_CGCHAT_ACCEPT_PRIVATE"); ?>
+            <div class="btn-group" role="group" aria-label="<?php echo Text::_("COM_CGCHAT_ACCEPT_PRIVATE"); ?>">
+            <button type="button" class="btn btn-outline-secondary" onclick="cgchat.accept_private(true)"><?php echo Text::_("JYES"); ?></button>
+            <button type="button" class="btn btn-outline-secondary" onclick="cgchat.accept_private(false)"><?php echo Text::_("JNO"); ?></button>
+            </div> 
+        </div>
+        <div class="col" style="text-align: right; vertical-align: top">
+            <a href="javascript:cgchat.close_private()" class="CGCHAT_cerrar_x">X</a>
+        </div>
+    </div>
+</div>	
 <div id="CGCHAT_rangos" class="CGCHAT_mostrar" style="display: none">
 	<?php echo Text::_("COM_CGCHAT_ROWS"); ?>: <br />
 	<img class="CGCHAT_r CGCHAT_bg_admin" src="<?php echo $this->include_html("otras", "blank.png"); ?>" alt="" /> &nbsp; <?php echo Text::_("COM_CGCHAT_ADMINISTRADOR"); ?><br />
