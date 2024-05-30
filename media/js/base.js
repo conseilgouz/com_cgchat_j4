@@ -574,7 +574,7 @@ var cgchat = {
                             if ((row.userid > 0) && (row.userid == cgchat.userid)) { // myself
                                 row.class += ' me';
                             }
-                            if (row.userid == cgchat.private) {
+                            if ((row.userid > 0) && (row.userid == cgchat.private)) {
                                 row.class += ' private';
                             }
                             if (row.row == 4 ) { // banned

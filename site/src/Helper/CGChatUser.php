@@ -127,7 +127,9 @@ class CGChatUser
         }
         if ($user->id) {
             $username = $params->get("username", true) ? $user->username : $user->name;
-        } else {
+        } elseif ($session->get("name", '', 'cgchat')) {
+            $username = $session->get("name", '', 'cgchat');
+        } else { // not defined yet : create a new user name
             $username = Text::_("COM_CGCHAT_INVITADO")."_".rand(1000, 9999);
             $session->set("name", $username, 'cgchat');
         }
