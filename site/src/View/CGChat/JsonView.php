@@ -144,7 +144,6 @@ class JsonView extends BaseHtmlView
     public function acceptprivate()
     {
         $out = [];
-        $input = Factory::getApplication()->input;
         $kuser = CGChatUser::getInstance();
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         // accept private messages from user talking to me
@@ -166,7 +165,6 @@ class JsonView extends BaseHtmlView
     public function closeprivate()
     {
         $out = [];
-        $input = Factory::getApplication()->input;
         $kuser = CGChatUser::getInstance();
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         // close my private
@@ -333,7 +331,9 @@ class JsonView extends BaseHtmlView
         $chkprivate = CGChatHelper::checkPrivate($kuser->id);
         if (!$chkprivate && $kuser->private) {// private request pending
             $result['privaterequest'] = $kuser->private;
-            return $result;
+        }
+        if ($chkprivate && $kuser->private) {// private request pending
+            $result['private'] = $kuser->private;
         }
         $params = ComponentHelper::getParams('com_cgchat');
         $refresh = intval($params->get("refresh_time", 6));
