@@ -24,4 +24,7 @@ $onclick = Factory::getApplication()->getInput()->get('tmpl') == "component" ? '
 	<a title="<?php echo Text::_("COM_CGCHAT_HISTORY"); ?>" href="<?php echo Route::_('index.php?option=com_cgchat&view=history&page=1'); ?>"><img alt="<?php echo Text::_("COM_CGCHAT_HISTORY"); ?>" src="<?php echo $this->include_html("botones", "history.png"); ?>" /></a>
 	<a title="<?php echo Text::_("COM_CGCHAT_FAQ"); ?>" href="javascript:cgchat.show('CGCHAT_rangos')"><img alt="<?php echo Text::_("COM_CGCHAT_FAQ"); ?>" src="<?php echo $this->include_html("botones", "faq.png"); ?>" /></a>
 	<a title="CG Chat"<?php echo $onclick; ?> href="<?php echo $url; ?>"><img alt="CG Chat" src="<?php echo $this->include_html("botones", "chat.png"); ?>" /></a>
+    
+    <span id="private_txt" style="display:none"><?php echo Text::_('COM_CGCHAT_PRIVATE');?></span>
+
 </div>

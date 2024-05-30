@@ -9,6 +9,15 @@
 */
 defined('_JEXEC') or die(); 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+
+$this->p_tiempo = '
+<p id="CGCHAT_tiempo_p" style="display:none">
+	<span id="last">'.Text::_("COM_CGCHAT_LAST").'</span>
+	<span id="CGCHAT_hace">'.Text::_("COM_CGCHAT_HACE").'</span>
+	<span id="CGCHAT_tiempoK"></span>
+	<span id="CGCHAT_ago">'.Text::_("COM_CGCHAT_AGO").'</span>
+</p>';
 
 ?>
 
@@ -17,7 +26,13 @@ use Joomla\CMS\Factory;
 		<?php 	
 		if ($this->user->can_read) {
 			$this->display("botones");
+            if ($this->show_sessions) {
+                echo '<div id="CGCHAT_users_top">';
+                echo '<div id="CGCHAT_users"></div>';
+                echo '</div>';
+            }
 			$this->display("msgs");
+			$this->display("msgs_private");
 			$this->display("mostrar");
 		}
 		$this->display("form");  

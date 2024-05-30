@@ -96,7 +96,7 @@ cgchat.mostrar_user = function(uid, name, row, session, url, img, private, _clas
 	} else {
         this.show('CGCHAT_user_banear_span', false);
     }
-	this.toggle("CGCHAT_user");
+	this.show("CGCHAT_user",true);
 };
 cgchat.insertNewContent = function(uid,name,text,url,ti,color,row,id,session,yo,hora,img,private) {
 	if (text.replace(/ /g, "") != "") {

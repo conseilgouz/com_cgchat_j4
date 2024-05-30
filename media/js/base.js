@@ -345,6 +345,13 @@ var cgchat = {
 		s = s.replace(/"/g, "&quot;");
 		return s;
 	},
+    hasClass: function (el, cl) {
+        var regex = new RegExp('(?:\\s|^)' + cl + '(?:\\s|$)');
+        return !!el.className.match(regex);
+    },
+    addClass: function (el, cl) {
+        el.className += ' ' + cl;
+    },    
     removeClass : function (el, cl) {
         let regex = new RegExp('(?:\\s|^)' + cl + '(?:\\s|$)');
         el.className = el.className.replace(regex, ' ');
@@ -391,23 +398,32 @@ var cgchat = {
 			this.events.fire('onSetColor', c);
 		}
 	},
+    set_private: function(private) {
+        this.private = private;
+        this.show('CGCHAT_GOCHAT',false);
+        this.show('waiting_private',false);
+        let divs = document.querySelectorAll('#CGCHAT_users div');        
+      	for (var i=0; i< divs.length;i++) {
+            attr = divs[i].getAttribute('data');
+            if ((attr == private) && !this.hasClass(divs[i],'private')){
+                this.addClass(divs[i],'private');
+            }
+        }
+        this.show('CGCHAT_msgs',false);
+        this.show('CGCHAT_msgs_private',true);
+        this.show('private_txt',true);
+    },
     reset_private: function() {
         this.private = 0;
-        this.show('CGCHAT_GOCHAT',false);
+        this.show('waiting_private',false);
         let divs = document.querySelectorAll('#CGCHAT_users div');        
       	for (var i=0; i< divs.length;i++) {
              this.removeClass(divs[i],'private');
         }
+        this.show('CGCHAT_msgs',true);
+        this.show('CGCHAT_msgs_private',false);
+        this.show('private_txt',false);
     },
-	borrar: function(id) { // remove
-		if (id > 0) {
-			this.show("CGCHAT_id_"+id, false);
-			this.show("CGCHAT_mensaje", false)
-			this.ajax("borrar", id);
-		}
-		else
-            alert(this.msg.mensaje_borrar);
-	},
     ask_private : function(auser) {
         this.ajax("ask_private", [auser,document.getElementById('CGCHAT_user_go_to_private').checked]);
     },
@@ -421,6 +437,15 @@ var cgchat = {
             this.ajax("accept_private");
         }
     },
+	borrar: function(id) { // remove
+		if (id > 0) {
+			this.show("CGCHAT_id_"+id, false);
+			this.show("CGCHAT_mensaje", false)
+			this.ajax("borrar", id);
+		}
+		else
+            alert(this.msg.mensaje_borrar);
+	},
 	getDocumentWidth: function() {
 		return window.innerWidth ? window.innerWidth : document.documentElement.clientWidth;
 	},
@@ -450,7 +475,7 @@ var cgchat = {
                         cgchat.html('CGCHAT_GOCHAT',msg);
                     }
                     if (result.private) {
-                        cgchat.show('waiting_private',false);
+                        cgchat.set_private(result.private);
                     } else { // not private
                         cgchat.reset_private();
                     }
@@ -552,10 +577,10 @@ var cgchat = {
 				method : 'POST',
 				url : url,
 				onSuccess: function(data, xhr) {
-					var out = JSON.parse(data);
-                    cgchat.private = out.private;
+                    var out = JSON.parse(data);
+                    cgchat.set_private(out.private);                    
                     cgchat.show('waiting_private',true);
-                   cgchat.ajax('sessions');
+                    cgchat.ajax('sessions');
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
@@ -585,7 +610,7 @@ var cgchat = {
 							row = result[i];
 							var sid = row.session;
                             if ((cgchat.userid > 0) && (row.userid == cgchat.userid ) && row.private ) {
-                                cgchat.private = row.private;
+                                cgchat.set_private(row.private);
                                 cgchat.show('waiting_private',false);
                                 stillprivate = true;
                             }

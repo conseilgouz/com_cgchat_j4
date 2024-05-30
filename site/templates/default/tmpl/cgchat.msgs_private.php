@@ -13,7 +13,7 @@ use Joomla\CMS\Language\Text;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 
 ?>
-<div id="CGCHAT_msgs">
+<div id="CGCHAT_msgs_private" style="display:none">
 	<?php echo $this->order=='top'?$this->p_tiempo:$this->copy; ?>
 	<div id="CGCHAT_output">
 		<?php		

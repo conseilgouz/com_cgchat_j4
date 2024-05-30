@@ -63,7 +63,14 @@ a.CGCHAT_cerrar_x {
 }
 /* PRIVATES */
 #CGCHAT_users .private {background : yellow}
-
+#private_txt {
+    float: right;
+    color: red;
+    background: black;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 5px;
+}
 .CGCHAT_div #privado_full_x {
 	border: 2px solid orange;
 	height: 235px;
@@ -73,6 +80,13 @@ a.CGCHAT_cerrar_x {
 }
 .CGCHAT_div div.privados_mini {
 	padding: 5px
+}
+
+#CGCHAT_msgs_private {
+    margin: 0px;
+    height: 355px;
+    overflow: auto;
+    border: 3px solid #F44336;
 }
 #privados_full_title {
 	text-align:center

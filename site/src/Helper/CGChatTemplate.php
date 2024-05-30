@@ -40,6 +40,7 @@ class CGChatTemplate
     public $formato_hora;
     public $templates;
     public $pags;
+    public $p_tiempo;
 
     public function __construct()
     {
