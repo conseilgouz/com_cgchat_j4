@@ -126,14 +126,37 @@ class CGChatHelper
         $db->setQuery($query);
         return $db->loadResult();
     }
-    public static function checkPrivate($userid)
+    public static function getPrivate($userid)
     {
+        if (!$userid) { // not registered => no private
+            return 0;
+        }
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $query = $db->getQuery(true);
-        $query->select('s.private')->from('#__cgchat_session s')
+        $query->select('private')->from('#__cgchat_session')
         ->where($db->qn('userid').' = '.$db->q($userid));
         $db->setQuery($query);
-        return $db->loadResult();
+        $result = $db->loadResult();
+        if ($result) {
+            return $result;
+        }
+        return 0;
+    }
+    public static function checkPrivate($userid)
+    {
+        if (!$userid) { // not registered => no private
+            return 0;
+        }
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+        $query = $db->getQuery(true);
+        $query->select('userid')->from('#__cgchat_session')
+        ->where($db->qn('private').' = '.$db->q($userid));
+        $db->setQuery($query);
+        $result = $db->loadResult();
+        if ($result) {
+            return $result;
+        }
+        return 0;
     }
     public static function getUserPerSession($session)
     {

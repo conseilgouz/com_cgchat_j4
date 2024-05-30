@@ -89,7 +89,6 @@ class CGChatUser
 
         if (!$this->id) {
             $this->row = 3;
-            $session->set('private', 0, 'cgchat');
         } elseif (CGChatHelper::isAdmin()) {
             $this->row = 1;
         } else {
@@ -128,8 +127,6 @@ class CGChatUser
         }
         if ($user->id) {
             $username = $params->get("username", true) ? $user->username : $user->name;
-        } elseif ($session->get("name", '', 'cgchat')) {
-            $username = $session->get("name", '', 'cgchat');
         } else {
             $username = Text::_("COM_CGCHAT_INVITADO")."_".rand(1000, 9999);
             $session->set("name", $username, 'cgchat');
@@ -149,7 +146,7 @@ class CGChatUser
         $this->gmt =  $session->get("gmt", 0, 'cgchat');
         $this->retardo = $session->get("retardo", 0, 'cgchat');
         $this->hidden_session = $session->get("hidden_session", 0, 'cgchat');
-        $this->private = $session->get("private", 0, 'cgchat');
+        $this->private = CGChatHelper::checkPrivate($user->id);
         $this->img = CGChatLinks::getAvatar();
     }
 
@@ -161,7 +158,7 @@ class CGChatUser
         $banned = false;
         $limit = self::BAN_TOTAL + 2;
         $session = Factory::getApplication()->getSession();
-        $ban = $session->get('cgchat_ban', array());
+        $ban = $session->get('cgchat_ban', array(), 'cgchat');
         if (count($ban) != self::BAN_TOTAL + 3 || $ban[self::BAN_TOTAL + 1] != self::BAN_TOTAL || $ban[self::BAN_TOTAL + 2] != self::BAN_TIME) {
             $ban = array();
         }
@@ -217,7 +214,6 @@ class CGChatUser
         $db->setQuery($query);
         $db->execute();
     }
-
     public static function getInstance()
     {
         static $instance;

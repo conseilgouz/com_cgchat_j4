@@ -54,6 +54,12 @@ var cgchat = {
 		else s = this.css(id,"display") == "none" ? "" : "none";
 		this.css(id,"display",s);
 	},
+	toggle: function(id) {
+		if (!this.checkID(id)) return;
+        s = this.css(id,'display');
+        if (this.defined(s) && (s != '')) this.css(id,"display",'');
+        else this.css(id,"display",'none');
+	},
 	visible: function(id,s) {
 		if (!this.checkID(id)) return;
 		if (this.defined(s)) s = s ? "" : "hidden";
@@ -498,12 +504,13 @@ var cgchat = {
 		}
         else if (tipo == "ask_private") { // ask private messages authorization to one user 
 			url = this.ajax_url+"&task=askprivate&user="+tmp[0]+"&private="+tmp[1]+"&"+this.token+"=1&format=json";
+            cgchat.show('waiting_private',true);
 			Joomla.request({
 				method : 'POST',
 				url : url,
 				onSuccess: function(data, xhr) {
 					var out = JSON.parse(data);
-                    cgchat.ajax('sessions');
+                    // cgchat.ajax('sessions');
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
@@ -555,12 +562,20 @@ var cgchat = {
 					if (cgchat.show_sessions) {
 						cgchat.sids = [];
 						cgchat.html('CGCHAT_users', '');
-						var alias, name,hasprivate;
+						var alias, name;
+                        stillprivate = 0;
 						for (var i=result.length-1; i>=0; i--) {
 							row = result[i];
 							var sid = row.session;
+                            if ((cgchat.userid > 0) && (row.userid == cgchat.userid ) && row.private ) {
+                                cgchat.private = row.private;
+                                stillprivate = true;
+                            }
                             if ((row.userid > 0) && (row.userid == cgchat.userid)) { // myself
                                 row.class += ' me';
+                            }
+                            if (row.userid == cgchat.private) {
+                                row.class += ' private';
                             }
                             if (row.row == 4 ) { // banned
                                 row.class += ' banned';
@@ -576,10 +591,6 @@ var cgchat = {
 									id: row.userid,
 									img: row.img
 							};
-                            if ((cgchat.userid > 0) && (row.userid == cgchat.userid ) && row.private ) {
-                                cgchat.save_config("private",row.private );
-                                hasprivate = true;
-                            }
                             if (row.session == cgchat.session ) {
                                 if ((row.row == 4) && (row.banned)) {
                                     msg = cgchat.html('cgchat_banned');
@@ -596,9 +607,7 @@ var cgchat = {
 							cgchat.events.lanzar('onAjaxSession', cgchat.getUser(sid));
 							cgchat.insert_session(cgchat.getUser(sid));
 						}
-                        if (!hasprivate) {
-                           cgchat.save_config("private",0 );
-                        }
+                        if (!stillprivate) cgchat.private = 0;
 					}
 					setTimeout(cgchat.sessions, cgchat.refresh_time_session);
 				},

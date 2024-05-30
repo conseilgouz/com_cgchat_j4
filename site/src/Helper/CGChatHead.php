@@ -114,13 +114,13 @@ class CGChatHead
 	'.($kuser->color ? '#CGCHAT_txt { color: #'.$kuser->color.'; }' : '').'
 	#CGCHAT_users_td { vertical-align: '.$order.' }');
 
-        if ($session->get('gmt', null, 'kide') === null) {
+        if ($session->get('gmt', null, 'cgchat') === null) {
             self::addScript('
 	var tiempo = new Date();
 	cgchat.save_config("gmt", (tiempo.getTimezoneOffset()/60)*-1);');
         }
 
-        if($session->get('retardo', null, 'kide') === null) {
+        if($session->get('retardo', null, 'cgchat') === null) {
             self::addScript('cgchat.ajax("retardo");');
         }
     }

@@ -71,7 +71,7 @@ cgchat.mostrar_user = function(uid, name, row, session, url, img, private) {
 		this.css('CGCHAT_mensaje_img', 'cursor', 'default');
 	}
     if (this.row < 3) {
-        if ((session != '0') && (row != 1) && (row < 3)) {
+        if ((session != '0')  && (row < 3)) {
             this.show('CGCHAT_user_to_private', true);
             this.attr('CGCHAT_user_go_to_private','checked','');
             if (private) { // already in private mode
@@ -96,7 +96,7 @@ cgchat.mostrar_user = function(uid, name, row, session, url, img, private) {
 	} else {
         this.show('CGCHAT_user_banear_span', false);
     }
-	this.show("CGCHAT_user", true);
+	this.toggle("CGCHAT_user");
 };
 cgchat.insertNewContent = function(uid,name,text,url,ti,color,row,id,session,yo,hora,img,private) {
 	if (text.replace(/ /g, "") != "") {
