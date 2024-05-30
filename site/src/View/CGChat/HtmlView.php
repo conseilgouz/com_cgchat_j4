@@ -59,7 +59,12 @@ class HtmlView extends BaseHtmlView
         if ($order == 'bottom') {
             krsort($msgs);
         }
-        $db->setQuery("SELECT * FROM #__cgchat_private ORDER BY id DESC LIMIT ".$params->get("msgs_limit", 36));
+        $query = $db->getQuery(true);
+        $query->select('*')->from('#__cgchat_private')
+        ->where($db->qn('fid').' = '.$db->q($kuser->id).' OR '.$db->qn('to').' = '.$db->q($kuser->name))
+        ->order('id DESC')
+        ->setLimit($params->get("msgs_limit", 36));
+        $db->setQuery($query);
         $msgs_private = $db->loadObjectList();
         if ($order == 'bottom') {
             krsort($msgs_private);
