@@ -488,10 +488,10 @@ var cgchat = {
 						cgchat.last_time = result['last_time'];
 						for (var i=0; i < result.messages.length; i++) {
 							row = result.messages[i];
-							cgchat.insertNewContent(row.uid,row.name,row.text,row.url,row.date,row.color,row.row,row.id,row.session,row.session==cgchat.session,row.hora,row.img);
+							cgchat.insertNewContent(row.uid,row.name,row.text,row.url,row.date,row.color,row.row,row.id,row.session,row.session==cgchat.session,row.hora,row.img,cgchat.private);
 						}
 					}
-					cgchat.ajustar_scroll();
+					cgchat.ajustar_scroll(cgchat.private);
 					cgchat.events.fire('onAjaxReload', result);
 					cgchat.tiempo(cgchat.last_time);
 					setTimeout(cgchat.reload, cgchat.refresh_time);
@@ -536,7 +536,7 @@ var cgchat = {
                         }
 						cgchat.last_time = result.tiempo;
 						cgchat.tiempo(cgchat.last_time);
-						cgchat.ajustar_scroll();
+						cgchat.ajustar_scroll(cgchat.private);
 					}
 					cgchat.visible('CGCHAT_img_ajax', false);
 					cgchat.events.fire('onAjaxInsertar', result); // to check

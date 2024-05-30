@@ -59,6 +59,11 @@ class HtmlView extends BaseHtmlView
         if ($order == 'bottom') {
             krsort($msgs);
         }
+        $db->setQuery("SELECT * FROM #__cgchat_private ORDER BY id DESC LIMIT ".$params->get("msgs_limit", 36));
+        $msgs_private = $db->loadObjectList();
+        if ($order == 'bottom') {
+            krsort($msgs_private);
+        }
 
         $folders = Folder::folders(JPATH_ROOT.'/components/com_cgchat/templates');
         $s = array();
@@ -81,6 +86,7 @@ class HtmlView extends BaseHtmlView
         $tpl->assignRef('order', $order);
         $tpl->assignRef('copy', $copy);
         $tpl->assignRef('msgs', $msgs);
+        $tpl->assignRef('msgs_private', $msgs_private);
         $tpl->assignRef('user', $kuser);
         $tpl->assignRef('fecha', $fecha);
         $tpl->assignRef('formato_hora', $formato_hora);

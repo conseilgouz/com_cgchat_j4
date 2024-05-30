@@ -104,6 +104,7 @@ cgchat.insertNewContent = function(uid,name,text,url,ti,color,row,id,session,yo,
 		var div = this.$('CGCHAT_msgs');
 		var nodo = document.createElement('div');
 		var insertO = this.$("CGCHAT_output");
+        if (private) insertO = this.$('CGCHAT_output_private');
 		var s_hora;
 		nodo.setAttribute('id', 'CGCHAT_id_'+id);
 		nodo.setAttribute('class', 'CGCHAT_msg_top');
@@ -125,7 +126,7 @@ cgchat.insertNewContent = function(uid,name,text,url,ti,color,row,id,session,yo,
 			insertO.insertBefore(nodo, insertO.firstChild);
 		if (!yo && this.sound == 1) 
 			this.play_msg_sound();
-		this.ajustar_scroll();
+		this.ajustar_scroll(private);
 	}
 };
 cgchat.insert_session = function(user) {
@@ -150,10 +151,17 @@ cgchat.show_colors = function() {
 		this.html('CGCHAT_opciones_colores', out)
 	}
 };
-cgchat.ajustar_scroll = function() {
+cgchat.ajustar_scroll = function(private) {
 	if (cgchat.scrolling) return;
-	if (cgchat.order == 'bottom')
-		cgchat.attr('CGCHAT_msgs', 'scrollTop', cgchat.attr('CGCHAT_msgs', 'scrollHeight'));
-	else
-		cgchat.attr('CGCHAT_msgs', 'scrollTop', 0);
+    if (private) {
+        if (cgchat.order == 'bottom')
+            cgchat.attr('CGCHAT_msgs_private', 'scrollTop', cgchat.attr('CGCHAT_msgs_private', 'scrollHeight'));
+        else
+            cgchat.attr('CGCHAT_msgs_private', 'scrollTop', 0);
+    } else {
+        if (cgchat.order == 'bottom')
+            cgchat.attr('CGCHAT_msgs', 'scrollTop', cgchat.attr('CGCHAT_msgs', 'scrollHeight'));
+        else
+            cgchat.attr('CGCHAT_msgs', 'scrollTop', 0);
+    }
 };

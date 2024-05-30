@@ -35,6 +35,7 @@ class CGChatTemplate
     public $order;
     public $copy;
     public $msgs;
+    public $msgs_private;
     public $user;
     public $fecha;
     public $formato_hora;
