@@ -132,7 +132,8 @@ a.CGCHAT_cerrar_x {
 #CGCHAT_tiempo_p,#CGCHAT_tiempo_n{
 	text-align: center;
 	font-size: 0.9em;
-	color: #FA8C01
+	color: #FA8C01;
+    margin-bottom:0;
 }
 #CGCHAT_hace, #CGCHAT_tiempo_p_K, #CGCHAT_tiempo_n_K, #CGCHAT_hago {
 	color: #FF0000

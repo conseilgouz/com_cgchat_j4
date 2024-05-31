@@ -758,7 +758,7 @@ cgchat.events = {
 	}
 };
 // kill session when exiting
-window.addEventListener('beforeunload', function (e) {
+window.addEventListener('hidden', function (e) {
   // the absence of a returnValue property on the event will guarantee the browser unload happens
   delete e['returnValue'];
   cgchat.ajax("kill");
