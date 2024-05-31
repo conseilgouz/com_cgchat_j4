@@ -454,7 +454,11 @@ var cgchat = {
       	var div = document.createElement('div');
         div.setAttribute('id', 'CGCHAT_output_private');
         div.innerHTML='<span></span>';
-        this.$('CGCHAT_msgs_private').insertBefore(div, this.$('CGCHAT_tiempo_p'));
+   		if (this.order == 'bottom') {
+            this.$('CGCHAT_msgs_private').insertBefore(div, this.$('CGCHAT_tiempo_p'));
+        } else {
+            this.$('CGCHAT_msgs_private').insertAfter(div, this.$('CGCHAT_tiempo_p'));
+        }
         this.p = 0; // private index
     },
 	borrar: function(id) { // remove

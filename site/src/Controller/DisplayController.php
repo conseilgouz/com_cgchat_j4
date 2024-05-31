@@ -18,8 +18,14 @@ class DisplayController extends BaseController
 {
     public function display($cachable = false, $urlparams = false)
     {
-        Factory::getApplication()->input->set('view', 'cgchat');
+        $view = Factory::getApplication()->input->getCmd('view', 'cgchat');
+        if (($view != 'history') && ($view != 'cgchat')) {
+            $view = 'cgchat';
+        }
+        $return = Factory::getApplication()->input->getCmd('return', '');
+        Factory::getApplication()->input->set('view', $view);
         Factory::getApplication()->input->set('layout', 'default');
+        Factory::getApplication()->input->set('return', $return);
         $this->default_view = "cgchat";
         parent::display($cachable, $urlparams);
         return $this;

@@ -1,6 +1,6 @@
-<?php 
+<?php
 /**
-* CG Chat Component  - Joomla 4.x Component 
+* CG Chat Component  - Joomla 4.x Component
 * Version			: 1.0.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
@@ -8,21 +8,25 @@
 * From Kide ShoutBox
 */
 
-defined('_JEXEC') or die(); 
+defined('_JEXEC') or die();
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatLinks;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
+
+$return = Factory::getApplication()->getInput()->get('return');
+
 ?>
 
-<div style="font-weight: bold; padding-bottom: 15px"><a href="<?php echo Route::_('index.php?option=com_cgchat'); ?>"><?php echo Text::_("COM_CGCHAT_VOLVER"); ?></a></div>
+<div style="font-weight: bold; padding-bottom: 15px"><a href="<?php echo base64_decode($return); ?>"><?php echo Text::_("COM_CGCHAT_BACK"); ?></a></div>
 
 <div align="center"><?php echo $this->pags; ?></div>
 
 <table width="100%" border="1">
 	<?php foreach ($this->msgs as $r) : ?>
 	<tr>
-		<td class="CGCHAT_history_td"><?php echo gmdate($this->fecha, $r->time + $this->user->gmt*3600); ?></td>
+		<td class="CGCHAT_history_td"><?php echo gmdate($this->fecha, $r->time + $this->user->gmt * 3600); ?></td>
 		<td class="CGCHAT_history_td">
 			<?php $url = CGChatLinks::getUserLink($r->userid); ?>
 			<?php if ($url) : ?>
@@ -36,7 +40,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 			<?php endif; ?>
 		</td>
 		<td <?php echo $r->color ? 'style="color:#'.$r->color.'"' : 'class="'.CGChatHelper::getRow($r->row, 'CGCHAT_dc_').'"'; ?>>
-			<?php echo str_replace('\"','"',$r->text); ?>
+			<?php echo str_replace('\"', '"', $r->text); ?>
 		</td>
 	</tr>
 	<?php endforeach; ?>
@@ -44,4 +48,4 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 
 <div align="center"><?php echo $this->pags; ?></div>
 
-<div style="font-weight: bold; padding-top: 15px"><a href="<?php echo Route::_('index.php?option=com_cgchat'); ?>"><?php echo Text::_("COM_CGCHAT_VOLVER"); ?></a></div>
+<div style="font-weight: bold; padding-top: 15px"><a href="<?php echo base64_decode($return); ?>"><?php echo Text::_("COM_CGCHAT_BACK"); ?></a></div>
