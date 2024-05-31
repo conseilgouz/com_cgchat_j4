@@ -76,10 +76,14 @@ class CGChatHelper
         }
         return false;
     }
-    public static function getLastTime()
+    public static function getLastTime($private = 0)
     {
+        $table = '#__cgchat';
+        if ($private) {
+            $table = '#__cgchat_private';
+        }
         $db = Factory::getContainer()->get(DatabaseInterface::class);
-        $db->setQuery("SELECT time FROM #__cgchat ORDER BY id DESC LIMIT 1");
+        $db->setQuery("SELECT time FROM ".$table." ORDER BY id DESC LIMIT 1");
         return (int)$db->loadResult();
     }
     public static function updateSession()

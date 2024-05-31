@@ -94,7 +94,7 @@ class CGChatHead
 	cgchat.sound = '.$kuser->sound.';
 	cgchat.color = "'.$kuser->color.'";
 	cgchat.retardo = '.(int)$kuser->retardo.';
-	cgchat.last_time = '.CGChatHelper::getLastTime().';
+	cgchat.last_time = '.CGChatHelper::getLastTime($kuser->private).';
 
 	cgchat.msg = {
 		espera_por_favor: \''.addslashes(Text::_("COM_CGCHAT_ESPERA_POR_FAVOR")).'\',
