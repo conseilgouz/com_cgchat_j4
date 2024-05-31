@@ -63,6 +63,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
               <input class="form-check-input" type="checkbox" id="CGCHAT_user_go_to_private">
               <label class="form-check-label" for="flexSwitchCheckDefault"><?php echo Text::_("COM_CGCHAT_TO_PRIVATE"); ?></label>
             </span>
+            <span id="CGCHAT_user_to_private_error" style="display:none"></span>
             <?php endif; ?>
             <?php if ($this->user->row == 1) : // admin ?>
             <span id="CGCHAT_user_banear_span" class="form-check form-switch" style="display:none">

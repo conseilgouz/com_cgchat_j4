@@ -108,9 +108,20 @@ class JsonView extends BaseHtmlView
         $out = [];
         $input = Factory::getApplication()->input;
         $kuser = CGChatUser::getInstance();
-        $db = Factory::getContainer()->get(DatabaseInterface::class);
-        $userid = (int)$input->get('user');
         $flag = ($input->getString('private', '') == "false") ? false : true;
+        $userid = (int)$input->get('user');
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+        if ($flag) { // Want to talk private
+            if (CGChatHelper::checkPrivate($kuser->id)) {
+                $out['error'] = Text::_("COM_CGCHAT_ALREADY_PRIVATE_YOU");
+                return $out;
+            }
+            if (CGChatHelper::checkPrivate($userid)) {
+                $name = CGChatHelper::getUserPerId($userid);
+                $out['error'] = sprintf(Text::_('COM_CGCHAT_ALREADY_PRIVATE'), $name);
+                return $out;
+            }
+        }
         $query = $db->getQuery(true);
         $query->select($db->qn('key'))->from('#__cgchat_session')->where($db->qn('userid').' = '.$db->q($userid));
         $db->setQuery($query);

@@ -580,7 +580,16 @@ var cgchat = {
 				url : url,
 				onSuccess: function(data, xhr) {
 					var out = JSON.parse(data);
-                    cgchat.clean_private(); // remove private messages
+                    if (out.error) {
+                       console.log(out.error);
+                       cgchat.html('CGCHAT_user_to_private_error',out.error);
+                       cgchat.show('CGCHAT_user_to_private_error',true);
+                       cgchat.attr('CGCHAT_user_go_to_private','checked',''); 
+                       cgchat.show('waiting_private',false);
+                    } else {
+                        cgchat.show('CGCHAT_user_to_private_error',false);
+                        cgchat.clean_private(); // remove private messages
+                    }
 				},
 				onError: function(message) {console.log(message.responseText)}
 			})
