@@ -173,20 +173,23 @@ class JsonView extends BaseHtmlView
         return $out;
     }
     // close to private messages
-    public function closeprivate()
+    public function closeprivate($userid = 0)
     {
         $out = [];
-        $kuser = CGChatUser::getInstance();
+        if (!$userid) {
+            $kuser = CGChatUser::getInstance();
+            $userid = $kuser->id;
+        }
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         // close my private
         $query = $db->getQuery(true);
-        $query->select($db->qn('private'))->from('#__cgchat_session')->where($db->qn('userid').' = '.$db->q($kuser->id));
+        $query->select($db->qn('private'))->from('#__cgchat_session')->where($db->qn('userid').' = '.$db->q($userid));
         $db->setQuery($query);
         $private = $db->loadResult();
         $query = $db->getQuery(true);
         $fields = array($db->qn('private') . ' = 0');
         $out['userid'] = 0;
-        $conditions = array($db->qn('userid') . ' = '.$kuser->id);
+        $conditions = array($db->qn('userid') . ' = '.$userid);
         $query->update($db->quoteName('#__cgchat_session'))->set($fields)->where($conditions);
         $db->setQuery($query);
         $db->execute();
@@ -252,6 +255,11 @@ class JsonView extends BaseHtmlView
                         $db->setQuery($query);
                         $db->execute();
                     }
+                    $query = $db->getQuery(true);
+                    $query->select('userid')->from('#__cgchat_session')->where($db->qn('session').' = '.$db->q($session));
+                    $db->setQuery($query);
+                    $userid = $db->loadResult();
+                    self::closeprivate($userid);
                     $gmt =  $kuser->gmt;
                     $blocktime = (string) gmdate($params->get("formato_fecha", "j-n G:i:s"), $t + ($gmt * 3600));
                     $name = CGChatHelper::getUserPerSession($session);
