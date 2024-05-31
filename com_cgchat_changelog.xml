@@ -2,6 +2,20 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.2.0</version>
+        <note>
+            <item>Update : 31/05/2024</item>
+        </note>
+        <fix>
+            <item>Private chat</item>
+            <item>Dark template</item>
+            <item>History</item>
+            <item>Ban</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.1.0</version>
         <note>
             <item>Update : 27/05/2024</item>
