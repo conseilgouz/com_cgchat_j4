@@ -1,0 +1,1 @@
+ALTER TABLE `#__cgchat_private` ADD `tid` INT AFTER `fid`;
