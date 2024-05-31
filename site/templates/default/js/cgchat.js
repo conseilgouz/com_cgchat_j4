@@ -35,14 +35,6 @@ cgchat.mensaje = function(name, uid, id, url, ti, session, row, img) {
 	else
 		this.show('CGCHAT_mensaje_borrar_span', false);
 	this.attr('CGCHAT_mensaje_ocultar', 'href', 'javascript:cgchat.show("CGCHAT_id_'+id+'")');
-	if (this.row == 1) {
-		if (session != '0' && row != 1) {
-			this.show('CGCHAT_mensaje_banear_span', true);
-			this.attr('CGCHAT_mensaje_banear', 'onclick', function() { cgchat.banear(session, 'mensaje'); });
-		}
-    } else {
-        this.show('CGCHAT_mensaje_banear_span', false);
-	}
 	this.show("CGCHAT_mensaje", true);
 };
 cgchat.mostrar_user = function(uid, name, row, session, url, img, private, _class) {
