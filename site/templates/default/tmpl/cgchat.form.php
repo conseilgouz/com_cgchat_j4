@@ -25,7 +25,6 @@ if ($this->user->row == 3 && !$this->user->can_write) {
     <div id='cgchat_banned' style="display:none"><br /><?php echo Text::_("COM_CGCHAT_BANNED");?></div>
 	<div id="CGCHAT_form">
     <?php } ?>
-		<br />
 		<div>
 			<?php echo Text::_("COM_CGCHAT_NAME"); ?>: 
 			<em id="CGCHAT_my_name"><?php echo stripslashes($this->user->name); ?></em>

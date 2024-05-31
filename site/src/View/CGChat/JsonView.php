@@ -348,8 +348,12 @@ class JsonView extends BaseHtmlView
         $query = $db->getQuery(true);
         $query->select('*')
         ->from($db->quoteName($table))
-        ->where('id>'.(int)$input->get('id').' AND token!='.$kuser->token)
-        ->order('id ASC');
+        ->where('id>'.(int)$input->get('id'));
+        if ($input->get('privs') > 0) {
+            $query->where('(('.$db->qn('fid').' = '.$db->q($kuser->id).' AND '.$db->qn('tid').' = '.$db->q($kuser->private).') 
+                        OR ('.$db->qn('fid').' = '.$db->q($kuser->private).' AND '.$db->qn('tid').' = '.$db->q($kuser->id).'))');
+        }
+        $query->order('id ASC');
         $db->setQuery($query);
         $rows = $db->loadObjectList();
         if (!$rows) {
@@ -457,8 +461,8 @@ class JsonView extends BaseHtmlView
             $query = $db->getQuery(true);
             if ($private) {
                 $name = CGChatHelper::getUserPerId($private);
-                $columns = array('text','fid','from','to','row','color','img','time','session','key','token');
-                $values = array($db->q($txt),$db->q($kuser->id),$db->q($kuser->name),$db->q($name),$db->q($kuser->row),$db->q($color),$db->q($kuser->img),$db->q(time()),$db->q($kuser->session),$db->q($kuser->key),$db->q($kuser->token));
+                $columns = array('text','fid','from','tid','to','row','color','img','time','session','key','token');
+                $values = array($db->q($txt),$db->q($kuser->id),$db->q($kuser->name),$db->q($private),$db->q($name),$db->q($kuser->row),$db->q($color),$db->q($kuser->img),$db->q(time()),$db->q($kuser->session),$db->q($kuser->key),$db->q($kuser->token));
             } else {
                 $columns = array('name','userid','text','time','color','row','token','session','img','url','ip');
                 $values = array($db->q($kuser->name),$db->q($kuser->id),$db->q($txt),$db->q(time()),$db->q($color),$db->q($kuser->row),$db->q($kuser->token),$db->q($kuser->session),$db->q($kuser->img),$db->q(CGChatLinks::getUserLink($kuser->id)),$db->q($_SERVER['REMOTE_ADDR']));

@@ -61,7 +61,7 @@ class HtmlView extends BaseHtmlView
         }
         $query = $db->getQuery(true);
         $query->select('*')->from('#__cgchat_private')
-        ->where($db->qn('fid').' = '.$db->q($kuser->id).' OR '.$db->qn('to').' = '.$db->q($kuser->name))
+        ->where('('.$db->qn('fid').' = '.$db->q($kuser->id).' AND '.$db->qn('tid').' = '.$db->q($kuser->private).') OR ('.$db->qn('fid').' = '.$db->q($kuser->private).' AND '.$db->qn('tid').' = '.$db->q($kuser->id).')')
         ->order('id DESC')
         ->setLimit($params->get("msgs_limit", 36));
         $db->setQuery($query);
@@ -69,7 +69,7 @@ class HtmlView extends BaseHtmlView
         if ($order == 'bottom') {
             krsort($msgs_private);
         }
-
+        // $msgs_private = [];
         $folders = Folder::folders(JPATH_ROOT.'/components/com_cgchat/templates');
         $s = array();
         foreach ($folders as $f) {

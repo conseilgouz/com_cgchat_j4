@@ -28,6 +28,8 @@
 .CGCHAT_bg_guest { background-color: green }
 
 /* GENERAL */
+#CGCHAT_form {margin-top:0.5em}
+
 
 .CGCHAT_div * { 
 	font-family: helvetica,arial,sans-serif;
@@ -63,6 +65,13 @@ a.CGCHAT_cerrar_x {
 }
 /* PRIVATES */
 #CGCHAT_users .private {background : yellow}
+
+#CGCHAT_msgs_private {
+    margin: 0px;
+    height: 355px;
+    overflow: auto;
+    border: 3px solid #F44336;
+}
 #private_txt {
     float: right;
     color: red;
@@ -71,62 +80,6 @@ a.CGCHAT_cerrar_x {
     padding-right: 1em;
     border-radius: 5px;
 }
-.CGCHAT_div #privado_full_x {
-	border: 2px solid orange;
-	height: 235px;
-	overflow: auto;
-	padding: 5px;
-	text-align: left
-}
-.CGCHAT_div div.privados_mini {
-	padding: 5px
-}
-
-#CGCHAT_msgs_private {
-    margin: 0px;
-    height: 355px;
-    overflow: auto;
-    border: 3px solid #F44336;
-}
-#privados_full_title {
-	text-align:center
-}
-#privados_full_botones {
-	text-align:right;
-	margin-top:5px
-}
-#privados_full_txt {
-	padding:5px 5px 0 1px
-}
-#privados_full_div {
-	display: block;
-	position:fixed;
-	right:0;
-	bottom:0;
-	background-color:#FFF;
-	color:#000;
-	height: 360px;
-	width: 200px;
-	z-index:999
-}
-#privados_mini_div {
-	text-align:center;
-	margin-top:10px
-}
-#privados_hr {
-	margin-top: 5px;
-	border: 2px solid
-}
-#privados_mini_text {
-	padding-top:5px
-}
-#privados_txt {
-	height: 55px;
-	width: 100%;
-	background-color: white;
-	border: 2px inset black
-}
-
 /* CUADRO */
 
 #chat_cuadro {
@@ -176,12 +129,12 @@ a.CGCHAT_cerrar_x {
 	/* overflow-x: hidden; */
 	border: 3px solid #000
 }
-#CGCHAT_tiempo_p {
+#CGCHAT_tiempo_p,#CGCHAT_tiempo_n{
 	text-align: center;
-	font-size: 1e;
+	font-size: 0.9em;
 	color: #FA8C01
 }
-#CGCHAT_hace, #CGCHAT_tiempoK, #CGCHAT_hago {
+#CGCHAT_hace, #CGCHAT_tiempo_p_K, #CGCHAT_tiempo_n_K, #CGCHAT_hago {
 	color: #FF0000
 }
 #CGCHAT_txt {

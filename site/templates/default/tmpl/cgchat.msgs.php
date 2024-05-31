@@ -14,7 +14,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 
 ?>
 <div id="CGCHAT_msgs">
-	<?php echo $this->order=='top'?$this->p_tiempo:$this->copy; ?>
+	<?php echo $this->order=='top'?$this->n_tiempo:$this->copy; ?>
 	<div id="CGCHAT_output">
 		<?php		
 		if (!count($this->msgs))
@@ -37,5 +37,5 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 		}
 		?>
 	</div>
-	<?php echo $this->order=='top'?$this->copy:$this->p_tiempo; ?>
+	<?php echo $this->order=='top'?$this->copy:$this->n_tiempo; ?>
 </div>

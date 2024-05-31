@@ -15,7 +15,14 @@ $this->p_tiempo = '
 <p id="CGCHAT_tiempo_p" style="display:none">
 	<span id="last">'.Text::_("COM_CGCHAT_LAST").'</span>
 	<span id="CGCHAT_hace">'.Text::_("COM_CGCHAT_HACE").'</span>
-	<span id="CGCHAT_tiempoK"></span>
+	<span id="CGCHAT_tiempo_p_K"></span>
+	<span id="CGCHAT_ago">'.Text::_("COM_CGCHAT_AGO").'</span>
+</p>';
+$this->n_tiempo = '
+<p id="CGCHAT_tiempo_n" style="display:none">
+	<span id="last">'.Text::_("COM_CGCHAT_LAST").'</span>
+	<span id="CGCHAT_hace">'.Text::_("COM_CGCHAT_HACE").'</span>
+	<span id="CGCHAT_tiempo_n_K"></span>
 	<span id="CGCHAT_ago">'.Text::_("COM_CGCHAT_AGO").'</span>
 </p>';
 
@@ -49,10 +56,6 @@ $this->p_tiempo = '
 cgchat.onLoad(function() {
 	cgchat.$('CGCHAT_msgs').onmousedown = function() { cgchat.scrolling = true };
 	cgchat.$('CGCHAT_msgs').onmouseup = function() { cgchat.scrolling = false };
-	if (cgchat.$('privado_full_x')) {
-		cgchat.$('privado_full_x').onmousedown = function() { cgchat.scrolling_privados = true };
-		cgchat.$('privado_full_x').onmouseup = function() { cgchat.scrolling_privados = false };
-	}
 	<?php if ($this->autoiniciar) : ?>
 	cgchat.iniciar();
 	<?php else : ?>
