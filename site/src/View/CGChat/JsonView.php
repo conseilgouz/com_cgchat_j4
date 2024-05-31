@@ -287,7 +287,13 @@ class JsonView extends BaseHtmlView
                 $one['session'] = $u->session;
                 $one['profile'] = CGChatLinks::getUserLink($u->userid);
                 $one['userid'] = $u->userid;
-                $one['private'] = $u->private;
+                if (($u->private) && !CGChatHelper::stillActive($u->private)) {
+                    // user not connected anymore
+                    $one['private'] = 0;
+                    CGChatHelper::resetPrivate($u->userid);
+                } else {
+                    $one['private'] = $u->private;
+                }
                 $one['img'] = $u->img;
                 $result[] = $one;
             }

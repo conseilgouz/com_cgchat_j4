@@ -489,10 +489,12 @@ var cgchat = {
 					var result = JSON.parse(data);
                     if (result.privaterequest) {
                         user = cgchat.getUserById(result.privaterequest);
-                        cgchat.show('CGCHAT_GOCHAT',true);
-                        msg = cgchat.html('CGCHAT_GOCHAT');
-                        msg = msg.replace('%s',user.name);
-                        cgchat.html('CGCHAT_GOCHAT',msg);
+                        if (user) { // user still  in the list
+                            cgchat.show('CGCHAT_GOCHAT',true);
+                            msg = cgchat.html('CGCHAT_GOCHAT');
+                            msg = msg.replace('%s',user.name);
+                            cgchat.html('CGCHAT_GOCHAT',msg);
+                        } 
                     }
                     if (result.private) {
                         cgchat.set_private(result.private);
@@ -633,6 +635,7 @@ var cgchat = {
 							row = result[i];
 							var sid = row.session;
                             if ((cgchat.userid > 0) && (row.userid == cgchat.userid ) && row.private ) {
+                                user = cgchat.getUserById(row.private);
                                 cgchat.set_private(row.private);
                                 cgchat.show('waiting_private',false);
                                 stillprivate = true;

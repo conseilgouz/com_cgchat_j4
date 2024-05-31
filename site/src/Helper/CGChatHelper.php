@@ -142,6 +142,19 @@ class CGChatHelper
         }
         return 0;
     }
+    public static function resetPrivate($userid)
+    {
+        if (!$userid) { // not registered => no private
+            return 0;
+        }
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+        $query = $db->getQuery(true);
+        $fields = array($db->qn('private') . ' = 0');
+        $conditions = array($db->qn('userid') . ' = '.$userid);
+        $query->update($db->quoteName('#__cgchat_session'))->set($fields)->where($conditions);
+        $db->setQuery($query);
+        $db->execute();
+    }
     public static function checkPrivate($userid)
     {
         if (!$userid) { // not registered => no private
