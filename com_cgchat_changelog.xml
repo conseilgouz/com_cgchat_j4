@@ -2,6 +2,18 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.2.4</version>
+        <note>
+            <item>Update : 01/06/2024</item>
+        </note>
+        <fix>
+            <item>Remove unused code</item>
+            <item>Field CGChatTempates becomes CgchattemplatesField</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.2.3</version>
         <note>
             <item>Update : 01/06/2024</item>

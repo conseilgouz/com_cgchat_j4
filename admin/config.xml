@@ -79,11 +79,7 @@
 			<field label="COM_CGCHAT_REFRESH_TIME_SESSION" type="text" default="30" name="refresh_time_session" />
 		</fieldset>
 		<fieldset name="pro" label="COM_CGCHAT_LABEL_PRO">
-			<field label="COM_CGCHAT_ENABLE_PRIVATES" type="list" default="1" name="enable_privates">
-				<option value="0">COM_CGCHAT_NO</option>
-				<option value="1">COM_CGCHAT_YES</option>
-			</field>
-			<field label="COM_CGCHAT_BAN_MINUTOS" type="text" default="5" name="baneado" />
+			<field label="COM_CGCHAT_BAN_MINUTOS" type="text" default="5" name="baneado" description="COM_CGCHAT_BAN_MINUTOS_DESC"/>
 			<field label="COM_CGCHAT_REFRESH_TIME_PRIVATES" type="text" default="6" name="refresh_time_privates" />
 		</fieldset>
 		<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
