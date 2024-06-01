@@ -1,7 +1,6 @@
 <?php
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.0.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -34,10 +33,6 @@ class HtmlView extends BaseHtmlView
         $this->items		= $this->get('Items');
         $this->pagination	= $this->get('Pagination');
         $this->state		= $this->get('State');
-
-        if (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState')) {
-            $this->setLayout('emptystate');
-        }
 
         // Check for errors.
         if (\count($errors = $this->get('Errors'))) {
