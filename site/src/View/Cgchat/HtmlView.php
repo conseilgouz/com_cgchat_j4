@@ -15,6 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Filesystem\Folder;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
@@ -26,8 +27,21 @@ class HtmlView extends BaseHtmlView
 {
     public function display($tmpl = null)
     {
+        DEFINE('CGCHAT_LOADED', true);
         $kuser = CGChatUser::getInstance();
         $params = ComponentHelper::getParams('com_cgchat');
+        PluginHelper::importPlugin('cgchat');
+        $response = false;
+        $contentEventArguments = [
+            'context' => 'com_cgchat.cgchat',
+            'params'  => $params,
+            'response'    => &$response,
+        ];
+        Factory::getApplication()->triggerEvent('onCGChatStart', $contentEventArguments);
+        if ($response) { // error found in plugins
+            echo $response;
+            return false;
+        }
         CGChatHead::addScript("
 		cgchat.show_hour = 1;
 		cgchat.show_sessions = 1;
@@ -38,7 +52,6 @@ class HtmlView extends BaseHtmlView
     }
     public static function preparar()
     {
-        DEFINE('CGCHAT_LOADED', true);
         CGChatHead::add_tags();
 
         $db = Factory::getContainer()->get(DatabaseInterface::class);

@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.2.5</version>
+        <note>
+            <item>Update : 01/06/2024</item>
+        </note>
+        <addition>
+            <item>Add events for plugin : onCGChatStart, onCGChatBeforeMsg, onCGChatKill</item>
+        </addition>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.2.4</version>
         <note>
             <item>Update : 01/06/2024</item>

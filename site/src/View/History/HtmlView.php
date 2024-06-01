@@ -12,8 +12,9 @@ namespace ConseilGouz\Component\CGChat\Site\View\History;
 
 defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
-use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Plugin\PluginHelper;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatUser;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatTemplate;
 
@@ -21,6 +22,21 @@ class HtmlView extends BaseHtmlView
 {
     public function display($tmpl = null)
     {
+        $params = ComponentHelper::getParams('com_cgchat');
+
+        PluginHelper::importPlugin('cgchat');
+        $response = false;
+        $contentEventArguments = [
+            'context' => 'com_cgchat.history',
+            'params'  => $params,
+            'response'    => &$response,
+        ];
+
+        Factory::getApplication()->triggerEvent('onCGChatStart', $contentEventArguments);
+        if ($response) { // error found in plugins
+            echo $response;
+            return false;
+        }
         $kuser = CGChatUser::getInstance();
         $model = $this->getModel();
         $params = ComponentHelper::getParams('com_cgchat');

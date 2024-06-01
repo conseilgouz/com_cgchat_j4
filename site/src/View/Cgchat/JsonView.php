@@ -15,6 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\JsonView as BaseHtmlView;
+use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Response\JsonResponse;
 use Joomla\CMS\Session\Session;
 use Joomla\Database\DatabaseInterface;
@@ -30,7 +31,8 @@ class JsonView extends BaseHtmlView
             echo new JsonResponse(null, Text::_('JINVALID_TOKEN'), true);
             exit;
         }
-
+        PluginHelper::importPlugin('cgchat'); 
+        
         $input = Factory::getApplication()->input;
         $task = $input->get('task');
         if ($task == 'add') {
@@ -448,12 +450,26 @@ class JsonView extends BaseHtmlView
         } else {
             $input = Factory::getApplication()->input;
             $txt = $input->getRaw('txt', '', 'post', 'string');
-            $color = $input->get('color', '', 'post', 'string');
+            $color = $input->get('color', '', 'post', 'NUM');
             $private = $input->get('privs', '', 'NUM');
         }
         $table = '#__cgchat';
         if ($private > 0) {
             $table = '#__cgchat_private';
+        }
+        // call CGChat plugin 
+        $response = false;
+        $contentEventArguments = [
+            'context'   => 'com_cgchat.cgchat',
+            'params'    => $params,
+            'user'      => $kuser,
+            'txt'       => $txt,
+            'response'  => &$response,
+        ];
+        Factory::getApplication()->triggerEvent('onCGChatBeforeMsg', $contentEventArguments);
+        if ($response) { // error found in plugins
+            $result['comment'] = $response;
+            return $result;
         }
 
         $id = 0;
@@ -536,9 +552,25 @@ class JsonView extends BaseHtmlView
     }
     public function kill()
     {
+        
         $result = [];
         $input = Factory::getApplication()->input;
         $session = $input->get('session', '', 'ALNUM');
+        $params = ComponentHelper::getParams('com_cgchat');
+        
+        // call CGChat plugin 
+        $response = false;
+        $contentEventArguments = [
+            'context'   => 'com_cgchat.cgchat',
+            'params'    => $params,
+            'session'   => $session,
+            'response'  => &$response,
+        ];
+        Factory::getApplication()->triggerEvent('onCGChatKill', $contentEventArguments);
+        if ($response) { // error found in plugins
+            $result['comment'] = $response;
+            return $result;
+        }
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $query = $db->getQuery(true);
         $conditions = array($db->qn('session'). ' = '.$db->q($session));
@@ -548,5 +580,4 @@ class JsonView extends BaseHtmlView
         $db->execute();
         return $result;
     }
-
 }
