@@ -8,6 +8,7 @@
         </note>
         <fix>
             <item>tmpl directory names in lowercase</item>
+            <item>view directory names with first letter in uppercase and other in lowercase</item>
         </fix>
 	</changelog>
 	<changelog>
