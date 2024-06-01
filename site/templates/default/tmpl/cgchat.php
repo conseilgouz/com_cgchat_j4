@@ -32,7 +32,7 @@ $this->n_tiempo = '
 	<form id="kideForm" name="kideForm" method="post" onsubmit="return false" action="">
 		<?php 	
 		if ($this->user->can_read) {
-			$this->display("botones");
+			$this->display("buttons");
             if ($this->show_sessions) {
                 echo '<div id="CGCHAT_users_top">';
                 echo '<div id="CGCHAT_users"></div>';
@@ -56,11 +56,11 @@ $this->n_tiempo = '
 cgchat.onLoad(function() {
 	cgchat.$('CGCHAT_msgs').onmousedown = function() { cgchat.scrolling = true };
 	cgchat.$('CGCHAT_msgs').onmouseup = function() { cgchat.scrolling = false };
-	<?php if ($this->autoiniciar) : ?>
-	cgchat.iniciar();
+	<?php if ($this->autostart) : ?>
+	cgchat.start();
 	<?php else : ?>
 	cgchat.$("CGCHAT_div").onmouseover = function() {
-		cgchat.iniciar();
+		cgchat.start();
 		cgchat.$("CGCHAT_div").onmouseover = '';
 	};
 	<?php endif; ?>

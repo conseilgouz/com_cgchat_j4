@@ -20,7 +20,7 @@ var cgchat = {
 	popup_smileys: null,
 	scrolling: false,
 	scrolling_privados: false,
-	encendido: false,
+	starting: false,
 
 	$: function(id) {
 		return document.getElementById(id);
@@ -129,13 +129,13 @@ var cgchat = {
 			document.write(html);
 		}); 
 	},
-	iniciar: function() { // init
-		if (!cgchat.encendido) {
-			cgchat.encendido = true;
-			cgchat.attr('encendido', 'src', cgchat.img_encendido[2]);
+	start: function() { // init
+		if (!cgchat.starting) {
+			cgchat.starting = true;
+			cgchat.attr('starting', 'src', cgchat.img_starting[2]);
 			cgchat.sessions();
 			cgchat.reload();
-			cgchat.events.fire('onIniciar');
+			cgchat.events.fire('onstart');
 		}
 	},
 	open_popup: function() {
@@ -370,8 +370,8 @@ var cgchat = {
     },    
 	sm: function() {
 		cgchat.ajax("insertar");
-		if (!cgchat.encendido)
-			cgchat.iniciar();
+		if (!cgchat.starting)
+			cgchat.start();
 	},
 	retardo_input: function() { // Delay
 		this.retardo_avisar = true;
@@ -529,7 +529,7 @@ var cgchat = {
 			})
 			
 		}
-		else if (type == "insertar") { // insert
+		else if (type == "insertar") { // new message
 			var txt = this.val('CGCHAT_txt');
 			cgchat.val('CGCHAT_txt', '');
 			if (!cgchat.trim(txt)) return;

@@ -58,9 +58,9 @@ class CGChatHead
         $refresh_time_session *= 1000;
 
         self::addScript('
-	cgchat.img_encendido = ["'.$tpl->include_html("botones", "encendido_0.gif").'", "'.$tpl->include_html("botones", "encendido_1.gif").'", "'.$tpl->include_html("botones", "encendido_2.gif").'"];
-	cgchat.sound_on = "'.$tpl->include_html("botones", "sound_on.png").'";
-	cgchat.sound_off = "'.$tpl->include_html("botones", "sound_off.png").'";
+	cgchat.img_starting = ["'.$tpl->include_html("buttons", "starting_0.gif").'", "'.$tpl->include_html("buttons", "starting_1.gif").'", "'.$tpl->include_html("buttons", "starting_2.gif").'"];
+	cgchat.sound_on = "'.$tpl->include_html("buttons", "sound_on.png").'";
+	cgchat.sound_off = "'.$tpl->include_html("buttons", "sound_off.png").'";
 	cgchat.sound_src = "'.$tpl->include_html("sound", "msg.mp3").'";
 	cgchat.img_blank = "'.$tpl->include_html("otras", "blank.png").'";
 	cgchat.ajax_url = "'.URI::base(true).'/index.php?option=com_cgchat&no_html=1&tmpl=component'.'";

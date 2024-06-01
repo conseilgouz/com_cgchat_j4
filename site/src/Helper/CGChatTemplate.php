@@ -25,8 +25,7 @@ class CGChatTemplate
     public $com;
     public $show_hour;
     public $show_sessions;
-    public $show_privados;
-    public $autoiniciar;
+    public $autostart;
     public $button_send;
     public $show_avatar;
     public $avatar_maxheight;

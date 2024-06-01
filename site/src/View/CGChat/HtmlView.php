@@ -32,7 +32,7 @@ class HtmlView extends BaseHtmlView
 		cgchat.show_hour = 1;
 		cgchat.show_sessions = 1;
 		cgchat.show_private = ".($kuser->can_write && $params->get('enable_privates', 1) ? 1 : 0).";
-		cgchat.autoiniciar = 1");
+		cgchat.autostart = 1");
         $this->preparar();
         $tpl = CGChatTemplate::getInstance();
         $tpl->display();
@@ -80,8 +80,7 @@ class HtmlView extends BaseHtmlView
         $tpl->assign('com', 'com');
         $tpl->assign('show_hour', 1);
         $tpl->assign('show_sessions', 1);
-        $tpl->assign('show_privados', 0);
-        $tpl->assign('autoiniciar', 1);
+        $tpl->assign('autostart', 1);
         $tpl->assign('button_send', $params->get('button_send', 0));
         $tpl->assign('show_avatar', $params->get("show_avatar", 0));
         $tpl->assign('avatar_maxheight', $params->get("avatar_maxheight", '30px'));
