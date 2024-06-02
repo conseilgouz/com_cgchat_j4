@@ -127,7 +127,7 @@ class MessageController extends FormController
             return false;
         }
 
-        $this->setMessage(Text::_('Save sucess!'));
+        $this->setMessage(Text::_('COM_CGCHAT_MSG_SAVE'));
         // Redirect the user and adjust session state based on the chosen task.
         switch ($task) {
             case 'apply':
