@@ -88,6 +88,7 @@ class HtmlView extends BaseHtmlView
             $s[] = (object)array('text' => $f);
         }
         $templates = HTMLHelper::_('select.genericlist', $s, 'CGCHAT_template', 'class="inputbox"', 'text', 'text', $kuser->template);
+        $input = Factory::getApplication()->input;
 
         $tpl->assign('com', 'com');
         $tpl->assign('show_hour', 1);
@@ -97,7 +98,6 @@ class HtmlView extends BaseHtmlView
         $tpl->assign('show_avatar', $params->get("show_avatar", 0));
         $tpl->assign('avatar_maxheight', $params->get("avatar_maxheight", '30px'));
         $tpl->assign('maxlength', $max_strlen > 0 ? 'maxlength="'.$max_strlen.'"' : '');
-        $input = Factory::getApplication()->input;
         $tpl->assign('popup', $input->get('tmpl') == 'component');
         $tpl->assignRef('order', $order);
         $tpl->assignRef('copy', $copy);
