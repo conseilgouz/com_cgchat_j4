@@ -4,7 +4,9 @@
 	<creationDate>2024-06-02</creationDate>
 	<version>1.3.0</version>
 	<author>ConseilGouz</author>
+    <authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
+	<copyright>Copyright (C) 2024 ConseilGouz.com. All Rights Reserved</copyright>
 	<description>CG Chatbox</description>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<scriptfile>script.php</scriptfile>
