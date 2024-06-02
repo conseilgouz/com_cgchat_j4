@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS `#__cgchat`, `#__cgchat_bans`, `#__cgchat_icons`, `#__cgchat_info`, `#__cgchat_private`, `#__cgchat_private_offline`, `#__cgchat_session`
