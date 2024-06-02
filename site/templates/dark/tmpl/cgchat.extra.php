@@ -7,7 +7,7 @@
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : Kide ShoutBox
 */
-
+defined('_JEXEC') or die;
 if ($this->popup) echo '
 <style type="text/css">
 body, #CGCHAT_div { background: none #000 !important }
