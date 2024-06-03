@@ -9,6 +9,7 @@
         <fix>
             <item>Admin config : add inline help button</item>
             <item>CSP Compliance</item>
+            <item>Install : remove obsolete dir</item>
         </fix>
         <change>
             <item>Move templates css, js, sound, images to media</item> 

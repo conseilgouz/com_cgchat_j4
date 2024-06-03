@@ -20,10 +20,7 @@ class com_cgchatInstallerScript
 {
     private $min_joomla_version      = '4.0';
     private $min_php_version         = '8.0';
-    private $name                    = 'CG Chat';
-    private $exttype                 = 'component';
     private $extname                 = 'cgchat';
-    private $previous_version        = '';
     private $dir           = null;
     private $lang = null;
     private $installerName = 'cgchatinstaller';
@@ -96,7 +93,14 @@ class com_cgchatInstallerScript
     }
     private function postinstall_cleanup()
     {
-
+        $obsloteFolders = ['templates/dark/css', 'templates/default/css','templates/default/images','templates/default/js','templates/default/sound'];
+        foreach ($obsloteFolders as $folder) {
+            $f = JPATH_SITE . '/components/com_cgchat/' . $folder;
+            if (!@file_exists($f) || !is_dir($f) || is_link($f)) {
+                continue;
+            }
+            Folder::delete($f);
+        }
     }
     // Check if Joomla version passes minimum requirement
     private function passMinimumJoomlaVersion()
