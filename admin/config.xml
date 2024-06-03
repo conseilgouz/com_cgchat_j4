@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
+	<inlinehelp button="show"/>
 	<fields addfieldprefix="ConseilGouz\Component\CGChat\Administrator\Field">
 		<fieldset name="basic" label="COM_CGCHAT_LABEL_BASIC">
 			<field label="COM_CGCHAT_GUEST_CAN" type="list" default="2" name="guest_can">

@@ -25,7 +25,7 @@ $wa->useScript('keepalive')
 ?>
 <script type="text/javascript">
 	function chat_show_img(img) {
-		document.getElementById('cgchat_image').src = "<?php echo URI::root().'components/com_cgchat/templates/default/images/icons/'; ?>"+img;
+		document.getElementById('cgchat_image').src = "<?php echo URI::root().'media/com_cgchat/templates/default/images/icons/'; ?>"+img;
 	}
 </script>
 

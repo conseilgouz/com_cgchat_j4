@@ -745,7 +745,60 @@ var cgchat = {
 		} else {
 			this.events.fire('onAjax_'+type, [ajax, tmp]);
 		}
-	}
+	},
+    options : function(o) {
+        this.img_starting = o.img_starting;
+        this.sound_on   = o.sound_on;
+        this.sound_off  = o.sound_off;
+        this.sound_src  = o.sound_src;
+        this.img_blank  = o.img_blank;
+        this.ajax_url   = o.ajax_url;
+        this.url        = o.url;
+        this.popup_url  = o.popup_url;
+        this.order      = o.order;
+        this.formato_hora   = o.formato_hora;
+        this.formato_fecha  = o.formato_fecha;
+        this.template   = o.template;
+        this.gmt        = o.gmt;
+        this.token      = o.token;
+        this.session    = o.session;
+        this.row        = o.row;
+        this.rows       = o.rows;
+        this.rowtitles  = o.rowtitles;
+        this.can_read   = o.can_read;
+        this.can_write  = o.can_write;
+        this.show_avatar    = o.show_avatar;
+        this.avatar_maxheight   = o.avatar_maxheight;
+        this.refresh_time_session   = o.refresh_time_session;
+        this.boton_enviar   = o.boton_enviar;
+        this.refresh_time   = o.refresh_time;
+        this.refresh_time_privates  = o.refresh_time_privates;
+        this.n          = o.n;
+        this.p          = o.p;
+        this.private    = o.private;
+        this.name       = o.name;
+        this.userid     = o.userid;
+        this.sound      = o.sound;
+        this.color      = o.color;
+        this.retardo    = o.retardo;
+        this.last_time  = o.last_time;
+        this.msg        = o.msg;
+        this.smilies    = o.smilies;
+        this.show_hour      = o.show_hour;
+        this.show_sessions  = o.show_sessions;
+        this.autostart      = o.autostart;
+        if (this.color) {
+            this.css(this.$('CGCHAT_txt'),'color','#'+this.color);
+        }
+        this.css(this.$('CGCHAT_users_td'),'vertical-align',this.order);
+        if (o.session_gmt) {
+            this.tiempo = new Date();
+            this.save_config("gmt", (tiempo.getTimezoneOffset()/60)*-1);
+        }
+        if (o.session_retardo) {
+            cgchat.ajax("retardo");
+        }
+    },
 };
 
 // events
@@ -773,5 +826,9 @@ window.addEventListener('hidden', function (e) {
   // the absence of a returnValue property on the event will guarantee the browser unload happens
   delete e['returnValue'];
   cgchat.ajax("kill");
+});
+document.addEventListener('DOMContentLoaded', function() {
+    options_cgchat = Joomla.getOptions('cgchat');
+    cgchat.options(options_cgchat);
 });
 

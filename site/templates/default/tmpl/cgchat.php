@@ -50,23 +50,3 @@ $this->n_tiempo = '
 
 <?php $this->display("extra"); ?>
 
-<?php if ($this->user->can_read) : ?>
-<script type="text/javascript">
-<!--
-cgchat.onLoad(function() {
-	cgchat.$('CGCHAT_msgs').onmousedown = function() { cgchat.scrolling = true };
-	cgchat.$('CGCHAT_msgs').onmouseup = function() { cgchat.scrolling = false };
-	<?php if ($this->autostart) : ?>
-	cgchat.start();
-	<?php else : ?>
-	cgchat.$("CGCHAT_div").onmouseover = function() {
-		cgchat.start();
-		cgchat.$("CGCHAT_div").onmouseover = '';
-	};
-	<?php endif; ?>
-	cgchat.tiempo(cgchat.last_time);
-	cgchat.ajustar_scroll();
-});
-//-->
-</script>
-<?php endif; ?>

@@ -2,6 +2,21 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.3.2</version>
+        <note>
+            <item>Update : 03/06/2024</item>
+        </note>
+        <fix>
+            <item>Admin config : add inline help button</item>
+            <item>CSP Compliance</item>
+        </fix>
+        <change>
+            <item>Move templates css, js, sound, images to media</item> 
+        </change>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.3.1</version>
         <note>
             <item>Update : 03/06/2024</item>

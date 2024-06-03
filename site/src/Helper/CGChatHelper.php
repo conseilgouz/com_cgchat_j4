@@ -288,11 +288,11 @@ class CGChatHelper
     public static function smilies_js()
     {
         $smilies = self::getSmileys(true);
-        $return = "";
+        $return = [];
         foreach ($smilies as $k => $s) {
-            $return .= "['".addslashes($k)."', 	'".addslashes($s)."'],\n";
+            $return[addslashes($k)] = addslashes($s);
         }
-        return substr($return, 0, -2);
+        return $return;
     }
     public static function getSmileys($length = false)
     {

@@ -46,7 +46,7 @@ class CGChatTemplate
     public function __construct()
     {
         $ktuser = CGChatUser::getInstance();
-        $this->tpl_html = URI::base(true).'/components/com_cgchat/templates/';
+        $this->tpl_html = 'media/com_cgchat/templates/';
         $this->tpl_php = JPATH_ROOT.'/components/com_cgchat/templates/';
         $this->tuser = $ktuser->template;
         if (!file_exists($this->tpl_php.$this->tuser.'/')) {
@@ -121,18 +121,18 @@ class CGChatTemplate
             $file .= '.'.$folder;
         }
         if ($folder != 'css' && $folder != 'js' && $folder != 'sound') {
-            $f = 'images/'.$folder.'/';
+            $f = '/images/'.$folder.'/';
         } else {
             $f = $folder.'/';
         }
-        $tpl = file_exists($this->tpl_php.$this->tuser.'/'.$f.$file) ? $this->tuser : $this->def;
+        $tpl = is_file($this->tpl_html.$this->tuser.'/'.$f.$file) ? $this->tuser : $this->def;
 
         if ($folder == "css") {
             $document->addStyleSheet($this->tpl_html.$tpl.'/'.$f.$file);
         } elseif ($folder == "js") {
             $document->addScript($this->tpl_html.$tpl.'/'.$f.$file);
         } else {
-            return $this->tpl_html.$tpl.'/'.$f.$file;
+            return '/'.$this->tpl_html.$tpl.'/'.$f.$file;
         }
     }
 }

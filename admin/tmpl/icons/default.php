@@ -66,7 +66,7 @@ $saveOrder	= $listOrder == 'a.ordering';
 					</a>
 				</td>
 				<td>
-					<img src="<?php echo URI::root().'components/com_cgchat/templates/default/images/icons/'.$item->img; ?>" alt="" />
+					<img src="<?php echo URI::root().'media/com_cgchat/templates/default/images/icons/'.$item->img; ?>" alt="" />
 				</td>
 				<td class="order">
 					<?php if ($saveOrder) :?>

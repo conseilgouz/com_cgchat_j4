@@ -37,7 +37,7 @@ class IconModel extends AdminModel
     public function getImages($value)
     {
         $return = '<select class="required" name="jform[img]" id="jform_img" aria-required="true" required="required" onchange="cgchat_show_img(this.value)">';
-        $path = JPATH_ROOT."/components/com_cgchat/templates/default/images/icons";
+        $path = JPATH_ROOT."/media/com_cgchat/templates/default/images/icons";
         $files = Folder::files($path, "\.(png|gif|jpg)");
         $first = '';
         foreach ($files as $file) {
@@ -47,7 +47,7 @@ class IconModel extends AdminModel
             $return .= '<option value="'.$file.'"'.($value == $file ? ' selected' : '').'>'.$file.'</option>';
         }
         $return .= '</select>';
-        $return .= ' <img id="cgchat_image" src="'.URI::root().'components/com_cgchat/templates/default/images/icons/'.($value ? $value : $first).'" />';
+        $return .= ' <img id="cgchat_image" src="'.URI::root().'media/com_cgchat/templates/default/images/icons/'.($value ? $value : $first).'" />';
         return $return;
     }
 

@@ -57,77 +57,61 @@ class CGChatHead
         }
         $refresh_time_session *= 1000;
 
-        self::addScript('
-	cgchat.img_starting = ["'.$tpl->include_html("buttons", "starting_0.gif").'", "'.$tpl->include_html("buttons", "starting_1.gif").'", "'.$tpl->include_html("buttons", "starting_2.gif").'"];
-	cgchat.sound_on = "'.$tpl->include_html("buttons", "sound_on.png").'";
-	cgchat.sound_off = "'.$tpl->include_html("buttons", "sound_off.png").'";
-	cgchat.sound_src = "'.$tpl->include_html("sound", "msg.mp3").'";
-	cgchat.img_blank = "'.$tpl->include_html("otras", "blank.png").'";
-	cgchat.ajax_url = "'.URI::base(true).'/index.php?option=com_cgchat&no_html=1&tmpl=component'.'";
-	cgchat.url = "'.CGChatLinks::getUserLink($kuser->id).'";
-	cgchat.popup_url = "'.Route::_("index.php?option=com_cgchat").'";
-	cgchat.order = "'.$order.'";
-	cgchat.formato_hora = "'.$params->get("formato_hora", "G:i--").'";
-	cgchat.formato_fecha = "'.$params->get("formato_fecha", "j-n G:i:s").'";
-	
-	cgchat.template = "'.$kuser->template.'";
-	cgchat.gmt = "'.$kuser->gmt.'";
-	cgchat.token = '.$kuser->token.';
-	cgchat.session = "'.$kuser->session.'";
-	cgchat.row = '.$kuser->row.';
-	cgchat.rows = ["'.implode('","', CGChatHelper::getRows()).'"];
-	cgchat.rowtitles = ["'.implode('","', CGChatHelper::getRowTitles()).'"];
-	cgchat.can_read = '.($kuser->can_read ? 'true' : 'false').';
-	cgchat.can_write = '.($kuser->can_write ? 'true' : 'false').';
-	cgchat.show_avatar = '.($params->get("show_avatar", 0) ? 'true' : 'false').';
-	cgchat.avatar_maxheight = "'.$params->get('avatar_maxheight', '30px').'";
-	cgchat.refresh_time_session = '.$refresh_time_session.';
-	cgchat.boton_enviar = '.($params->get('button_send', 0) ? 'true' : 'false').';
-	cgchat.refresh_time = '.$params->get('refresh_time', 6).'*1000;
-	cgchat.refresh_time_privates = '.$params->get('refresh_time_privates', 6).'*1000;
-	
-	cgchat.n = '.(int)$id.';
-    cgchat.p = '.(int)$last_private.';
-    cgchat.private = '.(int)$kuser->private.';
-	cgchat.name = "'.$kuser->name.'";
-	cgchat.userid = '.$kuser->id.';
-	cgchat.sound = '.$kuser->sound.';
-	cgchat.color = "'.$kuser->color.'";
-	cgchat.retardo = '.(int)$kuser->retardo.';
-	cgchat.last_time = '.CGChatHelper::getLastTime($kuser->private).';
-
-	cgchat.msg = {
-		espera_por_favor: \''.addslashes(Text::_("COM_CGCHAT_ESPERA_POR_FAVOR")).'\',
-		mensaje_borra: \''.addslashes(Text::_("COM_CGCHAT_MESSAGE_REMOVE")).'\',
-		retardo_frase: \''.addslashes(Text::_("COM_CGCHAT_RETARDO_FRASE")).'\',
-		lang: [\''.addslashes(Text::_("COM_CGCHAT_MONTH")).'\', \''.addslashes(Text::_("COM_CGCHAT_MONTHS")).'\', \''.addslashes(Text::_("COM_CGCHAT_DAY")).'\', \''.addslashes(Text::_("COM_CGCHAT_DAYS")).'\', \''.addslashes(Text::_("COM_CGCHAT_HOUR")).'\', \''.addslashes(Text::_("COM_CGCHAT_HOURS")).'\', \''.addslashes(Text::_("COM_CGCHAT_MINUTE")).'\', \''.addslashes(Text::_("COM_CGCHAT_MINUTES")).'\', \''.addslashes(Text::_("COM_CGCHAT_SECOND")).'\', \''.addslashes(Text::_("COM_CGCHAT_SECONDS")).'\'],
-		privados_user_cerrado: \''.addslashes(Text::_("COM_CGCHAT_PRIVATES_USER_CERRADO")).'\',
-		privados_nuevos: \''.addslashes(str_replace("%url", Route::_("index.php?option=com_cgchat"), Text::_("COM_CGCHAT_PRIVATES_NUEVOS"))).'\',
-		privados_need_login: \''.addslashes(Text::_('COM_CGCHAT_PRIVATES_NEED_LOGIN')).'\'
-	};
-	cgchat.smilies = [
-		'.CGChatHelper::smilies_js().'
-	];
-	');
-
-        $doc->addStyleDeclaration('
-	'.($kuser->color ? '#CGCHAT_txt { color: #'.$kuser->color.'; }' : '').'
-	#CGCHAT_users_td { vertical-align: '.$order.' }');
-
-        if ($session->get('gmt', null, 'cgchat') === null) {
-            self::addScript('
-	var tiempo = new Date();
-	cgchat.save_config("gmt", (tiempo.getTimezoneOffset()/60)*-1);');
+        $msg = ['espera_por_favor' => addslashes(Text::_("COM_CGCHAT_ESPERA_POR_FAVOR")),
+		'mensaje_borra' => addslashes(Text::_("COM_CGCHAT_MESSAGE_REMOVE")),
+		'retardo_frase' => addslashes(Text::_("COM_CGCHAT_RETARDO_FRASE")),
+		'privados_user_cerrado' => addslashes(Text::_("COM_CGCHAT_PRIVATES_USER_CERRADO")),
+		'privados_nuevos' => addslashes(str_replace("%url", Route::_("index.php?option=com_cgchat"), Text::_("COM_CGCHAT_PRIVATES_NUEVOS"))),
+		'privados_need_login' => addslashes(Text::_('COM_CGCHAT_PRIVATES_NEED_LOGIN')),
+        'lang' => [addslashes(Text::_("COM_CGCHAT_MONTH")),addslashes(Text::_("COM_CGCHAT_MONTHS")),addslashes(Text::_("COM_CGCHAT_DAY")),addslashes(Text::_("COM_CGCHAT_DAYS")),addslashes(Text::_("COM_CGCHAT_HOUR")),addslashes(Text::_("COM_CGCHAT_HOURS")),addslashes(Text::_("COM_CGCHAT_MINUTE")),addslashes(Text::_("COM_CGCHAT_MINUTES")),addslashes(Text::_("COM_CGCHAT_SECOND")),addslashes(Text::_("COM_CGCHAT_SECONDS"))]
+        ];
+        if (DEFINED("CGCHAT_LOADED")) { // from component
+            
         }
-
-        if($session->get('retardo', null, 'cgchat') === null) {
-            self::addScript('cgchat.ajax("retardo");');
-        }
-    }
-
-    public static function addScript($str)
-    {
+        $is_component = DEFINED("CGCHAT_LOADED") ? 1 : 0;
         $doc = Factory::getApplication()->getDocument();
-        $doc->addCustomTag("<script type=\"text/javascript\">\n/*<![CDATA[*/\n".$str."\n/*]]>*/\n</script>");
+        $doc->addScriptOptions('cgchat',array(
+                'img_starting' => [$tpl->include_html("buttons", "starting_0.gif"),$tpl->include_html("buttons", "starting_1.gif"),$tpl->include_html("buttons", "starting_2.gif")],
+                'sound_on' => $tpl->include_html("buttons", "sound_on.png"),
+                'sound_off' => $tpl->include_html("buttons", "sound_off.png"),
+                'sound_src' => $tpl->include_html("sound", "msg.mp3"),
+                'img_blank' => $tpl->include_html("otras", "blank.png"),
+                'ajax_url'  => URI::base(true).'/index.php?option=com_cgchat&no_html=1&tmpl=component',
+                'url'       => CGChatLinks::getUserLink($kuser->id),
+                'popup_url' => Route::_("index.php?option=com_cgchat"),
+                'order'     => $order,
+                'formato_hora'  => $params->get("formato_hora", "G:i--"),
+                'formato_fecha' => $params->get("formato_fecha", "j-n G:i:s"),
+                'template'  => $kuser->template,
+                'gmt'       => $kuser->gmt,
+                'token'     => $kuser->token,
+                'session'   => $kuser->session,
+                'row'       => $kuser->row,
+                'rows'      => CGChatHelper::getRows(),
+                'rowtitles' => CGChatHelper::getRowTitles(),
+                'can_read'  => $kuser->can_read ? true : false,
+                'can_write' => $kuser->can_write ? true : false,
+                'show_avatar'   => $params->get("show_avatar", 0) ? true : false,
+                'avatar_maxheight'  => $params->get('avatar_maxheight', '30px'),
+                'refresh_time_session'  => $refresh_time_session,
+                'boton_enviar'  => $params->get('button_send', 0) ? true : false,
+                'refresh_time'  => $params->get('refresh_time', 6)*1000,
+                'refresh_time_privates' => $params->get('refresh_time_privates', 6)*1000,
+                'n'         => $id, 'p'     => (int)$last_private,
+                'private'   => (int)$kuser->private,
+                'name'      => $kuser->name,'userid'    => $kuser->id,
+                'sound'     => $kuser->sound, 'color'   => $kuser->color,
+                'retardo'   => (int)$kuser->retardo,
+                'last_time' => CGChatHelper::getLastTime($kuser->private),
+                'msg'       => $msg,
+                'smilies'   => CGChatHelper::smilies_js(),
+                'session_gmt'   => $session->get('gmt', null, 'cgchat') === null,
+                'session_retardo'   => $session->get('retardo', null, 'cgchat') === null,
+                'show_hour'     => $is_component,
+                'show_sessions' => $is_component,
+                'autostart'     => $is_component,
+                )
+        ); // end of addScriptOptions
     }
+
 }

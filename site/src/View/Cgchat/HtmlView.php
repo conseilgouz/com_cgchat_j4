@@ -42,10 +42,6 @@ class HtmlView extends BaseHtmlView
             echo $response;
             return false;
         }
-        CGChatHead::addScript("
-		cgchat.show_hour = 1;
-		cgchat.show_sessions = 1;
-		cgchat.autostart = 1");
         $this->preparar();
         $tpl = CGChatTemplate::getInstance();
         $tpl->display();

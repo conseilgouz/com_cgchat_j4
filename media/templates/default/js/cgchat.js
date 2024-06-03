@@ -157,3 +157,19 @@ cgchat.ajustar_scroll = function(private) {
             cgchat.attr('CGCHAT_msgs', 'scrollTop', 0);
     }
 };
+
+cgchat.onLoad(function() {
+    if (!cgchat.can_read) return;
+	cgchat.$('CGCHAT_msgs').onmousedown = function() { cgchat.scrolling = true };
+	cgchat.$('CGCHAT_msgs').onmouseup = function() { cgchat.scrolling = false };
+	if (cgchat.autostart) {
+        cgchat.start();
+	} else {
+        cgchat.$("CGCHAT_div").onmouseover = function() {
+            cgchat.start();
+            cgchat.$("CGCHAT_div").onmouseover = '';
+        }
+    }
+	cgchat.tiempo(cgchat.last_time);
+	cgchat.ajustar_scroll();
+});
