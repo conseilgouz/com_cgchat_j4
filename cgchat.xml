@@ -21,6 +21,7 @@
 	<media destination="com_cgchat" folder="media">
 		<folder>js</folder>
 		<folder>css</folder>
+        <folder>templates</folder>
 		<filename>index.html</filename>
 	</media>
 	<languages folder="lang_site">
