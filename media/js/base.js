@@ -1,6 +1,5 @@
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.1.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -792,7 +791,7 @@ var cgchat = {
         }
         this.css(this.$('CGCHAT_users_td'),'vertical-align',this.order);
         if (o.session_gmt) {
-            this.tiempo = new Date();
+            var tiempo = new Date();
             this.save_config("gmt", (tiempo.getTimezoneOffset()/60)*-1);
         }
         if (o.session_retardo) {
