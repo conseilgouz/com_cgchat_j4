@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.3.1</version>
+        <note>
+            <item>Update : 03/06/2024</item>
+        </note>
+        <fix>
+            <item>JED Checker : false notice : missing sql files</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.3.0</version>
         <note>
             <item>Update : 02/06/2024</item>
