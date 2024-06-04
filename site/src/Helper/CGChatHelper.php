@@ -15,6 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Database\DatabaseInterface;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatUser;
 
@@ -232,6 +233,7 @@ class CGChatHelper
             if ($params->get('icons_window', 'popup') == "no_window") {
                 return ' <a href="javascript:cgchat.show(\'CGCHAT_mas_iconos\')">'.Text::_('COM_CGCHAT_MAS_ICONOS').'</a>';
             } else {
+                $ajax_url = URI::base(true).'/index.php?option=com_cgchat&no_html=1&tmpl=component';
                 $xy = explode('x', $params->get('icons_popup_size', '500x500'));
                 if (!($xy[0] > 0)) {
                     $xy[0] = 500;
@@ -242,10 +244,10 @@ class CGChatHelper
                 if ($params->get('icons_window', 'popup') == 'popup') {
                     $size = ',width='.$xy[0].',height='.$xy[1];
                     $onclick = "cgchat.open_popup_smileys('".$size."');return false;";
-                    return ' <a href="'.Route::_(CGCHAT_AJAX.'&task=more_smileys').'" onclick="'.$onclick.'">'.Text::_('COM_CGCHAT_MAS_ICONOS').'</a>';
+                    return ' <a href="'.Route::_($ajax_url.'&task=more_smileys').'" onclick="'.$onclick.'">'.Text::_('COM_CGCHAT_MAS_ICONOS').'</a>';
                 } else {
                     $rel = "{handler: 'iframe', size: {x: ".$xy[0].", y: ".$xy[1]."}, onClose: function() {}}";
-                    return ' <a class="modal" href="'.Route::_(CGCHAT_AJAX.'&task=more_smileys').'" rel="'.$rel.'">'.Text::_('COM_CGCHAT_MAS_ICONOS').'</a>';
+                    return ' <a class="modal" href="'.Route::_($ajax_url.'&task=more_smileys').'" rel="'.$rel.'">'.Text::_('COM_CGCHAT_MAS_ICONOS').'</a>';
                 }
             }
         }

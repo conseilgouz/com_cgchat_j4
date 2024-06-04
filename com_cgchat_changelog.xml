@@ -2,6 +2,18 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.3.4</version>
+        <note>
+            <item>Update : 04/06/2024</item>
+        </note>
+        <fix>
+            <item>more smileys : AJAX Url error</item>
+            <item>JsonView : flag and privs in int</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.3.3</version>
         <note>
             <item>Update : 03/06/2024</item>

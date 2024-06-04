@@ -215,7 +215,7 @@ class JsonView extends BaseHtmlView
         $out = [];
         if ($kuser->row == 1) {
             $session    = $input->get('session', '', 'ALNUM');
-            $flag       = $input->get('flag');
+            $flag       = (int)$input->get('flag');
             if ($flag == "false") {
                 $conditions = array($db->qn('session').' LIKE '.$db->q($session));
                 $query = $db->getQuery(true);
@@ -368,15 +368,16 @@ class JsonView extends BaseHtmlView
             $refresh = 2;
         }
         $input = Factory::getApplication()->input;
+        $privs = (int)$input->get('privs');
         $table = '#__cgchat';
-        if ($input->get('privs') > 0) {
+        if ($privs > 0) {
             $table = '#__cgchat_private';
         }
         $query = $db->getQuery(true);
         $query->select('*')
         ->from($db->quoteName($table))
         ->where('id>'.(int)$input->get('id'));
-        if ($input->get('privs') > 0) {
+        if ($privs > 0) {
             $query->where('(('.$db->qn('fid').' = '.$db->q($kuser->id).' AND '.$db->qn('tid').' = '.$db->q($kuser->private).') 
                         OR ('.$db->qn('fid').' = '.$db->q($kuser->private).' AND '.$db->qn('tid').' = '.$db->q($kuser->id).'))');
         }
@@ -395,7 +396,7 @@ class JsonView extends BaseHtmlView
             $messages = [];
             foreach ($rows as $row) {
                 $one = [];
-                if ($input->get('privs') > 0) { // private
+                if ($privs > 0) { // private
                     $one['uid'] = $row->fid;
                     $one['name'] = $row->from;
 
