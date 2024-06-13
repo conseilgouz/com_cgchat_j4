@@ -15,7 +15,7 @@
             <item>JS Minify versions</item>
         </addition>
         <change>
-            <item>Use webassets to load template's JS minify version</item>
+            <item>Use webassets to load template's JS minified version</item>
         </change>
 	</changelog>
 	<changelog>
