@@ -1,7 +1,6 @@
 <?php
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.0.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -42,7 +41,7 @@ class CGChatHead
         if ((bool)Factory::getConfig()->get('debug')) { // debug mode 
             Factory::getApplication()->getDocument()->addScript(''.URI::base(true).'/media/com_cgchat/js/base.js'); 
         } else { 
-            $wa->registerAndUseScript('cgchat', $comfield.'js/base.js');
+            $wa->registerAndUseScript('cgchat', $comfield.'js/base.min.js');
         }
         $tpl->include_html("js", "cgchat");
 

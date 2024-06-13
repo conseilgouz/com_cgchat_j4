@@ -1,10 +1,9 @@
 <?php 
 /**
-* CG Chat Component  - Joomla 4.x Component 
-* Version			: 1.0.0
+* CG Chat Component  - Joomla 4.x/5.x Component 
 * Package			: CG Chat
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From Kide ShoutBox
 */
 defined('_JEXEC') or die(); 

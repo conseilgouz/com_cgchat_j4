@@ -8,9 +8,12 @@
         </note>
         <fix>
             <item>Admin : messages truncation error</item>
+            <item>Don't scroll if no new message to display</item>
         </fix>
         <addition>
             <item>New option : create links for registered users only</item>
+            <item>JS Minify versions</item>
+            <item>Use webassets to load template's JS minify version</item>
         </addition>
 	</changelog>
 	<changelog>

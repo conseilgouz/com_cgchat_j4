@@ -1,7 +1,6 @@
 <?php
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.0.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -117,9 +116,17 @@ class CGChatTemplate
     public function include_html($folder, $file)
     {
         $document = Factory::getApplication()->getDocument();
-        if ($folder == 'css' || $folder == 'js') {
+        if ($folder == 'css') {
             $file .= '.'.$folder;
         }
+        if ($folder == 'js') {
+            if ((bool)Factory::getApplication()->getConfig()->get('debug')) { // debug mode
+                $file .= '.'.$folder;
+            } else { // minified version
+                $file .= '.min.'.$folder;
+            }
+        }
+
         if ($folder != 'css' && $folder != 'js' && $folder != 'sound') {
             $f = '/images/'.$folder.'/';
         } else {
@@ -127,10 +134,20 @@ class CGChatTemplate
         }
         $tpl = is_file($this->tpl_html.$this->tuser.'/'.$f.$file) ? $this->tuser : $this->def;
 
+        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+
         if ($folder == "css") {
-            $document->addStyleSheet($this->tpl_html.$tpl.'/'.$f.$file);
+            if ((bool)Factory::getApplication()->getConfig()->get('debug')) { // debug mode
+                $document->addStyleSheet($this->tpl_html.$tpl.'/'.$f.$file);
+            } else {
+                $wa->registerAndUseStyle($tpl, $this->tpl_html.$tpl.'/'.$f.$file);
+            }
         } elseif ($folder == "js") {
-            $document->addScript($this->tpl_html.$tpl.'/'.$f.$file);
+            if ((bool)Factory::getApplication()->getConfig()->get('debug')) { // debug mode
+                $document->addScript($this->tpl_html.$tpl.'/'.$f.$file);
+            } else {
+                $wa->registerAndUseScript($tpl, $this->tpl_html.$tpl.'/'.$f.$file);
+            }
         } else {
             return '/'.$this->tpl_html.$tpl.'/'.$f.$file;
         }
