@@ -1,7 +1,6 @@
 <?php
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.1.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -204,11 +203,12 @@ class CGChatHelper
     }
     public static function make_links($text)
     {
+        $kuser = CGChatUser::getInstance();
         $params = ComponentHelper::getParams('com_cgchat');
         $urls = $params->get("urls_text", "text");
-        if ($urls == "text") {
+        if (($urls == "text") || (($urls == 'regtext') && ($kuser->row < 3))) {
             return preg_replace("/(\n| )(http[^ |\n]+)/", '\1<a rel="nofollow" target="_blank" href="\2">'.$params->get("urls_text_personalized", Text::_('COM_CGCHAT_LINK')).'</a>', $text);
-        } elseif ($urls == "link") {
+        } elseif (($urls == "link") || (($urls == 'reglink') && ($kuser->row < 3))) {
             return preg_replace("/(\n| )(http[^ |\n]+)/", '\1<a rel="nofollow" target="_blank" href="\2">\2</a>', $text);
         }
         return $text;

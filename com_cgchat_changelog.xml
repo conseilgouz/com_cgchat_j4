@@ -2,6 +2,20 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.3.5</version>
+        <note>
+            <item>Update : 13/06/2024</item>
+        </note>
+        <fix>
+            <item>Admin : messages truncation error</item>
+        </fix>
+        <addition>
+            <item>New option : create links for registered users only</item>
+        </addition>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.3.4</version>
         <note>
             <item>Update : 04/06/2024</item>

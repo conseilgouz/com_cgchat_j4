@@ -1,9 +1,8 @@
 <?php
 /**
-* CG Chat Component  - Joomla 4.x Component
-* Version			: 1.1.0
+* CG Chat Component  - Joomla 4.x/5.x Component
 * Package			: CG Chat
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 * From Kide ShoutBox
 */

@@ -21,12 +21,14 @@
 				<option value="1">COM_CGCHAT_YES</option>
 			</field>
 			<field label="COM_CGCHAT_DEFAULT_TEMPLATE" type="cgchattemplates" default="default" name="template" />
-			<field label="COM_CGCHAT_URLS_TEXT" name="urls_text" type="list" default="text">
+			<field label="COM_CGCHAT_URLS_TEXT" description="COM_CGCHAT_URLS_TEXT_D" name="urls_text" type="list" default="text">
 				<option value="text">COM_CGCHAT_URLS_TEXT_PERSONALIZED</option>
 				<option value="link">COM_CGCHAT_URLS_TEXT_URL</option>
-				<option value="no">COM_CGCHAT_URLS_TEXT_NO</option>
+				<option value="regtext">COM_CGCHAT_URLS_TEXT_REGTEXT</option>
+                <option value="reglink">COM_CGCHAT_URLS_TEXT_REGLINK</option>
+                <option value="no">COM_CGCHAT_URLS_TEXT_NO</option>
 			</field>
-			<field label="COM_CGCHAT_URLS_TEXT_PERSONALIZED_LABEL" name="urls_text_personalized" type="text" default="«link»" />
+			<field showon="urls_text:text,regtext" label="COM_CGCHAT_URLS_TEXT_PERSONALIZED_LABEL" name="urls_text_personalized" type="text" default="«link»" />
 			<field label="COM_CGCHAT_ICONS_HIDDEN" type="list" default="0" name="icons_hidden">
 				<option value="0">COM_CGCHAT_NO</option>
 				<option value="1">COM_CGCHAT_YES</option>

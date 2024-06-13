@@ -1,7 +1,6 @@
 <?php
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.0.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -92,9 +91,10 @@ $rows_alias = array("special", "admin", "registered", "guest");
 					<?php
 		            $text = $item->text;
 		    if (strlen($text) > 70) {
-		        $text = substr($text, 0, 70).'...';
+		        $text = HTMLHelper::_('string.truncate', $text, 70, $noSplit = true, $allowHtml = false);
 		    }
-		    echo $text; ?>
+		    echo $text;
+		    ?>
 				</td>
 				<td class="center">
 					<?php echo $item->ip; ?>
