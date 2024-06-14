@@ -104,7 +104,7 @@ $rows_alias = array("special", "admin", "registered", "guest");
 				</td>
 				<td class="center">
 					<?php if ($item->country) {
-                            echo HTMLHelper::_('image', 'plg_cgchat_country/' . strtolower($item->country) . '.png', $item->country, "title=$item->country", true);
+                            echo HTMLHelper::_('image', 'com_cgchat/' . strtolower($item->country) . '.png', $item->country, "title=$item->country", true);
                             }
                     ?>
 				</td>

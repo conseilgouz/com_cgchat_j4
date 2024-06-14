@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.4.2</version>
+        <note>
+            <item>Update : 14/06/2024</item>
+        </note>
+        <fix>
+            <item>Admin : Wrong image flag directory</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.4.1</version>
         <note>
             <item>Update : 14/06/2024</item>
