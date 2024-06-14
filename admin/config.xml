@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 	<inlinehelp button="show"/>
-	<fields addfieldprefix="ConseilGouz\Component\CGChat\Administrator\Field">
+	<fields addfieldprefix="ConseilGouz\Component\CGChat\Administrator\Field"
+            addruleprefix="ConseilGouz\Component\CGChat\Administrator\Rule">
 		<fieldset name="basic" label="COM_CGCHAT_LABEL_BASIC">
 			<field label="COM_CGCHAT_GUEST_CAN" type="list" default="2" name="guest_can">
 				<option value="0">COM_CGCHAT_NOTHING</option>
@@ -81,9 +82,21 @@
 			<field label="COM_CGCHAT_REFRESH_TIME" type="text" default="6" name="refresh_time" />
 			<field label="COM_CGCHAT_REFRESH_TIME_SESSION" type="text" default="30" name="refresh_time_session" />
 		</fieldset>
-		<fieldset name="pro" label="COM_CGCHAT_LABEL_PRO">
+		<fieldset name="pro" label="COM_CGCHAT_LABEL_MORE">
 			<field label="COM_CGCHAT_BAN_MINUTOS" type="text" default="5" name="baneado" description="COM_CGCHAT_BAN_MINUTOS_DESC"/>
 			<field label="COM_CGCHAT_REFRESH_TIME_PRIVATES" type="text" default="6" name="refresh_time_privates" />
+            <field label="COM_CGCHAT_COUNTRY_NOTE" type="note" name="country_note" class="alert-success"/>
+            <field name="countryinfo" type="radio" layout="joomla.form.field.radio.switcher" default="0" label="COM_CGCHAT_COUNTRY_INFO" description="COM_CGCHAT_COUNTRY_INFO_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field showon="countryinfo:1" name="apikey" type="text" size="50" default="" label="COM_CGCHAT_COUNTRY_API_KEY" description="COM_CGCHAT_COUNTRY_API_KEY_DESC"/>
+            <field showon="countryinfo:1" name="allow" type="text" size="50" default="*" label="COM_CGCHAT_COUNTRY_ALLOW" description="COM_CGCHAT_COUNTRY_ALLOW_DESC" validate="country"/>
+            <field showon="countryinfo:1" name="block" type="text" size="50" default="*" label="COM_CGCHAT_COUNTRY_BLOCK" description="COM_CGCHAT_COUNTRY_BLOCK_DESC" validate="country"/>
+            <field showon="countryinfo:1" name="flag" type="radio" layout="joomla.form.field.radio.switcher" default="0" label="COM_CGCHAT_COUNTRY_FLAG" description="COM_CGCHAT_COUNTRY_FLAG_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
 		</fieldset>
 		<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
 			<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" class="inputbox" filter="rules" validate="rules" component="com_cgchat" section="component" />

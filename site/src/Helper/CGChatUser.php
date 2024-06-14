@@ -15,6 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseInterface;
+use Joomla\Utilities\IpHelper;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 
 class CGChatUser
@@ -50,6 +51,8 @@ class CGChatUser
     public $bantime;
     public $can_read;
     public $can_write;
+    public $ip;
+    public $country;
 
     public function __construct()
     {
@@ -98,19 +101,19 @@ class CGChatUser
             $query->select('*')
             ->from('#__cgchat_bans')
             ->where('time > '.time());
-            $ip = $_SERVER['REMOTE_ADDR'] ;
+            $ip = IpHelper::getIp() ;
             if (($ip == '::1') || ($ip == '127.0.0.1')) {// localhost : ignore address
                 $query->where($db->qn('session') .'='.$db->q($this->session));
             } else {
-                $query->where("(".$db->qn('session') .'='.$db->q($this->session)." OR ip=".$db->q($_SERVER['REMOTE_ADDR']).")");
+                $query->where("(".$db->qn('session') .'='.$db->q($this->session)." OR ip=".$db->q($ip).")");
             }
             $db->setQuery($query);
             $ban = $db->loadObject();
             if ($ban) {
                 if (!(($ip == '::1') || ($ip == '127.0.0.1'))) {// localhost : ignore address
-                    if ($ban->ip != $_SERVER['REMOTE_ADDR']) {
+                    if ($ban->ip != $ip) {
                         $query = $db->getQuery(true);
-                        $fields = array($db->qn('ip') . ' = ' . $db->q($_SERVER['REMOTE_ADDR']));
+                        $fields = array($db->qn('ip') . ' = ' . $db->q($ip));
                         $conditions = array($db->qn('id') . ' = '.$ban->id);
                         $query->update($db->quoteName('#__cgchat_bans'))->set($fields)->where($conditions);
                         $db->setQuery($query);
@@ -149,6 +152,8 @@ class CGChatUser
         $this->hidden_session = $session->get("hidden_session", 0, 'cgchat');
         $this->private = CGChatHelper::checkPrivate($user->id);
         $this->img = CGChatLinks::getAvatar();
+        $this->ip = $session->get("ip", "", 'cgchat');
+        $this->country = $session->get("country", "", 'cgchat');
     }
 
     public function checkBan()

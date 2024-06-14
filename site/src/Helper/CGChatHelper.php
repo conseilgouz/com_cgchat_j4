@@ -12,6 +12,7 @@ namespace ConseilGouz\Component\CGChat\Site\Helper;
 defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
@@ -39,6 +40,14 @@ class CGChatHelper
         $txt = self::make_links($txt);
         $txt = self::convert_smilies($txt);
         $txt = str_replace(array("\n"," ~ ","\r"), array("<br />","<br />", ""), $txt);
+
+        if ($params->get('flag')) {
+            $kuser = CGChatUser::getInstance();
+            $img = HTMLHelper::_('image', 'plg_cgchat_country/' . strtolower($kuser->country) . '.png', $kuser->country, "title=$kuser->country", true);
+            $txt = $img.' '.$txt;
+        }
+
+
         return $txt;
     }
     public static function opciones($cantidad)
@@ -333,4 +342,70 @@ class CGChatHelper
     {
         return '';
     }
+    public static function check_country($ip, $params)
+    {
+        $iplocate = 'https://www.iplocate.io/api/lookup/';
+        $apikey = "e468c23c8daf64701f9d96e16b677e6f";
+        $app = Factory::getApplication();
+        $session = $app->getSession();
+        $session->set("country", '', 'cgchat');    // assume not found
+        if (($ip == '::1') || ($ip == '127.0.0.1')) { // local host
+            return true;
+        }
+        if ($params->get('apikey')) { // api key defined : use it, else use mine
+            $apikey = $params->get('apikey');
+        }
+        $response = CGChatHelper::getIPLocate_via_curl($iplocate.$ip.'?apikey='.$apikey);
+        if ($response) { // IPLocate OK
+            $json_array = json_decode($response);
+            if ($json_array->country_code == "") { // IPLocate perdu : on suppose hackeur
+                echo sprintf(Text::_('COM_CGCHAT_COUNTRY_NOTFOUND'), $ip);
+                return false;
+            }
+            $country = $json_array->country_code;
+            if (!$params->get('allow')) {
+                $countries = '*';
+            } else {
+                $countries = $params->get('allow');
+            }
+            $pays_autorise = explode(',', $countries);
+            if (($countries != '*') && (!in_array($country, $pays_autorise))) {
+                echo Text::_('COM_CGCHAT_COUNTRY_INVALID_COUNTRY');
+                return false;
+            }
+            if (!$params->get('block')) {
+                $blocks = '*';
+            } else {
+                $blocks = $params->get('block');
+            }
+            $block = explode(',', $blocks);
+            if (($blocks != '*') && (in_array($country, $block))) {
+                echo Text::_('COM_CGCHAT_COUNTRY_INVALID_COUNTRY');
+                return false;
+            }
+            $session->set("country", $country, 'cgchat');
+            return true;
+        } else { // IPLocate error
+            echo Text::_('PLG_CGCHAT_COUNTRY_LOCATE_ERROR');
+            return false;
+        }
+    }
+
+    // get country using IPLocate
+    public static function getIPLocate_via_curl($url)
+    {
+        try {
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+            curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            $response = curl_exec($curl);
+            curl_close($curl);
+            return $response;
+        } catch (\RuntimeException $e) {
+            return null;
+        }
+    }
+
 }

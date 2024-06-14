@@ -31,7 +31,8 @@ class MessagesModel extends ListModel
                 'time', 'a.time',
                 'token', 'a.token',
                 'session', 'a.session',
-                'ip', 'a.ip'
+                'ip', 'a.ip',
+                'country','a.country'
             );
         }
 

@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `#__cgchat` (
 `token` int(12) NOT NULL,
 `session` varchar(200) NOT NULL,
 `ip` varchar(100) DEFAULT NULL,
+`country` varchar(10) DEFAULT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='messages';
 CREATE TABLE IF NOT EXISTS `#__cgchat_private` (

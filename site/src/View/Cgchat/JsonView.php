@@ -1,7 +1,6 @@
 <?php
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.0.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -19,6 +18,7 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Response\JsonResponse;
 use Joomla\CMS\Session\Session;
 use Joomla\Database\DatabaseInterface;
+use Joomla\Utilities\IpHelper;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatUser;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatLinks;
@@ -31,8 +31,8 @@ class JsonView extends BaseHtmlView
             echo new JsonResponse(null, Text::_('JINVALID_TOKEN'), true);
             exit;
         }
-        PluginHelper::importPlugin('cgchat'); 
-        
+        PluginHelper::importPlugin('cgchat');
+
         $input = Factory::getApplication()->input;
         $task = $input->get('task');
         if ($task == 'add') {
@@ -458,21 +458,6 @@ class JsonView extends BaseHtmlView
         if ($private > 0) {
             $table = '#__cgchat_private';
         }
-        // call CGChat plugin 
-        $response = false;
-        $contentEventArguments = [
-            'context'   => 'com_cgchat.cgchat',
-            'params'    => $params,
-            'user'      => $kuser,
-            'txt'       => $txt,
-            'response'  => &$response,
-        ];
-        Factory::getApplication()->triggerEvent('onCGChatBeforeMsg', $contentEventArguments);
-        if ($response) { // error found in plugins
-            $result['comment'] = $response;
-            return $result;
-        }
-
         $id = 0;
         if ($txt && $txt != Text::_("COM_CGCHAT_NOSPAM")) {
             if ($private > 0) {
@@ -482,6 +467,21 @@ class JsonView extends BaseHtmlView
             }
             $status = $db->loadObject();
             $txt = CGChatHelper::convertText($txt, $status->Auto_increment);
+
+            // call CGChat plugin
+            $response = false;
+            $contentEventArguments = [
+                'context'   => 'com_cgchat.cgchat',
+                'params'    => $params,
+                'user'      => $kuser,
+                'txt'       => &$txt,
+                'response'  => &$response,
+            ];
+            Factory::getApplication()->triggerEvent('onCGChatBeforeMsg', $contentEventArguments);
+            if ($response) { // error found in plugins
+                $result['comment'] = $response;
+                return $result;
+            }
             $query = $db->getQuery(true);
             $query->select('id,text,session,token')
                 ->from($db->quoteName($table))
@@ -501,13 +501,14 @@ class JsonView extends BaseHtmlView
                 return $result;
             }
             $query = $db->getQuery(true);
+
             if ($private) {
                 $name = CGChatHelper::getUserPerId($private);
                 $columns = array('text','fid','from','tid','to','row','color','img','time','session','key','token');
                 $values = array($db->q($txt),$db->q($kuser->id),$db->q($kuser->name),$db->q($private),$db->q($name),$db->q($kuser->row),$db->q($color),$db->q($kuser->img),$db->q(time()),$db->q($kuser->session),$db->q($kuser->key),$db->q($kuser->token));
             } else {
-                $columns = array('name','userid','text','time','color','row','token','session','img','url','ip');
-                $values = array($db->q($kuser->name),$db->q($kuser->id),$db->q($txt),$db->q(time()),$db->q($color),$db->q($kuser->row),$db->q($kuser->token),$db->q($kuser->session),$db->q($kuser->img),$db->q(CGChatLinks::getUserLink($kuser->id)),$db->q($_SERVER['REMOTE_ADDR']));
+                $columns = array('name','userid','text','time','color','row','token','session','img','url','ip','country');
+                $values = array($db->q($kuser->name),$db->q($kuser->id),$db->q($txt),$db->q(time()),$db->q($color),$db->q($kuser->row),$db->q($kuser->token),$db->q($kuser->session),$db->q($kuser->img),$db->q(CGChatLinks::getUserLink($kuser->id)),$db->q($kuser->ip),$db->q($kuser->country));
             }
             $query->insert($db->quoteName($table))
             ->columns($db->quoteName($columns))
@@ -553,13 +554,13 @@ class JsonView extends BaseHtmlView
     }
     public function kill()
     {
-        
+
         $result = [];
         $input = Factory::getApplication()->input;
         $session = $input->get('session', '', 'ALNUM');
         $params = ComponentHelper::getParams('com_cgchat');
-        
-        // call CGChat plugin 
+
+        // call CGChat plugin
         $response = false;
         $contentEventArguments = [
             'context'   => 'com_cgchat.cgchat',

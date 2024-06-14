@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension method="upgrade" type="component" version="4.0">
 	<name>CG Chat</name>
-	<creationDate>2024-06-13</creationDate>
-	<version>1.3.5</version>
+	<creationDate>2024-06-14</creationDate>
+	<version>1.4.0</version>
 	<author>ConseilGouz</author>
     <authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
@@ -64,6 +64,11 @@
 			</file>
 		</sql>
 	</uninstall>
+   	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates</schemapath>
+		</schemas>
+	</update>
 	<changelogurl>https://raw.githubusercontent.com/conseilgouz/com_cgchat_j4/master/com_cgchat_changelog.xml</changelogurl>
 	<updateservers>
 	<server type="extension" name="com_cgchat" priority="1">https://raw.githubusercontent.com/conseilgouz/updates_github/master/com_cgchat_update.xml</server>

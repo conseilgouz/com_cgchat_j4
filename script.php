@@ -53,17 +53,6 @@ class com_cgchatInstallerScript
 
     }
 
-    public function install($parent)
-    {
-    }
-
-    public function uninstall($parent)
-    {
-    }
-
-    public function update($parent)
-    {
-    }
 
     public function postflight($type, $parent)
     {

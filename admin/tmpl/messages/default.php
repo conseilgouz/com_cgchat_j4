@@ -54,6 +54,9 @@ $rows_alias = array("special", "admin", "registered", "guest");
 				<th width="5%">
 					<?php echo HTMLHelper::_('grid.sort', 'IP', 'a.ip', $listDirn, $listOrder); ?>
 				</th>
+				<th width="5%">
+					<?php echo HTMLHelper::_('grid.sort', 'COM_CGCHAT_COUNTRY', 'a.country', $listDirn, $listOrder); ?>
+				</th>
 				<th width="5%" class="nowrap">
 					<?php echo HTMLHelper::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
 				</th>
@@ -91,13 +94,19 @@ $rows_alias = array("special", "admin", "registered", "guest");
 					<?php
 		            $text = $item->text;
 		    if (strlen($text) > 70) {
-		        $text = HTMLHelper::_('string.truncate', $text, 70, $noSplit = true, $allowHtml = false);
+		        $text = HTMLHelper::_('string.truncate', $text, 70, $noSplit = true, $allowHtml = true);
 		    }
 		    echo $text;
 		    ?>
 				</td>
 				<td class="center">
 					<?php echo $item->ip; ?>
+				</td>
+				<td class="center">
+					<?php if ($item->country) {
+                            echo HTMLHelper::_('image', 'plg_cgchat_country/' . strtolower($item->country) . '.png', $item->country, "title=$item->country", true);
+                            }
+                    ?>
 				</td>
 				<td class="center">
 					<?php echo (int) $item->id; ?>

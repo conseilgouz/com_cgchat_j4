@@ -1,7 +1,6 @@
 <?php
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.0.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -14,10 +13,12 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Filesystem\Folder;
+use Joomla\Utilities\IpHelper;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatUser;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHead;
@@ -28,7 +29,6 @@ class HtmlView extends BaseHtmlView
     public function display($tmpl = null)
     {
         DEFINE('CGCHAT_LOADED', true);
-        $kuser = CGChatUser::getInstance();
         $params = ComponentHelper::getParams('com_cgchat');
         PluginHelper::importPlugin('cgchat');
         $response = false;
@@ -41,6 +41,24 @@ class HtmlView extends BaseHtmlView
         if ($response) { // error found in plugins
             echo $response;
             return false;
+        }
+        $ip = IpHelper::getIp();
+        //$ip = '54.36.148.179'; // test FR
+        //$ip = '218.92.1.234'; // test Chine
+        $app = Factory::getApplication();
+        $session = $app->getSession();
+        $session->set("ip", $ip, 'cgchat');
+        $lang = $app->getLanguage();
+        $lang->load("com_cgchat");
+
+        if ($params->get('countryinfo')) {
+            if (!extension_loaded('curl')) {
+                echo Text::_('COM_CGCHAT_COUNTRY_NOCURL');
+                return false;
+            }
+            if (!CGChatHelper::check_country($ip, $params)) {
+                return false;
+            }
         }
         $this->preparar();
         $tpl = CGChatTemplate::getInstance();
@@ -124,8 +142,5 @@ class HtmlView extends BaseHtmlView
 
         $this->setDocumentTitle($title);
         $pathway->addItem($title);
-
-
     }
-
 }
