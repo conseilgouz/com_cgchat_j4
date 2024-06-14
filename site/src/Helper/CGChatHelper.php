@@ -43,7 +43,7 @@ class CGChatHelper
 
         if ($params->get('flag')) {
             $kuser = CGChatUser::getInstance();
-            $img = HTMLHelper::_('image', 'plg_cgchat_country/' . strtolower($kuser->country) . '.png', $kuser->country, "title=$kuser->country", true);
+            $img = HTMLHelper::_('image', 'com_cgchat/' . strtolower($kuser->country) . '.png', $kuser->country, "title=$kuser->country", true);
             $txt = $img.' '.$txt;
         }
 
