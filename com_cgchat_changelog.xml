@@ -2,6 +2,27 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.4.3</version>
+        <note>
+            <item>Update : 15/06/2024</item>
+        </note>
+        <fix>
+            <item>Don't check country if already known</item>
+            <item>Unban user not working</item>
+            <item>Admin : messages list : non html allowed</item>
+        </fix>
+        <addition>
+            <item>Add IP/Country to private messages (table cgchat_private)</item>
+            <item>Keep banned users info (add state in cgchat_bans)</item>
+            <item>Add user name in banned infos</item>
+        </addition>
+        <change>
+            <item>Hide dialog form until component starts</item>
+        </change>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.4.2</version>
         <note>
             <item>Update : 14/06/2024</item>

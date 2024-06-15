@@ -100,7 +100,7 @@ class CGChatUser
             $query = $db->getQuery(true);
             $query->select('*')
             ->from('#__cgchat_bans')
-            ->where('time > '.time());
+            ->where('time > '.time().' AND state < 2');
             $ip = IpHelper::getIp() ;
             if (($ip == '::1') || ($ip == '127.0.0.1')) {// localhost : ignore address
                 $query->where($db->qn('session') .'='.$db->q($this->session));
@@ -200,7 +200,8 @@ class CGChatUser
         $query->select($db->qn('time'))
             ->from('#__cgchat_bans')
             ->where($db->qn('session') .'='.$db->q($session))
-            ->where($db->qn('time').'>'.time());
+            ->where($db->qn('time').'>'.time())
+            ->where($db->qn('state'). '< 2');
         $db->setQuery($query);
         return $db->loadResult();
     }
@@ -212,8 +213,8 @@ class CGChatUser
         $session = Factory::getApplication()->getSession();
         $tiempo = time() + $params->get("banear_minutos", 5) * 60;
         $query = $db->getQuery(true);
-        $columns = array('ip','session','time');
-        $values = array($db->q($_SERVER['REMOTE_ADDR']),$db->q($session),$tiempo);
+        $columns = array('ip','session','time','name');
+        $values = array($db->q($_SERVER['REMOTE_ADDR']),$db->q($session),$tiempo, $this->name);
         $query->insert($db->quoteName('#__cgchat_bans'))
             ->columns($db->quoteName($columns))
             ->values(implode(',', $values));

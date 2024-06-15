@@ -132,6 +132,9 @@ var cgchat = {
 		if (!cgchat.starting) {
 			cgchat.starting = true;
 			cgchat.attr('starting', 'src', cgchat.img_starting[2]);
+            if (cgchat.row < 4) {// not banned : show dialog form
+                cgchat.toggle('CGCHAT_form');
+            }
 			cgchat.sessions();
 			cgchat.reload();
 			cgchat.events.fire('onstart');

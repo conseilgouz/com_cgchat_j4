@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS `#__cgchat_private` (
 `session` varchar(32) NOT NULL,
 `key` int(7) NOT NULL,
 `token` int(12) NOT NULL,
+`ip` varchar(100) DEFAULT NULL,
+`country` varchar(10) DEFAULT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='private messages';
 CREATE TABLE IF NOT EXISTS `#__cgchat_private_offline` (
@@ -44,9 +46,12 @@ PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Offline private messages';
 CREATE TABLE IF NOT EXISTS `#__cgchat_bans` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
+`state` tinyint DEFAULT 0, 
+`name` varchar(255) DEFAULT '',
 `session` varchar(32) NOT NULL,
 `ip` varchar(100) DEFAULT NULL,
 `time` int(12) NOT NULL,
+`time_off` int(12) NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Bans';
 CREATE TABLE IF NOT EXISTS `#__cgchat_session` (

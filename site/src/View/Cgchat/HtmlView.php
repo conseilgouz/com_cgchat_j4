@@ -56,8 +56,10 @@ class HtmlView extends BaseHtmlView
                 echo Text::_('COM_CGCHAT_COUNTRY_NOCURL');
                 return false;
             }
-            if (!CGChatHelper::check_country($ip, $params)) {
-                return false;
+            if (!$session->get("country", '', 'cgchat')) {// unknown country
+                if (!CGChatHelper::check_country($ip, $params)) {
+                    return false;
+                }
             }
         }
         $this->preparar();

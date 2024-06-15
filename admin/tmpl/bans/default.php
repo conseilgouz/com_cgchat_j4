@@ -1,7 +1,6 @@
 <?php
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.0.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -28,6 +27,9 @@ $saveOrder	= $listOrder == 'a.ordering';
 					} ?>checkAll(this)" />
 				</th>
 				<th>
+					<?php echo HTMLHelper::_('grid.sort', 'COM_CGCHAT_NAME', 'a.name', $listDirn, $listOrder); ?>
+				</th>
+				<th>
 					<?php echo HTMLHelper::_('grid.sort', 'IP', 'a.ip', $listDirn, $listOrder); ?>
 				</th>
 				<th>
@@ -35,6 +37,9 @@ $saveOrder	= $listOrder == 'a.ordering';
 				</th>
 				<th>
 					<?php echo HTMLHelper::_('grid.sort', 'COM_CGCHAT_BAN_TIME', 'a.time', $listDirn, $listOrder); ?>
+				</th>
+				<th>
+					<?php echo HTMLHelper::_('grid.sort', 'COM_CGCHAT_BAN_TIME_OFF', 'a.time_off', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap">
 					<?php echo HTMLHelper::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
@@ -56,6 +61,9 @@ $saveOrder	= $listOrder == 'a.ordering';
 					<?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
 				</td>
 				<td>
+					<?php echo $item->name; ?>
+				</td>
+				<td>
 					<?php echo $item->ip; ?>
 				</td>
 				<td>
@@ -63,6 +71,13 @@ $saveOrder	= $listOrder == 'a.ordering';
 				</td>
 				<td>
 					<?php echo HTMLHelper::_('date', $item->time); ?>
+				</td>
+				<td>
+					<?php 
+                    if ($item->time_off) {
+                        echo HTMLHelper::_('date', $item->time_off); 
+                    }
+                    ?>
 				</td>
 				<td class="center">
 					<?php echo (int) $item->id; ?>

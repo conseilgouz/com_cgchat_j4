@@ -1,7 +1,6 @@
 <?php
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.0.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -27,14 +26,16 @@ $wa->useScript('keepalive')
 		<fieldset class="adminform">
 			<legend><?php echo Text::sprintf('COM_CGCHAT_EDIT_BAN'); ?></legend>
 			<ul class="adminformlist">
+				<li><?php echo $this->form->getLabel('name'); ?>
+				<?php echo $this->form->getInput('name'); ?></li>
 				<li><?php echo $this->form->getLabel('session'); ?>
 				<?php echo $this->form->getInput('session'); ?></li>
-				
 				<li><?php echo $this->form->getLabel('ip'); ?>
 				<?php echo $this->form->getInput('ip'); ?></li>
-				
 				<li><?php echo $this->form->getLabel('time'); ?>
 				<?php echo $this->form->getInput('time'); ?></li>
+				<li><?php echo $this->form->getLabel('time_off'); ?>
+				<?php echo $this->form->getInput('time_off'); ?></li>
 			</ul>
 		</fieldset>
 	</div>

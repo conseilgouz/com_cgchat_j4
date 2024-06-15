@@ -24,6 +24,9 @@ class BansModel extends ListModel
                 'session', 'a.session',
                 'ip', 'a.ip',
                 'time', 'a.time',
+                'time_off', 'a.time_off',
+                'state', 'a.state',
+                'name', 'a.name'
             );
         }
 

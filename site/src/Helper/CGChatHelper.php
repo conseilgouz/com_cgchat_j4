@@ -124,8 +124,9 @@ class CGChatHelper
         //  }
         // delete obsolete bans
         $query = $db->getQuery(true);
-        $query->delete($db->quoteName('#__cgchat_bans'));
-        $query->where($db->qn('time').'<'.time());
+        $fields = array($db->qn('state') . ' = 2', $db->qn('time_off'). ' = '.time());
+        $conditions = array($db->qn('time'). ' < '.time() );
+        $query->update($db->quoteName('#__cgchat_bans'))->set($fields)->where($conditions);
         $db->setQuery($query);
         $db->execute();
 

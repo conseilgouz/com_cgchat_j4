@@ -215,12 +215,12 @@ class JsonView extends BaseHtmlView
         $out = [];
         if ($kuser->row == 1) {
             $session    = $input->get('session', '', 'ALNUM');
-            $flag       = (int)$input->get('flag');
+            $flag       = (string)$input->get('flag');
             if ($flag == "false") {
+                $fields = array($db->qn('state') . ' = 2', $db->qn('time_off'). ' = '.time());
                 $conditions = array($db->qn('session').' LIKE '.$db->q($session));
                 $query = $db->getQuery(true);
-                $query->delete($db->quoteName('#__cgchat_bans'));
-                $query->where($conditions);
+                $query->update($db->quoteName('#__cgchat_bans'))->set($fields)->where($conditions);
                 $db->setQuery($query);
                 $db->execute();
                 $name = CGChatHelper::getUserPerSession($session);
@@ -231,13 +231,16 @@ class JsonView extends BaseHtmlView
                 if ($t > 0 && $session) {
                     $t += time();
                     $query = $db->getQuery(true);
+                    $fields = array($db->qn('state') . ' = 2',$db->qn('time_off'). ' = '.time());
                     $conditions = array($db->qn('time'). ' < '.time() );
-                    $query->delete($db->quoteName('#__cgchat_bans'));
-                    $query->where($conditions);
+                    $query->update($db->quoteName('#__cgchat_bans'))->set($fields)->where($conditions);
                     $db->setQuery($query);
                     $db->execute();
                     $query = $db->getQuery(true);
-                    $query->select('id')->from('#__cgchat_bans')->where($db->qn('session').' = '.$db->q($session));
+                    $query->select('id')
+                        ->from('#__cgchat_bans')
+                        ->where($db->qn('session').' = '.$db->q($session))
+                        ->where($db->qn('state') . '< 2');
                     $db->setQuery($query);
                     $id = $db->loadResult();
                     $query = $db->getQuery(true);
@@ -249,8 +252,8 @@ class JsonView extends BaseHtmlView
                         $db->execute();
                     } else {
                         $query = $db->getQuery(true);
-                        $columns = array('session','time');
-                        $values = array($db->q($session),$t);
+                        $columns = array('session','time','name');
+                        $values = array($db->q($session),$t,$db->q($kuser->name));
                         $query->insert($db->quoteName('#__cgchat_bans'))
                             ->columns($db->quoteName($columns))
                             ->values(implode(',', $values));
@@ -437,8 +440,9 @@ class JsonView extends BaseHtmlView
 
         if ($kuser->checkBan()) {
             $query = $db->getQuery(true);
-            $query->delete($db->quoteName('#__cgchat_bans'));
-            $query->where($db->qn('time').'<'.time());
+            $fields = array($db->qn('state') . ' = 2', $db->qn('time_off'). ' = '.time());
+            $conditions = array($db->qn('time'). ' < '.time() );
+            $query->update($db->quoteName('#__cgchat_bans'))->set($fields)->where($conditions);
             $db->setQuery($query);
             $db->execute();
             $db->setQuery('INSERT INTO #__cgchat (name,userid,text,time,color,row,session,token,img,url) VALUES ("System", 0, "'.str_replace("%name", $kuser->name, Text::_("COM_CGCHAT_USER_BANNED")).'", '.time().', "'.$params->get('color_sp', '000').'", 0, 0, 0, "", "")');
@@ -504,8 +508,8 @@ class JsonView extends BaseHtmlView
 
             if ($private) {
                 $name = CGChatHelper::getUserPerId($private);
-                $columns = array('text','fid','from','tid','to','row','color','img','time','session','key','token');
-                $values = array($db->q($txt),$db->q($kuser->id),$db->q($kuser->name),$db->q($private),$db->q($name),$db->q($kuser->row),$db->q($color),$db->q($kuser->img),$db->q(time()),$db->q($kuser->session),$db->q($kuser->key),$db->q($kuser->token));
+                $columns = array('text','fid','from','tid','to','row','color','img','time','session','key','token','ip','country');
+                $values = array($db->q($txt),$db->q($kuser->id),$db->q($kuser->name),$db->q($private),$db->q($name),$db->q($kuser->row),$db->q($color),$db->q($kuser->img),$db->q(time()),$db->q($kuser->session),$db->q($kuser->key),$db->q($kuser->token),$db->q($kuser->ip),$db->q($kuser->country));
             } else {
                 $columns = array('name','userid','text','time','color','row','token','session','img','url','ip','country');
                 $values = array($db->q($kuser->name),$db->q($kuser->id),$db->q($txt),$db->q(time()),$db->q($color),$db->q($kuser->row),$db->q($kuser->token),$db->q($kuser->session),$db->q($kuser->img),$db->q(CGChatLinks::getUserLink($kuser->id)),$db->q($kuser->ip),$db->q($kuser->country));

@@ -23,7 +23,7 @@ if ($this->user->row == 3 && !$this->user->can_write) {
     echo '<div id="CGCHAT_form" style="display:none">';
     } else{ ?>
     <div id='cgchat_banned' style="display:none"><br /><?php echo Text::_("COM_CGCHAT_BANNED");?></div>
-	<div id="CGCHAT_form">
+	<div id="CGCHAT_form" style="display:none">
     <?php } ?>
 		<div>
 			<?php echo Text::_("COM_CGCHAT_NAME"); ?>: 

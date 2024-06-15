@@ -94,7 +94,7 @@ $rows_alias = array("special", "admin", "registered", "guest");
 					<?php
 		            $text = $item->text;
 		    if (strlen($text) > 70) {
-		        $text = HTMLHelper::_('string.truncate', $text, 70, $noSplit = true, $allowHtml = true);
+		        $text = HTMLHelper::_('string.truncate', $text, 70, $noSplit = true, $allowHtml = false);
 		    }
 		    echo $text;
 		    ?>
