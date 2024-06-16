@@ -9,13 +9,17 @@
 */
 
 defined('_JEXEC') or die();
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatLinks;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 
 $return = Factory::getApplication()->getInput()->get('return');
+
+$params = ComponentHelper::getParams('com_cgchat');
 
 ?>
 
@@ -35,6 +39,11 @@ $return = Factory::getApplication()->getInput()->get('return');
 				<span class="<?php echo CGChatHelper::getRow($r->row, 'CGCHAT_'); ?>">
 					<?php echo $r->name; ?>
 				</span>
+             <?php
+                if (($params->get('countryinfo') > 0) && ($params->get('flag', 0) == 1)) { // flags on session ?
+                    echo HTMLHelper::_('image', 'com_cgchat/' . strtolower($r->country) . '.png', $r->country, "title=$r->country", true);
+                }
+                ?>
 			<?php if ($url) : ?>
 			</a>
 			<?php endif; ?>

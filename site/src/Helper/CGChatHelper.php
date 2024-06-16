@@ -41,7 +41,7 @@ class CGChatHelper
         $txt = self::convert_smilies($txt);
         $txt = str_replace(array("\n"," ~ ","\r"), array("<br />","<br />", ""), $txt);
 
-        if ($params->get('flag', 0) == 2) { // flags on messages ?
+        if (($params->get('countryinfo') > 0) && ($params->get('flag', 0) == 2)) { // flags on messages ?
             $kuser = CGChatUser::getInstance();
             $img = HTMLHelper::_('image', 'com_cgchat/' . strtolower($kuser->country) . '.png', $kuser->country, "title=$kuser->country", true);
             $txt = $img.' '.$txt;
