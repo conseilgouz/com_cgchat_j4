@@ -34,7 +34,7 @@ $this->n_tiempo = '
 			$this->display("buttons");
             if ($this->show_sessions) {
                 echo '<div id="CGCHAT_users_top">';
-                echo '<div id="CGCHAT_users"></div>';
+                echo '<div id="CGCHAT_users" class="d-table-row"></div>';
                 echo '</div>';
             }
 			$this->display("msgs");

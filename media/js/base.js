@@ -790,6 +790,7 @@ var cgchat = {
         this.show_hour      = o.show_hour;
         this.show_sessions  = o.show_sessions;
         this.autostart      = o.autostart;
+        this.flag           = o.flag; // display country flag ?
         if (this.color) {
             this.css(this.$('CGCHAT_txt'),'color','#'+this.color);
         }

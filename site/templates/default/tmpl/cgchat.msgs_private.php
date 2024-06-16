@@ -30,8 +30,10 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
                     $style = $this->avatar_maxheight ? 'style="max-height:'.$this->avatar_maxheight.'" ' : '';
                     echo '<img '.$style.'src="'.$r->img.'" class="CGCHAT_icono" alt="" /> ';
                 }
-                echo '<span style="cursor: pointer" title="'.$tiempo.'" onclick="cgchat.mensaje(\''.addslashes($r->from).'\','.$r->fid.','.$r->id.',\''.''.'\',\''.$tiempo.'\',\''.$r->session.'\','.$r->row.',\''.$r->img.'\')" class="'.CGChatHelper::getRow($r->row, 'CGCHAT_').'">';
+                echo '<span style="cursor: pointer" title="'.$tiempo.'" onclick="cgchat.mensaje(\''.addslashes($r->from).'\',\''.$r->country.'\','.$r->fid.','.$r->id.',\''.''.'\',\''.$tiempo.'\',\''.$r->session.'\','.$r->row.',\''.$r->img.'\')" class="'.CGChatHelper::getRow($r->row, 'CGCHAT_').'">';
                 echo $r->from;
+                echo ($r->country) ? HTMLHelper::_('image', 'com_cgchat/' . strtolower($r->country) . '.png', $r->country, "title=$r->country", true) : '';
+				echo "</span>"; 
                 echo "</span>";
                 $c = $r->color === '' ? 'class="'.CGChatHelper::getRow($r->row, 'CGCHAT_dc_').' CGCHAT_msg"' : 'style="color:#'.$r->color.'"';
                 echo ': <span '.$c.'>'.str_replace('\"', '"', $r->text).'</span></div>';

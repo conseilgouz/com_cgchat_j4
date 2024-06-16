@@ -109,6 +109,7 @@ class CGChatHead
                 'show_hour'     => $is_component,
                 'show_sessions' => $is_component,
                 'autostart'     => $is_component,
+                'flag'          => $params->get('flag', 0)
                 )
         ); // end of addScriptOptions
     }

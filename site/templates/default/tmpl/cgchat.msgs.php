@@ -8,9 +8,13 @@
 * From Kide ShoutBox
 */
 defined('_JEXEC') or die(); 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
+
+$params = ComponentHelper::getParams('com_cgchat');
 
 ?>
 <div id="CGCHAT_msgs">
@@ -29,8 +33,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 					echo '<img '.$style.'src="'.$r->img.'" class="CGCHAT_icono" alt="" /> ';
 				}
 				echo '<span style="cursor: pointer" title="'.$tiempo.'" onclick="cgchat.mensaje(\''.addslashes($r->name).'\',\''.$r->country.'\','.$r->userid.','.$r->id.',\''.$r->url.'\',\''.$tiempo.'\',\''.$r->session.'\','.$r->row.',\''.$r->img.'\')" class="'.CGChatHelper::getRow($r->row, 'CGCHAT_').'">';
-				echo $r->name;
-                echo ($r->country) ? $r->country : '';
+                echo (($params->get('flag', 0) == 1) && ($r->country)) ? HTMLHelper::_('image', 'com_cgchat/' . strtolower($r->country) . '.png', $r->country, "title=$r->country", true) : '';
 				echo "</span>"; 
 				$c = $r->color === '' ? 'class="'.CGChatHelper::getRow($r->row, 'CGCHAT_dc_').' CGCHAT_msg"' : 'style="color:#'.$r->color.'"';
 				echo ': <span '.$c.'>'.str_replace('\"','"',$r->text).'</span></div>'; 	

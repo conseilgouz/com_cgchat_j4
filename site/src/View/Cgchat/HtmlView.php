@@ -43,8 +43,8 @@ class HtmlView extends BaseHtmlView
             return false;
         }
         $ip = IpHelper::getIp();
-        //$ip = '54.36.148.179'; // test FR
-        //$ip = '218.92.1.234'; // test Chine
+        // $ip = '54.36.148.179'; // test FR
+        // $ip = '218.92.1.234'; // test Chine
         $app = Factory::getApplication();
         $session = $app->getSession();
         $session->set("ip", $ip, 'cgchat');

@@ -1,7 +1,6 @@
 <?php 
 /**
 * CG Chat Component  - Joomla 4.x Component 
-* Version			: 1.0.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -25,7 +24,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 	<table width="100%">
 		<tr>
 			<td>
-				· <span id="CGCHAT_mensaje_username"></span>· <span id="CGCHAT_message_country"></span>
+				· <span id="CGCHAT_mensaje_username"></span>&nbsp;<span id="CGCHAT_message_country"></span>
 				<br />
 				· <span id="CGCHAT_tiempo_msg"></span>
 				<span id="CGCHAT_mensaje_profil_span">
@@ -53,7 +52,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 <div id="CGCHAT_user" class="CGCHAT_mostrar container" style="display: none">
     <div class="row">
         <div class="col">
-            · <span id="CGCHAT_user_name"></span>
+            · <span id="CGCHAT_user_name"></span>&nbsp;<span id="CGCHAT_user_country"></span>
             <span id="CGCHAT_user_profil_mostrar">
             <br />
             · <a target="_blank" id="CGCHAT_user_profil" href="javascript:void(0)"><?php echo Text::_("COM_CGCHAT_VERPROFIL"); ?></a>

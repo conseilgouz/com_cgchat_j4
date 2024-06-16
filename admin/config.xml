@@ -90,12 +90,13 @@
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
-            <field showon="countryinfo:1" name="apikey" type="text" size="50" default="" label="COM_CGCHAT_COUNTRY_API_KEY" description="COM_CGCHAT_COUNTRY_API_KEY_DESC"/>
-            <field showon="countryinfo:1" name="allow" type="text" size="50" default="*" label="COM_CGCHAT_COUNTRY_ALLOW" description="COM_CGCHAT_COUNTRY_ALLOW_DESC" validate="country"/>
-            <field showon="countryinfo:1" name="block" type="text" size="50" default="*" label="COM_CGCHAT_COUNTRY_BLOCK" description="COM_CGCHAT_COUNTRY_BLOCK_DESC" validate="country"/>
-            <field showon="countryinfo:1" name="flag" type="radio" layout="joomla.form.field.radio.switcher" default="0" label="COM_CGCHAT_COUNTRY_FLAG" description="COM_CGCHAT_COUNTRY_FLAG_DESC">
+            <field showon="countryinfo!:0" name="apikey" type="text" size="50" default="" label="COM_CGCHAT_COUNTRY_API_KEY" description="COM_CGCHAT_COUNTRY_API_KEY_DESC"/>
+            <field showon="countryinfo!:0" name="allow" type="text" size="50" default="*" label="COM_CGCHAT_COUNTRY_ALLOW" description="COM_CGCHAT_COUNTRY_ALLOW_DESC" validate="country"/>
+            <field showon="countryinfo!:0" name="block" type="text" size="50" default="*" label="COM_CGCHAT_COUNTRY_BLOCK" description="COM_CGCHAT_COUNTRY_BLOCK_DESC" validate="country"/>
+            <field showon="countryinfo!:0" name="flag" type="radio" class="btn-group" default="0" label="COM_CGCHAT_COUNTRY_FLAG" description="COM_CGCHAT_COUNTRY_FLAG_DESC">
                 <option value="0">JNO</option>
-                <option value="1">JYES</option>
+                <option value="1">COM_CGCHAT_COUNTRY_FLAG_SESSIONS</option>
+                <option value="2">COM_CGCHAT_COUNTRY_FLAG_MESSAGES</option>
             </field>
 		</fieldset>
 		<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">

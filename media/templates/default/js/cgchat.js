@@ -12,7 +12,8 @@ cgchat.mensaje = function(name, country, uid, id, url, ti, session, row, img) {
 	this.html('CGCHAT_mensaje_username', name);
 	this.attr('CGCHAT_mensaje_username', 'className', "CGCHAT_"+cgchat.rows[row]);
     this.attr('CGCHAT_mensaje_username', 'title', this.rowtitles[row]);
-    this.html('CGCHAT_message_country', country);
+    if ((this.flag == 1) && country)
+        this.html('CGCHAT_message_country', '<img src="/media/com_cgchat/images/'+country.toLowerCase()+'.png" alt="'+country+'" title="'+country+'">');
 	this.html('CGCHAT_tiempo_msg', ti);
 	this.attr('CGCHAT_mensaje_img', 'src', img ? img : this.img_blank);
 	if (url) {
@@ -44,6 +45,8 @@ cgchat.mostrar_user = function(session) {
 	this.html('CGCHAT_user_name', r.name);
 	this.attr('CGCHAT_user_name', 'className', "CGCHAT_"+this.rows[r.row]);
     this.attr('CGCHAT_user_name', 'title', this.rowtitles[r.row]);
+    if ((this.flag == 1) && r.country)
+        this.html('CGCHAT_user_country', '<img src="/media/com_cgchat/images/'+r.country.toLowerCase()+'.png" alt="'+r.country+'" title="'+r.country+'">');
 	this.attr('CGCHAT_user_img', 'src', r.img ? r.img : this.img_blank);
     
     if ((r.uid > 0) &&(r.row < 3) && !myself) {// connected user
@@ -109,7 +112,11 @@ cgchat.insertNewContent = function(uid,name,text,url,ti,color,row,id,session,yo,
 			var style = cgchat.avatar_maxheight ? 'style="max-height:'+cgchat.avatar_maxheight+'" ' : '';
 			tmp = '<img '+style+'src="'+img+'" class="CGCHAT_icono" alt="" /> ';
 		}
-		nodo.innerHTML = s_hora+tmp+'<span style="cursor: pointer" class="CGCHAT_'+this.rows[row]+'" onclick="cgchat.mensaje(\''+name+'\',\''+country+'\', '+uid+', '+id+', \''+url+'\', \''+ti+'\', \''+session+'\', '+row+', \''+img+'\')">'+name+'</span>'+country+': <span '+c+'>'+this.filter_smilies(text)+'</span>';
+        countryimg = '';
+        if ((this.flag == 1) && country)
+            countryimg = '<img src="/media/com_cgchat/images/'+country.toLowerCase()+'.png" alt="'+country+'" title="'+country+'">';
+
+		nodo.innerHTML = s_hora+tmp+'<span style="cursor: pointer" class="CGCHAT_'+this.rows[row]+'" onclick="cgchat.mensaje(\''+name+'\',\''+country+'\', '+uid+', '+id+', \''+url+'\', \''+ti+'\', \''+session+'\', '+row+', \''+img+'\')">'+name+'</span>&nbsp;'+countryimg+': <span '+c+'>'+this.filter_smilies(text)+'</span>';
 
 		if (this.order == 'bottom') {
 			this.insertAfter(nodo, insertO.lastChild);
@@ -128,7 +135,11 @@ cgchat.insert_session = function(user) {
 	div.setAttribute('title', user.title);
     div.setAttribute('data', user.id);
 	div.onclick = function() { cgchat.mostrar_user(user.session) };
-	div.innerHTML = user.name+user.country;
+    countryimg = '';
+    if ((this.flag == 1) && user.country)
+            countryimg = '<img src="/media/com_cgchat/images/'+user.country.toLowerCase()+'.png" alt="'+user.country+'" title="'+user.country+'">';
+    
+	div.innerHTML = user.name+' '+countryimg;
 	this.$('CGCHAT_users').insertBefore(div, this.$('CGCHAT_users').firstChild);
 };
 cgchat.show_colors = function() {
