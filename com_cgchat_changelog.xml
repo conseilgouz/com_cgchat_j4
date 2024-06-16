@@ -8,6 +8,7 @@
         </note>
         <addition>
             <item>Add IP/Country to sessions (table cgchat_session)</item>
+            <item>Add Flags per session or message</item>
         </addition>
 	</changelog>
 	<changelog>
