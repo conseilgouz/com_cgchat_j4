@@ -25,7 +25,7 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 	<table width="100%">
 		<tr>
 			<td>
-				· <span id="CGCHAT_mensaje_username"></span>
+				· <span id="CGCHAT_mensaje_username"></span>· <span id="CGCHAT_message_country"></span>
 				<br />
 				· <span id="CGCHAT_tiempo_msg"></span>
 				<span id="CGCHAT_mensaje_profil_span">

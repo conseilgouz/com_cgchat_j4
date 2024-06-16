@@ -64,6 +64,8 @@ CREATE TABLE IF NOT EXISTS `#__cgchat_session` (
 `private` int(1) NOT NULL,
 `hidden` int(1) NOT NULL,
 `key` int(7) NOT NULL,
+`ip` varchar(100) DEFAULT NULL,
+`country` varchar(10) DEFAULT NULL,
 UNIQUE KEY `session` (`session`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='chat sessions';
 CREATE TABLE IF NOT EXISTS `#__cgchat_icons` (

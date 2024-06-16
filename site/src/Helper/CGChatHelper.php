@@ -113,12 +113,12 @@ class CGChatHelper
         }
         // if ($kuser->can_write) {
         $query = $db->getQuery(true);
-        $columns = array('name','userid','row','time','session','img','private','hidden','key');
-        $values = array($db->quote($kuser->name),$kuser->id,$kuser->row,$db->quote(time()),$db->quote($kuser->session),$db->quote($kuser->img),$db->quote($kuser->private),$db->quote($kuser->hidden_session),$db->quote($kuser->key));
+        $columns = array('name','userid','row','time','session','img','private','hidden','key','ip','country');
+        $values = array($db->q($kuser->name),$kuser->id,$kuser->row,$db->q(time()),$db->q($kuser->session),$db->q($kuser->img),$db->q($kuser->private),$db->q($kuser->hidden_session),$db->q($kuser->key),$db->q($kuser->ip),$db->q($kuser->country));
         $query->insert($db->quoteName('#__cgchat_session'))
             ->columns($db->quoteName($columns))
             ->values(implode(',', $values));
-        $query .= " ON DUPLICATE KEY UPDATE name=".$db->quote($kuser->name).",time=".time().",hidden=".$kuser->hidden_session.",img=".$db->quote($kuser->img);
+        $query .= " ON DUPLICATE KEY UPDATE name=".$db->q($kuser->name).",time=".time().",hidden=".$kuser->hidden_session.",img=".$db->q($kuser->img).",country=".$db->q($kuser->country);
         $db->setQuery($query);
         $db->execute();
         //  }

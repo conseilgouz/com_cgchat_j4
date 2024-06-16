@@ -28,8 +28,9 @@ use ConseilGouz\Component\CGChat\Site\Helper\CGChatHelper;
 					$style = $this->avatar_maxheight ? 'style="max-height:'.$this->avatar_maxheight.'" ' : '';
 					echo '<img '.$style.'src="'.$r->img.'" class="CGCHAT_icono" alt="" /> ';
 				}
-				echo '<span style="cursor: pointer" title="'.$tiempo.'" onclick="cgchat.mensaje(\''.addslashes($r->name).'\','.$r->userid.','.$r->id.',\''.$r->url.'\',\''.$tiempo.'\',\''.$r->session.'\','.$r->row.',\''.$r->img.'\')" class="'.CGChatHelper::getRow($r->row, 'CGCHAT_').'">';
+				echo '<span style="cursor: pointer" title="'.$tiempo.'" onclick="cgchat.mensaje(\''.addslashes($r->name).'\',\''.$r->country.'\','.$r->userid.','.$r->id.',\''.$r->url.'\',\''.$tiempo.'\',\''.$r->session.'\','.$r->row.',\''.$r->img.'\')" class="'.CGChatHelper::getRow($r->row, 'CGCHAT_').'">';
 				echo $r->name;
+                echo ($r->country) ? $r->country : '';
 				echo "</span>"; 
 				$c = $r->color === '' ? 'class="'.CGChatHelper::getRow($r->row, 'CGCHAT_dc_').' CGCHAT_msg"' : 'style="color:#'.$r->color.'"';
 				echo ': <span '.$c.'>'.str_replace('\"','"',$r->text).'</span></div>'; 	

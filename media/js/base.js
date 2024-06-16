@@ -518,7 +518,7 @@ var cgchat = {
 						cgchat.last_time = result['last_time'];
 						for (var i=0; i < result.messages.length; i++) {
 							row = result.messages[i];
-							cgchat.insertNewContent(row.uid,row.name,row.text,row.url,row.date,row.color,row.row,row.id,row.session,row.session==cgchat.session,row.hora,row.img,cgchat.private);
+							cgchat.insertNewContent(row.uid,row.name,row.text,row.url,row.date,row.color,row.row,row.id,row.session,row.session==cgchat.session,row.hora,row.img,cgchat.private,row.country);
                         }
                         cgchat.ajustar_scroll(cgchat.private);
 					}
@@ -554,11 +554,11 @@ var cgchat = {
 					}
 					if (result.comment) {
 						var texto = result.comment;
-						cgchat.insertNewContent(0,'System',texto,'',cgchat.ahora(),'',0,0,0,false,result.hora,'',cgchat.private); 
+						cgchat.insertNewContent(0,'System',texto,'',cgchat.ahora(),'',0,0,0,false,result.hora,'',cgchat.private,cgchat.country); 
 					}
 					if (result.txt && result.txt.length) {
 						var texto = result.txt;
-						cgchat.insertNewContent(cgchat.userid,cgchat.name,texto.length?texto:txt,cgchat.url,cgchat.ahora(),cgchat.color,cgchat.row,result.id,cgchat.session,true,result.hora,result.img,cgchat.private);
+						cgchat.insertNewContent(cgchat.userid,cgchat.name,texto.length?texto:txt,cgchat.url,cgchat.ahora(),cgchat.color,cgchat.row,result.id,cgchat.session,true,result.hora,result.img,cgchat.private,result.country);
                         if (cgchat.private) {
                             cgchat.p = result.id;
                         } else {
@@ -675,7 +675,8 @@ var cgchat = {
 									profile: row.profile,
 									private: row.private,
 									id: row.userid,
-									img: row.img
+									img: row.img,
+                                    country: row.country
 							};
                             if (row.session == cgchat.session ) {
                                 if ((row.row == 4) && (row.banned)) {

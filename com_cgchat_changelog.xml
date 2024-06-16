@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.4.4</version>
+        <note>
+            <item>Update : 16/06/2024</item>
+        </note>
+        <addition>
+            <item>Add IP/Country to sessions (table cgchat_session)</item>
+        </addition>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.4.3</version>
         <note>
             <item>Update : 15/06/2024</item>

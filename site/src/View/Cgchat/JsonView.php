@@ -319,6 +319,7 @@ class JsonView extends BaseHtmlView
                     $one['private'] = $u->private;
                 }
                 $one['img'] = $u->img;
+                $one['country'] = $u->country;
                 $result[] = $one;
             }
         }
@@ -344,6 +345,7 @@ class JsonView extends BaseHtmlView
                 $one['userid'] = "0";
                 $one['private'] = "0";
                 $one['img'] = $u->img;
+                $one['country'] = $u->country;
                 $result[] = $one;
             }
         }
@@ -417,6 +419,7 @@ class JsonView extends BaseHtmlView
                 $one['row'] = $row->row;
                 $one['session'] = $row->session;
                 $one['text'] = str_replace('\"', '"', $row->text);
+                $one['country'] = ($row->country) ? $row->country : '';
                 $messages[] = $one;
             }
             $result['messages'] = $messages;
@@ -502,6 +505,7 @@ class JsonView extends BaseHtmlView
                 $result['tiempo'] = $t;
                 $result['hora'] = gmdate($params->get("formato_hora", "G:i--"), $t + $kuser->gmt * 3600);
                 $result['txt'] = $txt;
+                $result['country'] = $kuser->country;
                 return $result;
             }
             $query = $db->getQuery(true);
@@ -547,6 +551,7 @@ class JsonView extends BaseHtmlView
         if ($txt) {
             $result['txt'] = $txt;
         }
+        $result['country'] = $kuser->country;
         return $result;
     }
     // Delay
