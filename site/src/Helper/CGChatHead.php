@@ -64,9 +64,8 @@ class CGChatHead
 		'privados_need_login' => addslashes(Text::_('COM_CGCHAT_PRIVATES_NEED_LOGIN')),
         'lang' => [addslashes(Text::_("COM_CGCHAT_MONTH")),addslashes(Text::_("COM_CGCHAT_MONTHS")),addslashes(Text::_("COM_CGCHAT_DAY")),addslashes(Text::_("COM_CGCHAT_DAYS")),addslashes(Text::_("COM_CGCHAT_HOUR")),addslashes(Text::_("COM_CGCHAT_HOURS")),addslashes(Text::_("COM_CGCHAT_MINUTE")),addslashes(Text::_("COM_CGCHAT_MINUTES")),addslashes(Text::_("COM_CGCHAT_SECOND")),addslashes(Text::_("COM_CGCHAT_SECONDS"))]
         ];
-        if (DEFINED("CGCHAT_LOADED")) { // from component
-            
-        }
+        $flag = ($params->get('countryinfo',0) > 0) ? $params->get('flag', 0) : 0;
+
         $is_component = DEFINED("CGCHAT_LOADED") ? 1 : 0;
         $doc = Factory::getApplication()->getDocument();
         $doc->addScriptOptions('cgchat',array(
@@ -109,7 +108,7 @@ class CGChatHead
                 'show_hour'     => $is_component,
                 'show_sessions' => $is_component,
                 'autostart'     => $is_component,
-                'flag'          => $params->get('flag', 0)
+                'flag'          => $flag
                 )
         ); // end of addScriptOptions
     }
