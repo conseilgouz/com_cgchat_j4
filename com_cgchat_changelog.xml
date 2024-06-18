@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.4.6</version>
+        <note>
+            <item>Update : 18/06/2024</item>
+        </note>
+        <fix>
+            <item>CG Chat in popup : no template</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.4.5</version>
         <note>
             <item>Update : 18/06/2024</item>
