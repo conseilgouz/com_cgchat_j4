@@ -76,7 +76,7 @@ class CGChatHead
                 'img_blank' => $tpl->include_html("otras", "blank.png"),
                 'ajax_url'  => URI::base(true).'/index.php?option=com_cgchat&no_html=1&tmpl=component',
                 'url'       => CGChatLinks::getUserLink($kuser->id),
-                'popup_url' => Route::_("index.php?option=com_cgchat"),
+                'popup_url' => Route::_("index.php?option=com_cgchat&tmpl=none"),
                 'order'     => $order,
                 'formato_hora'  => $params->get("formato_hora", "G:i--"),
                 'formato_fecha' => $params->get("formato_fecha", "j-n G:i:s"),

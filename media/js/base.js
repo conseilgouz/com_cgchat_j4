@@ -142,7 +142,7 @@ var cgchat = {
 	},
 	open_popup: function() {
 		if (this.popup) this.popup.close();
-		this.popup = window.open(this.popup_url+'?tmpl=none', '_blank', 'toolbar=0,location=0,menubar=0,directories=0,resizable=1,scrollbars=1,width=800,height=600');
+		this.popup = window.open(this.popup_url, '_blank', 'toolbar=0,location=0,menubar=0,directories=0,resizable=1,scrollbars=1,width=800,height=600');
 	},
 	open_popup_smileys: function(options) {
 		if (this.popup_smileys) this.popup_smileys.close();
