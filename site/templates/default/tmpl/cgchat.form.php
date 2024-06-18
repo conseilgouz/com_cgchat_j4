@@ -34,7 +34,7 @@ if ($this->user->row == 3 && !$this->user->can_write) {
 		<?php if ($this->button_send) : ?>
 		<br /><button id="CGCHAT_button_send" onclick="cgchat.sm()"><?php echo Text::_("COM_CGCHAT_SEND"); ?></button>
 		<?php endif; ?>
-		<br /><br />
+		<br />
 		<div id="CGCHAT_iconos" style="display:<?php echo $this->user->icons_hidden ? 'none' : 'block'; ?>">
 			<?php echo CGChatHelper::smilies_html($this->com).CGChatHelper::moreSmileys($this->com); ?>
 		</div>

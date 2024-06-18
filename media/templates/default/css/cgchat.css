@@ -1,6 +1,5 @@
 ﻿/**
 * CG Chat Component  - Joomla 4.x/5.x Component
-* Version			: 1.0.0
 * Package			: CG Chat
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -265,3 +264,46 @@ img.CGCHAT_r {
   animation-name: reveal;
   animation-direction: reverse;
 }
+/* module wider */
+.wider{
+    width:50em;
+    float:right;
+    background-color:white;
+}
+
+.right-button {
+    background-image: url(../images/arrows.png);
+    background-position: -38px 50%;
+    background-repeat: no-repeat;
+    height: 355px;
+    margin-top: 1.5em;
+    width: 20px;
+    display: inline-block;
+    position: absolute;
+    left:-2px;
+    border-radius: 15px 0 0 15px;
+    }
+.left-button {
+    background-image: url(../images/arrows.png);
+    background-position: -3px 50%;
+    background-repeat: no-repeat;
+    height: 355px;
+    margin-top: 1.5em;
+    width: 20px;
+    display: inline-block;
+    position: absolute;
+    left:-2px;
+    border-radius: 15px 0 0 15px;    
+    }
+
+.right-button:hover, 
+.left-button:hover {
+    background-color: lightgray;
+}
+.wider .right-button, 
+.wider .left-button {
+    right: 51em;
+    left:inherit;
+    
+}
+

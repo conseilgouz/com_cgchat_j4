@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.4.5</version>
+        <note>
+            <item>Update : 18/06/2024</item>
+        </note>
+        <addition>
+            <item>add resize module button</item>
+        </addition>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.4.4</version>
         <note>
             <item>Update : 16/06/2024</item>

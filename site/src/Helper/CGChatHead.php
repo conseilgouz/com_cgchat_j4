@@ -66,9 +66,6 @@ class CGChatHead
         ];
         $flag = ($params->get('countryinfo',0) > 0) ? $params->get('flag', 0) : 0;
 
-        if (DEFINED("CGCHAT_LOADED")) { // from component
-            
-        }
         $is_component = DEFINED("CGCHAT_LOADED") ? 1 : 0;
         $doc = Factory::getApplication()->getDocument();
         $doc->addScriptOptions('cgchat',array(

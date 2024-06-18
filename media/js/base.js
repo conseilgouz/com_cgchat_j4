@@ -395,6 +395,17 @@ var cgchat = {
 		}
 		this.show('CGCHAT_opciones');
 	},
+    module_width: function() {
+        if (this.hasClass(this.$('CGCHAT_div'),'wider')) {
+            this.removeClass(this.$('module_width'),'right-button');
+            this.addClass(this.$('module_width'),'left-button');
+            this.removeClass(this.$('CGCHAT_div'),'wider');
+        } else {
+            this.removeClass(this.$('module_width'),'left-button');
+            this.addClass(this.$('module_width'),'right-button');
+            this.addClass(this.$('CGCHAT_div'),'wider');
+        }
+    },
 	save_options: function() {
 		this.show('CGCHAT_opciones', false);
 		if (this.color)
@@ -789,7 +800,7 @@ var cgchat = {
         this.smilies    = o.smilies;
         this.show_hour      = o.show_hour;
         this.show_sessions  = o.show_sessions;
-        this.autostart      = o.autostart;
+        this.autostart      = o.autostart; // false => module, true => component
         this.flag           = o.flag; // display country flag ?
         if (this.color) {
             this.css(this.$('CGCHAT_txt'),'color','#'+this.color);
@@ -801,6 +812,9 @@ var cgchat = {
         }
         if (o.session_retardo) {
             cgchat.ajax("retardo");
+        }
+        if (!this.autostart) {
+            this.show('module_width',true)
         }
     },
 };
