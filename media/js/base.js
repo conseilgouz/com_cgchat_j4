@@ -395,15 +395,27 @@ var cgchat = {
 		}
 		this.show('CGCHAT_opciones');
 	},
-    module_width: function() {
-        if (this.hasClass(this.$('CGCHAT_div'),'wider')) {
-            this.removeClass(this.$('module_width'),'right-button');
-            this.addClass(this.$('module_width'),'left-button');
-            this.removeClass(this.$('CGCHAT_div'),'wider');
+    module_width: function(side) {
+        if (side == 'left') {
+            if (this.hasClass(this.$('CGCHAT_div'),'wider-left')) {
+                this.removeClass(this.$('module_width_left'),'right-button-left');
+                this.addClass(this.$('module_width_left'),'left-button-left');
+                this.removeClass(this.$('CGCHAT_div'),'wider-left');
+            } else {
+                this.removeClass(this.$('module_width_left'),'left-button-left');
+                this.addClass(this.$('module_width_left'),'right-button-left');
+                this.addClass(this.$('CGCHAT_div'),'wider-left');
+            }
         } else {
-            this.removeClass(this.$('module_width'),'left-button');
-            this.addClass(this.$('module_width'),'right-button');
-            this.addClass(this.$('CGCHAT_div'),'wider');
+            if (this.hasClass(this.$('CGCHAT_div'),'wider-right')) {
+                this.removeClass(this.$('module_width_right'),'left-button-right');
+                this.addClass(this.$('module_width_right'),'right-button-right');
+                this.removeClass(this.$('CGCHAT_div'),'wider-right');
+            } else {
+                this.removeClass(this.$('module_width_right'),'right-button-right');
+                this.addClass(this.$('module_width_right'),'left-button-right');
+                this.addClass(this.$('CGCHAT_div'),'wider-right');
+            }
         }
     },
 	save_options: function() {
@@ -814,7 +826,12 @@ var cgchat = {
             cgchat.ajax("retardo");
         }
         if (!this.autostart) {
-            this.show('module_width',true)
+            pos = this.$('CGCHAT_div').offsetParent.offsetLeft;
+            if (pos > 800) { // module in right position on the page : show left button
+                this.show('module_width_left',true);
+            } else { // module in left position on the page : show right button
+                this.show('module_width_right',true)
+            }
         }
     },
 };

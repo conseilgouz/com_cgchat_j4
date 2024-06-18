@@ -264,14 +264,20 @@ img.CGCHAT_r {
   animation-name: reveal;
   animation-direction: reverse;
 }
-/* module wider */
-.wider{
+/* wider module only on large enough screen */
+@media (min-width: 767.98px) {
+.wider-left{
     width:50em;
     float:right;
     background-color:white;
 }
+.wider-right{
+    width:50em;
+    float:left;
+    background-color:white;
+}
 
-.right-button {
+.right-button-left {
     background-image: url(../images/arrows.png);
     background-position: -38px 50%;
     background-repeat: no-repeat;
@@ -283,7 +289,7 @@ img.CGCHAT_r {
     left:-2px;
     border-radius: 15px 0 0 15px;
     }
-.left-button {
+.left-button-left {
     background-image: url(../images/arrows.png);
     background-position: -5px 50%;
     background-repeat: no-repeat;
@@ -296,14 +302,48 @@ img.CGCHAT_r {
     border-radius: 15px 0 0 15px;    
     }
 
-.right-button:hover, 
-.left-button:hover {
+.right-button-right {
+    background-image: url(../images/arrows.png);
+    background-position: -38px 50%;
+    background-repeat: no-repeat;
+    height: 355px;
+    margin-top: 1.5em;
+    width: 20px;
+    display: inline-block;
+    position: absolute;
+    right:-2px;
+    border-radius: 0 15px 15px 0;
+    }
+.left-button-right {
+    background-image: url(../images/arrows.png);
+    background-position: -5px 50%;
+    background-repeat: no-repeat;
+    height: 355px;
+    margin-top: 1.5em;
+    width: 20px;
+    display: inline-block;
+    position: absolute;
+    right:-2px;
+    border-radius: 0 15px 15px 0;    
+    }
+.right-button-left:hover, 
+.left-button-left:hover,
+.right-button-right:hover, 
+.left-button-right:hover {
     background-color: lightgray;
 }
-.wider .right-button, 
-.wider .left-button {
+.wider-left .right-button-left, 
+.wider-left .left-button-left {
     right: 50.5em;
     left:inherit;
     
 }
+.wider-right .right-button-right, 
+.wider-right .left-button-right {
+    right: inherit;
+    left:50.5em;
+    
+}
 
+
+}

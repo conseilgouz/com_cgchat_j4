@@ -26,7 +26,8 @@ $onclick = Factory::getApplication()->getInput()->get('tmpl') == "component" ? '
 	<a title="<?php echo Text::_("COM_CGCHAT_HISTORY"); ?>" href="<?php echo Route::_('index.php?option=com_cgchat&view=history&page=1&return='.base64_encode($uri)); ?>"><img alt="<?php echo Text::_("COM_CGCHAT_HISTORY"); ?>" src="<?php echo $this->include_html("buttons", "history.png"); ?>" /></a>
 	<a title="<?php echo Text::_("COM_CGCHAT_FAQ"); ?>" href="javascript:cgchat.show('CGCHAT_rangos')"><img alt="<?php echo Text::_("COM_CGCHAT_FAQ"); ?>" src="<?php echo $this->include_html("buttons", "faq.png"); ?>" /></a>
 	<a title="CG Chat"<?php echo $onclick; ?> href="<?php echo $url; ?>"><img alt="CG Chat" src="<?php echo $this->include_html("buttons", "chat.png"); ?>" /></a>
-	<a id="module_width" title="<?php echo Text::_('COM_CGCHAT_MODULE_WIDTH');?>" href="javascript:cgchat.module_width()" style="display:none" class="left-button"></a>
+	<a id="module_width_left" title="<?php echo Text::_('COM_CGCHAT_MODULE_WIDTH');?>" href="javascript:cgchat.module_width('left')" style="display:none" class="left-button-left"></a>
+	<a id="module_width_right" title="<?php echo Text::_('COM_CGCHAT_MODULE_WIDTH');?>" href="javascript:cgchat.module_width('right')" style="display:none" class="right-button-right"></a>
     <a href="javascript:cgchat.close_private()" title="<?php echo Text::_('COM_CGCHAT_CLOSE_PRIVATE');?>"><span id="private_txt" style="display:none"><?php echo Text::_('COM_CGCHAT_PRIVATE');?></span></a>
 
 </div>
