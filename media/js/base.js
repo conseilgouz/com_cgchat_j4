@@ -832,6 +832,7 @@ var cgchat = {
             } else { // module in left position on the page : show right button
                 this.show('module_width_right',true)
             }
+            this.css('CGCHAT_div','width','100%');
         }
     },
 };

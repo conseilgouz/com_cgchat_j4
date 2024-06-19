@@ -270,13 +270,17 @@ img.CGCHAT_r {
 
 /* wider module only on large enough screen*/
 @media (min-width: 767.98px) {
+.CGCHAT_div {
+    transition: width .5s ease-out;
+}
+    
 .wider-left{
-    width:50em;
+    width:50em !important;
     float:right;
     background-color:white;
 }
 .wider-right{
-    width:50em;
+    width:50em !important;
     float:left;
     background-color:white;
 }
