@@ -276,12 +276,10 @@ img.CGCHAT_r {
     
 .wider-left{
     width:50em !important;
-    float:right;
     background-color:white;
 }
 .wider-right{
     width:50em !important;
-    float:left;
     background-color:white;
 }
 

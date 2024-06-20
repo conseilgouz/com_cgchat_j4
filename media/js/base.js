@@ -368,7 +368,7 @@ var cgchat = {
     },    
     removeClass : function (el, cl) {
         let regex = new RegExp('(?:\\s|^)' + cl + '(?:\\s|$)');
-        el.className = el.className.replace(regex, ' ');
+        el.className = el.className.replace(regex, '');
     },    
 	sm: function() {
 		cgchat.ajax("insertar");
@@ -829,6 +829,7 @@ var cgchat = {
             pos = this.$('CGCHAT_div').offsetParent.offsetLeft;
             if (pos > 800) { // module in right position on the page : show left button
                 this.show('module_width_left',true);
+                this.css('CGCHAT_div','float','inline-end');
             } else { // module in left position on the page : show right button
                 this.show('module_width_right',true)
             }
