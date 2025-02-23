@@ -1,4 +1,4 @@
-# com_cgchat_j4
+# com_cgchat_j4 :spoon:
  CG Chat (from Kide Shout)
 
 Documentation : 
