@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.5.0</version>
+        <note>
+            <item>Update : 20/06/2024</item>
+        </note>
+        <fix>
+            <item>Joomla 6 : JPATH_PLATFORM deprecated</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.4.7</version>
         <note>
             <item>Update : 20/06/2024</item>
