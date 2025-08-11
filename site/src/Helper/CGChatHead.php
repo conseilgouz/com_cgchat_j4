@@ -2,7 +2,7 @@
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
 * Package			: CG Chat
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : Kide ShoutBox
 */
@@ -38,7 +38,7 @@ class CGChatHead
         $com_id = $app->input->getInt('Itemid');
         /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
         $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-        if ((bool)Factory::getConfig()->get('debug')) { // debug mode 
+        if ((bool)Factory::getApplication()->getConfig()->get('debug')) { // debug mode 
             Factory::getApplication()->getDocument()->addScript(''.URI::base(true).'/media/com_cgchat/js/base.js'); 
         } else { 
             $wa->registerAndUseScript('cgchat', $comfield.'js/base.min.js');
