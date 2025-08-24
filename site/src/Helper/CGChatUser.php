@@ -145,7 +145,7 @@ class CGChatUser
         $this->can_write = ($this->row < 3 || ($this->row == 3 && $params->get("guest_can", 2) >= 2)) ? 1 : 0;
         $this->sound = $params->get("sound", 1) ? $session->get("sound", 0, 'cgchat') : -1;
         $this->color =  $session->get("color", "", 'cgchat');
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         $this->token = $input->get('token', rand(), "POST");
         $this->gmt =  $session->get("gmt", 0, 'cgchat');
         $this->retardo = $session->get("retardo", 0, 'cgchat');

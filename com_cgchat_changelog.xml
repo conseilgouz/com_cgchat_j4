@@ -2,6 +2,19 @@
 	<changelog>
 		<element>com_cgchat</element>
 		<type>component</type>
+		<version>1.5.2</version>
+        <note>
+            <item>Update : 24/08/2025</item>
+        </note>
+        <fix>
+            <item>Joomla 6 : getApplication()->input removed</item>
+            <item>Joomla 6 : getDbo() removed</item>
+            <item>Joomla 6 : list-view not loaded</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgchat</element>
+		<type>component</type>
 		<version>1.5.1</version>
         <note>
             <item>Update : 10/08/2025</item>

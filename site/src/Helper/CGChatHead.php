@@ -35,7 +35,7 @@ class CGChatHead
         $doc = Factory::getApplication()->getDocument();
         $comfield	= 'media/com_cgchat/';
         $app = Factory::getApplication();
-        $com_id = $app->input->getInt('Itemid');
+        $com_id = $app->getInput()->getInt('Itemid');
         /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
         $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
         if ((bool)Factory::getApplication()->getConfig()->get('debug')) { // debug mode 

@@ -11,6 +11,9 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
+// Joomla 6.0 : list-view.js might not be loaded 
+$wa = $this->getDocument()->getWebAssetManager();
+$wa->useScript('list-view');
 
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));

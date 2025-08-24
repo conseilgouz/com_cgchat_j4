@@ -104,7 +104,7 @@ class HtmlView extends BaseHtmlView
             $s[] = (object)array('text' => $f);
         }
         $templates = HTMLHelper::_('select.genericlist', $s, 'CGCHAT_template', 'class="inputbox"', 'text', 'text', $kuser->template);
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
 
         $tpl->assign('com', 'com');
         $tpl->assign('show_hour', 1);

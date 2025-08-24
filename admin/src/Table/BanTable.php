@@ -39,7 +39,7 @@ class BanTable extends Table implements VersionableTableInterface
     }
     public function store($updateNulls = true)
     {
-        $db    = $this->getDbo();
+        $db    = $this->_db;
         $key   = empty($this->id) ? $key : $this->id;
         // Check if key exists
         $result = $db->setQuery(

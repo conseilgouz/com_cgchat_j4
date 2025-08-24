@@ -24,7 +24,7 @@ class HistoryModel extends ListModel
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $app       = Factory::getApplication();
         $params = ComponentHelper::getParams('com_cgchat');
-        $page = $app->input->getInt('page', 1);
+        $page = $app->getInput()->getInt('page', 1);
         $limit = $params->get("msgs_history", 50);
         $db->setQuery("SELECT * FROM #__cgchat ORDER BY id DESC LIMIT ".(($page - 1) * $limit).",".$limit);
         $msgs = $db->loadObjectList();
@@ -36,7 +36,7 @@ class HistoryModel extends ListModel
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $app = Factory::getApplication();
         $params = ComponentHelper::getParams('com_cgchat');
-        $page = $app->input->getInt('page', 1);
+        $page = $app->getInput()->getInt('page', 1);
         $limit = $params->get("msgs_history", 50);
         $limitpages = $params->get("pages_history", 5);
 

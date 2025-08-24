@@ -33,7 +33,7 @@ class JsonView extends BaseHtmlView
         }
         PluginHelper::importPlugin('cgchat');
 
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         $task = $input->get('task');
         if ($task == 'add') {
             echo json_encode(self::add());
@@ -80,7 +80,7 @@ class JsonView extends BaseHtmlView
     // Delete a message
     public function borrar()
     {
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         $id = (int)$input->get('id');
         $kuser = CGChatUser::getInstance();
         $db = Factory::getContainer()->get(DatabaseInterface::class);
@@ -108,7 +108,7 @@ class JsonView extends BaseHtmlView
     public function askprivate()
     {
         $out = [];
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         $kuser = CGChatUser::getInstance();
         $flag = ($input->getString('private', '') == "false") ? false : true;
         $userid = (int)$input->get('user');
@@ -208,7 +208,7 @@ class JsonView extends BaseHtmlView
     // Ban
     public function ban()
     {
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         $kuser = CGChatUser::getInstance();
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $params = ComponentHelper::getParams('com_cgchat');
@@ -276,14 +276,14 @@ class JsonView extends BaseHtmlView
     }
     public function more_smileys()
     {
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         echo '<style>img {border:0}</style>'.CGChatHelper::smilies_html('ajax', $input->get('window'));
     }
     public function sessions()
     {
         CGChatHelper::updateSession();
         $result = [];
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         if (!$input->get('show_sessions')) {
             return $result;
         }
@@ -372,7 +372,7 @@ class JsonView extends BaseHtmlView
         if ($refresh < 2) {
             $refresh = 2;
         }
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         $privs = (int)$input->get('privs');
         $table = '#__cgchat';
         if ($privs > 0) {
@@ -456,7 +456,7 @@ class JsonView extends BaseHtmlView
         if ($message) {
             $txt = $message;
         } else {
-            $input = Factory::getApplication()->input;
+            $input = Factory::getApplication()->getInput();
             $txt = $input->getRaw('txt', '', 'post', 'string');
             $color = $input->get('color', '', 'post', 'NUM');
             $private = $input->get('privs', '', 'NUM');
@@ -565,7 +565,7 @@ class JsonView extends BaseHtmlView
     {
 
         $result = [];
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         $session = $input->get('session', '', 'ALNUM');
         $params = ComponentHelper::getParams('com_cgchat');
 

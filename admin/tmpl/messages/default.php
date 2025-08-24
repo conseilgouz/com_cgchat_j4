@@ -2,7 +2,7 @@
 /**
 * CG Chat Component  - Joomla 4.x/5.x Component
 * Package			: CG Chat
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : Kide ShoutBox
 */
@@ -13,6 +13,9 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
+// Joomla 6.0 : list-view.js might not be loaded 
+$wa = $this->getDocument()->getWebAssetManager();
+$wa->useScript('list-view');
 
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
